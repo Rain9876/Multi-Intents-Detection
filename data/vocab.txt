@@ -1,0 +1,7 @@
+GetWeather
+SearchCreativeWork
+PlayMusic
+AddToPlaylist
+RateBook
+SearchScreeningEvent
+BookRestaurant
