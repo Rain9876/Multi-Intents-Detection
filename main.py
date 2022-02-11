@@ -186,7 +186,8 @@ def main_worker(gpu, ngpus_per_node, args):
     if args.pretrained:
         print("=> using pre-trained model '{}'".format(args.arch))
         # args.arch: roberta-base
-        tokenizer = AutoTokenizer.from_pretrained(args.arch)
+        # tokenizer = AutoTokenizer.from_pretrained(args.arch)
+        tokenizer = AutoTokenizer.from_pretrained("bert-base-uncased")
 
         if args.pos_tag:
             # config = RobertaConfig.from_pretrained('roberta-base')
@@ -197,7 +198,7 @@ def main_worker(gpu, ngpus_per_node, args):
             model = load_model(model, "./pytorch_model_bert.bin")
         elif args.arch.startswith('MulCon'):
             config = Config()
-            labels  = get_labels_vocab(config, path)
+            labels  = get_labels_vocab(config, args.data_path)
             model = MulCon(config, labels)
         else:
             # model = RobertaForSequenceClassification.from_pretrained(args.arch)
@@ -499,7 +500,7 @@ def train(train_loader, model, criterion, optimizer, scheduler, epoch, args):
         input_ids = batch["input_ids"]
         attention_mask = batch["attention_mask"]
         labels = batch["intent"]
-        pos_tag_ids = batch["pos_tag_ids"]
+        # pos_tag_ids = batch["pos_tag_ids"]
 
         # measure data loading time
         data_time.update(time.time() - end)
@@ -508,11 +509,13 @@ def train(train_loader, model, criterion, optimizer, scheduler, epoch, args):
             input_ids = input_ids.cuda(args.gpu)
             attention_mask = attention_mask.cuda(args.gpu)
             labels = labels.cuda(args.gpu)
-            pos_tag_ids = pos_tag_ids.cuda(args.gpu, non_blocking=True)
+            # pos_tag_ids = pos_tag_ids.cuda(args.gpu, non_blocking=True)
 
         # compute output
 #         output = model(input_ids=input_ids, attention_mask=attention_mask, pos_tag_ids = pos_tag_ids, labels=labels)
-        output = model(input_ids=input_ids, attention_mask=attention_mask, labels=labels)
+#         output = model(input_ids=input_ids, attention_mask=attention_mask, labels=labels)
+        output = model(input_ids, attention_mask, labels)
+
 #         logits = output.logits
 #         loss = output.loss
         logits = output[1]
@@ -572,19 +575,20 @@ def validate(val_loader, model, criterion, save_dir, args):
             input_ids = batch["input_ids"]
             attention_mask = batch["attention_mask"]
             labels = batch["intent"]
-            pos_tag_ids = batch["pos_tag_ids"]
+            # pos_tag_ids = batch["pos_tag_ids"]
 
             if args.gpu is not None:
                 input_ids = input_ids.cuda(args.gpu, non_blocking=True)
                 attention_mask = attention_mask.cuda(args.gpu, non_blocking=True)
                 labels = labels.cuda(args.gpu, non_blocking=True)
-                pos_tag_ids = pos_tag_ids.cuda(args.gpu, non_blocking=True)
+                # pos_tag_ids = pos_tag_ids.cuda(args.gpu, non_blocking=True)
 
             # compute output
 #             output = model(input_ids=input_ids, attention_mask=attention_mask, pos_tag_ids=pos_tag_ids,labels=labels)
-            output = model(input_ids=input_ids, attention_mask=attention_mask, labels=labels)
+#             output = model(input_ids=input_ids, attention_mask=attention_mask, labels=labels)
+            output = model(input_ids, attention_mask, labels)
 
-#             loss = output.loss
+            #             loss = output.loss
 #             logits = output.logits
             logits = output[1]
             loss = output[0]

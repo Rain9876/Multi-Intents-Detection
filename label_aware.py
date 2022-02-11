@@ -30,6 +30,7 @@ class MulCon(nn.Module):
                 self.bertlabelencoder = BertModel.from_pretrained('bert-base-uncased', output_hidden_states=True,
                                                                   output_attentions=True)
                 emb_weight = self.LabelRepresentation(labels)
+
                 # for param in self.bertlabelencoder.parameters():
                 #     param.requires_grad = False
                 # Todo Problem here is the emb_weight is with grad_fn, but embedding from_pretrained remove grad
@@ -59,7 +60,7 @@ class MulCon(nn.Module):
     def forward(self, x_utter, x_mask, y_labels):
 
         last_hidden_states, pooled_output, hidden_states, attentions = self.utter_encoder(x_utter,
-                                                                                          attention_mask=x_mask)  # last hidden states (B, L, H)
+                                                                                          attention_mask=x_mask, return_dict=False)  # last hidden states (B, L, H)
         batch_label_embed = self.label_emb.weight.repeat(last_hidden_states.size(0),1,1)
 
         label_level_emb, _ = self.MAB(batch_label_embed, last_hidden_states, last_hidden_states)  # (B x L x H)
@@ -83,7 +84,8 @@ class MulCon(nn.Module):
         tokenizer = BertTokenizer.from_pretrained("bert-base-uncased")
         label_inputs = tokenizer.batch_encode_plus(label_lists, truncation=True, padding=True, return_tensors="pt")
         # Fuse labels into Model once together if labels are limited.
-        output = self.bertlabelencoder(**label_inputs)
+        output = self.bertlabelencoder(**label_inputs, return_dict=False)
+        # print(output)
         label_repre = self.label_pooling(output)
 
         # batch_size = 16
@@ -136,7 +138,7 @@ class MulCon(nn.Module):
         """
         label_emb = self.label_emb.weight  # (L x H)
         batch_size = labels_idx.size(0)
-        neg_labels = torch.arange(self.config.num_classes).repeat(batch_size, 1)
+        neg_labels = torch.arange(self.config.num_classes).repeat(batch_size, 1).to(labels_idx.device)
         mask = torch.ones_like(neg_labels).scatter_(1, labels_idx.unsqueeze(1), 0.)
         neg_labels = neg_labels[mask.bool()].view(batch_size, self.config.num_classes - 1)  # (N x C-1)
         label_keys = torch.cat([labels_idx.unsqueeze(1), neg_labels],dim=1)

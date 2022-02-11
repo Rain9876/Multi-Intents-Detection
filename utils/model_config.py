@@ -32,7 +32,7 @@ class Config ():
   label_pretrained = True
   file_path = "label_emb.pt"
   load_label_emb = False
-  mode = "cls"
+  mode = "pooling"
   adapter_latent = 400
 
 
