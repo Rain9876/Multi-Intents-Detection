@@ -1,7 +1,7 @@
 import os
 from torch.utils.data import Dataset
 import torch
-from prepare import procssing_pos_tag
+# from prepare import procssing_pos_tag
 
 
 class multi_intent_dataset(Dataset):
@@ -25,7 +25,7 @@ class multi_intent_dataset(Dataset):
         # self.build_instance_map(intent)
         self.get_instance_map()
 
-        self.pos_tag_ids = torch.LongTensor(procssing_pos_tag(text, MAX_LENGTH, tokenizer))
+        # self.pos_tag_ids = torch.LongTensor(procssing_pos_tag(text, MAX_LENGTH, tokenizer))
         self.one_hot = self.one_hot_mapping(intent)
         self.input_data = self.encode_mi_file(text, MAX_LENGTH)
 
@@ -58,7 +58,7 @@ class multi_intent_dataset(Dataset):
         return {"input_ids": self.input_data["input_ids"][item],
          "attention_mask": self.input_data["attention_mask"][item],
          "intent": self.one_hot[item],
-         "pos_tag_ids": self.pos_tag_ids[item]
+         # "pos_tag_ids": self.pos_tag_ids[item]
          }
 
     def encode_mi_file(self, text, MAX_LENGTH):
@@ -100,7 +100,15 @@ class multi_intent_dataset(Dataset):
     def get_num_labels(self):
         return self.num_labels
 
-
+def get_labels_vocab(config, path):
+    try:
+        f = open(f"{path}/vocab.txt", "r")
+        index2instance = f.read().splitlines()
+        config.num_classes = len(index2instance)
+        f.close()
+        return index2instance
+    except FileNotFoundError:
+        print("Vocab file not exist!")
 
 def processing(content):
     text = []

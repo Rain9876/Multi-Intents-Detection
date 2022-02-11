@@ -55,9 +55,11 @@ def get_num_labels():
 
 # pos_tagger = CoreNLPParser(url='http://localhost:9000', tagtype='pos')
 # print(list(pos_tagger.tag('What is the airspeed of an unladen swallow ?'.split())))
+nltk.download('tagsets')
+nltk.download('averaged_perceptron_tagger')
+
 
 def nltk_pos_tag(examples, max_length):
-    # nltk.download('averaged_perceptron_tagger')
     pos_tagging = []
     for text in examples:
         pos_tagged = nltk.pos_tag(text.split())
@@ -72,7 +74,6 @@ def nltk_pos_tag(examples, max_length):
 
 
 def procssing_pos_tag(examples, max_length, tokenizer):
-    # nltk.download('averaged_perceptron_tagger')
     pos_tagging = []
     for text in examples:
         ids = tokenizer(text)

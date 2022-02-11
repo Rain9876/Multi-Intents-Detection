@@ -45,6 +45,11 @@ import matplotlib.pyplot as plt
 from utils.building_utils import load_model
 
 
+from utils.model_config import Config
+from label_aware import MulCon
+from Dataset import get_labels_vocab
+from transformers import BertTokenizer
+
 
 
 parser = argparse.ArgumentParser(description='Multi-intent Detection')
@@ -187,11 +192,13 @@ def main_worker(gpu, ngpus_per_node, args):
             # config = RobertaConfig.from_pretrained('roberta-base')
             # model = MyRobertaForSequenceClassification(config)
             # model = load_model(model, "./pytorch_model_roberta.bin")
-
             config = BertConfig.from_pretrained('bert-base-uncased')
             model = MyBertForSequenceClassification(config)
             model = load_model(model, "./pytorch_model_bert.bin")
-
+        elif args.arch.startswith('MulCon'):
+            config = Config()
+            labels  = get_labels_vocab(config, path)
+            model = MulCon(config, labels)
         else:
             # model = RobertaForSequenceClassification.from_pretrained(args.arch)
             model = BertForSequenceClassification.from_pretrained(args.arch)
@@ -504,11 +511,12 @@ def train(train_loader, model, criterion, optimizer, scheduler, epoch, args):
             pos_tag_ids = pos_tag_ids.cuda(args.gpu, non_blocking=True)
 
         # compute output
-        output = model(input_ids=input_ids, attention_mask=attention_mask, pos_tag_ids = pos_tag_ids, labels=labels)
-        # output = model(input_ids=input_ids, attention_mask=attention_mask, labels=labels)
-        logits = output.logits
-        loss = output.loss
-
+#         output = model(input_ids=input_ids, attention_mask=attention_mask, pos_tag_ids = pos_tag_ids, labels=labels)
+        output = model(input_ids=input_ids, attention_mask=attention_mask, labels=labels)
+#         logits = output.logits
+#         loss = output.loss
+        logits = output[1]
+        loss = output[0]
         # loss = criterion(logits, labels)
         # pred = torch.argmax(logits, dim=-1)
         # loss = output[0]
@@ -573,10 +581,13 @@ def validate(val_loader, model, criterion, save_dir, args):
                 pos_tag_ids = pos_tag_ids.cuda(args.gpu, non_blocking=True)
 
             # compute output
-            output = model(input_ids=input_ids, attention_mask=attention_mask, pos_tag_ids=pos_tag_ids,labels=labels)
-            # output = model(input_ids=input_ids, attention_mask=attention_mask, labels=labels)
-            loss = output.loss
-            logits = output.logits
+#             output = model(input_ids=input_ids, attention_mask=attention_mask, pos_tag_ids=pos_tag_ids,labels=labels)
+            output = model(input_ids=input_ids, attention_mask=attention_mask, labels=labels)
+
+#             loss = output.loss
+#             logits = output.logits
+            logits = output[1]
+            loss = output[0]
 
             # Get top2 predictions
             _, pred = logits.topk(2, 1, True, True)
