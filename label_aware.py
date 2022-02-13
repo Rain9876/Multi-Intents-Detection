@@ -17,10 +17,12 @@ class MulCon(nn.Module):
     def __init__(self, config, labels):
         super(MulCon, self).__init__()
         self.config = config
+        self.labels = labels
         self.utter_encoder = BertModel.from_pretrained('bert-base-uncased', output_hidden_states=True,
                                                        output_attentions=True)
         self.label_emb = None
         self.bertlabelencoder = None
+        self.emb_weight =None
 
         if config.label_pretrained:
             if os._exists(config.emb_path) and config.load_label_emb:
@@ -29,12 +31,14 @@ class MulCon(nn.Module):
                 # Whether utter_encoder can be used since requires_grad = False
                 self.bertlabelencoder = BertModel.from_pretrained('bert-base-uncased', output_hidden_states=True,
                                                                   output_attentions=True)
-                emb_weight = self.LabelRepresentation(labels)
+                # emb_weight = self.LabelRepresentation(labels, device)
+                # print(emb_weight)
 
                 # for param in self.bertlabelencoder.parameters():
                 #     param.requires_grad = False
                 # Todo Problem here is the emb_weight is with grad_fn, but embedding from_pretrained remove grad
-            self.label_emb = nn.Embedding.from_pretrained(emb_weight)
+
+            # self.label_emb = nn.Embedding.from_pretrained(emb_weight)
         else:
             self.label_emb = nn.Embedding(config.num_classes, config.hidden)
 
@@ -42,7 +46,7 @@ class MulCon(nn.Module):
 
         self.proj = nn.Linear(config.hidden, 1)
 
-        # self.pcl = PrototypicalContrastiveLearning(config)
+        self.pcl = PrototypicalContrastiveLearning(config)
 
         self.loss_fct = BCEWithLogitsLoss()
 
@@ -59,9 +63,13 @@ class MulCon(nn.Module):
 
     def forward(self, x_utter, x_mask, y_labels):
 
+        self.emb_weight = self.LabelRepresentation(self.labels, x_utter.device)
+
         last_hidden_states, pooled_output, hidden_states, attentions = self.utter_encoder(x_utter,
                                                                                           attention_mask=x_mask, return_dict=False)  # last hidden states (B, L, H)
-        batch_label_embed = self.label_emb.weight.repeat(last_hidden_states.size(0),1,1)
+        # batch_label_embed = self.label_emb.weight.repeat(last_hidden_states.size(0),1,1)
+
+        batch_label_embed = self.emb_weight.repeat(last_hidden_states.size(0),1,1)
 
         label_level_emb, _ = self.MAB(batch_label_embed, last_hidden_states, last_hidden_states)  # (B x L x H)
 
@@ -73,18 +81,17 @@ class MulCon(nn.Module):
 
         all_label_key_emb = self.get_all_label_keys_embedding(label_indexs[1])  # (N x C-1 x H)
 
+        pcl_loss = self.pcl(single_intent_utter_emb, all_label_key_emb)
 
-        # pcl_loss = self.pcl(single_intent_utter_emb, all_label_key_emb)
+        return bce_loss, label_logits, pcl_loss
 
-        return bce_loss, label_logits
-
-    def LabelRepresentation(self, label_lists):
+    def LabelRepresentation(self, label_lists, device):
 
         assert self.bertlabelencoder is not None
         tokenizer = BertTokenizer.from_pretrained("bert-base-uncased")
         label_inputs = tokenizer.batch_encode_plus(label_lists, truncation=True, padding=True, return_tensors="pt")
         # Fuse labels into Model once together if labels are limited.
-        output = self.bertlabelencoder(**label_inputs, return_dict=False)
+        output = self.bertlabelencoder(label_inputs.input_ids.to(device), attention_mask= label_inputs.attention_mask.to(device), return_dict=False)
         # print(output)
         label_repre = self.label_pooling(output)
 
@@ -136,7 +143,7 @@ class MulCon(nn.Module):
         """
             labels_idx (N, )
         """
-        label_emb = self.label_emb.weight  # (L x H)
+        label_emb = self.emb_weight  # (L x H)
         batch_size = labels_idx.size(0)
         neg_labels = torch.arange(self.config.num_classes).repeat(batch_size, 1).to(labels_idx.device)
         mask = torch.ones_like(neg_labels).scatter_(1, labels_idx.unsqueeze(1), 0.)
@@ -200,10 +207,10 @@ class PrototypicalContrastiveLearning(nn.Module):
                 module.bias.data.zero_()
 
     def forward(self, label_level_query, label_level_keys):
-        query = self.pre_intent_projection(label_level_query)
-        neg_keys = self.all_intent_projection(label_level_keys)
+        # label_level_query = self.pre_intent_projection(label_level_query)
+        # label_level_keys = self.all_intent_projection(label_level_keys)
 
-        pcl_loss = contrastive_loss(query, neg_keys)
+        pcl_loss = contrastive_loss(label_level_query, label_level_keys)
         return pcl_loss
 
 

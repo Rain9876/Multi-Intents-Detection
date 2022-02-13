@@ -27,8 +27,8 @@ def accuracy(output, target, topk=(1,)):
     return res
 
 
-def accuracy_for_multi_label(output, target, topk=(1,)):
-    pred = torch.round(torch.sigmoid(output))
+def accuracy_for_multi_label(pred, target, topk=(1,)):
+    pred = torch.round(torch.sigmoid(pred))
     correct = (pred == target).all(dim=1).sum()
     res = correct / (target.size(0))
     return ((res,1),(res,2))

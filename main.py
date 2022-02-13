@@ -198,8 +198,10 @@ def main_worker(gpu, ngpus_per_node, args):
             model = load_model(model, "./pytorch_model_bert.bin")
         elif args.arch.startswith('MulCon'):
             config = Config()
-            labels  = get_labels_vocab(config, args.data_path)
+            labels = get_labels_vocab(config, args.data_path)
             model = MulCon(config, labels)
+            print(labels)
+            print(config.num_classes)
         else:
             # model = RobertaForSequenceClassification.from_pretrained(args.arch)
             model = BertForSequenceClassification.from_pretrained(args.arch)
@@ -306,7 +308,7 @@ def main_worker(gpu, ngpus_per_node, args):
     elif args.optim == "adamw":
         print("=> using '{}' optimizer".format(args.optim))
         optimizer = AdamW(model.parameters(), args.lr, betas=(0.9, 0.999), eps=1e-08,
-                          weight_decay=1e-5)
+                          weight_decay=0.01)
     else:  # default is adam
         print("=> using '{}' optimizer".format(args.optim))
         optimizer = torch.optim.Adam(model.parameters(), args.lr,
@@ -519,12 +521,15 @@ def train(train_loader, model, criterion, optimizer, scheduler, epoch, args):
 #         logits = output.logits
 #         loss = output.loss
         logits = output[1]
-        loss = output[0]
+        # loss = output[0]
+        loss = output[0] + output[2]
+
         # loss = criterion(logits, labels)
         # pred = torch.argmax(logits, dim=-1)
         # loss = output[0]
         # logits = output[1]
-
+        # print(logits.size())
+        # print(labels.size())
         # measure accuracy and record loss
         acc1, acc2 = accuracy_for_multi_label(logits, labels, topk=(1, 2))
         # acc1, acc2 = accuracy(logits, labels, topk=(1, 2))
@@ -591,7 +596,8 @@ def validate(val_loader, model, criterion, save_dir, args):
             #             loss = output.loss
 #             logits = output.logits
             logits = output[1]
-            loss = output[0]
+            # loss = output[0]
+            loss = output[0] + output[2]
 
             # Get top2 predictions
             _, pred = logits.topk(2, 1, True, True)
