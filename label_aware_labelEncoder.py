@@ -22,6 +22,7 @@ class MulCon(nn.Module):
 
         self.label_emb = None
         self.bertlabelencoder = None
+        self.emb_weight = None
 
         if self.config.mode == "self-attentive":
             print(self.config.mode)
@@ -35,27 +36,29 @@ class MulCon(nn.Module):
                 self.emb_weight = self.getLabelEmbeddings(config.emb_path)
             else:
                 # Whether utter_encoder can be used since requires_grad = False
-                # self.bertlabelencoder = BertModel.from_pretrained('bert-base-uncased', output_hidden_states=True, output_attentions=True)
+                self.bertlabelencoder = BertModel.from_pretrained('bert-base-uncased', output_hidden_states=True, output_attentions=True)
                 tokenizer = BertTokenizer.from_pretrained("bert-base-uncased")
 
                 # self.bertlabelencoder = AutoModel.from_pretrained('sentence-transformers/bert-base-nli-stsb-mean-tokens', output_hidden_states=True, output_attentions=True)
                 # tokenizer = AutoTokenizer.from_pretrained('sentence-transformers/bert-base-nli-stsb-mean-tokens')
 
-                label_inputs = tokenizer.batch_encode_plus(labels, truncation=True, padding=True, return_tensors="pt")
+                self.label_inputs = tokenizer.batch_encode_plus(labels, truncation=True, padding=True, return_tensors="pt")
 
-                self.emb_weight = self.LabelRepresentation(self.utter_encoder, label_inputs, label_inputs.input_ids.device)
+                # self.emb_weight = self.LabelRepresentation(self.utter_encoder, self.label_inputs, self.label_inputs.input_ids.device)
 
-            self.label_emb = nn.Embedding.from_pretrained(self.emb_weight)
+            # self.label_emb = nn.Embedding.from_pretrained(self.emb_weight)
         else:
             self.label_emb = nn.Embedding(config.num_classes, config.hidden)
 
         self.MAB = MultiAttentionBlock(config)
 
+        self.down_proj = nn.Linear(config.hidden, 256)
+
         self.dropout = nn.Dropout(0.1)
 
-        self.proj = nn.Linear(config.hidden, 1)
+        self.proj = nn.Linear(256, 1)
 
-        self.pcl = PrototypicalContrastiveLearning(config)
+        # self.pcl = PrototypicalContrastiveLearning(config)
 
         # self.cl = Sup_ContrastiveLearning(config)
 
@@ -72,7 +75,7 @@ class MulCon(nn.Module):
 
         # self.proj.weight.data.normal_(mean=0.0, std=self.config.initializer_range)
         nn.init.xavier_normal_(self.proj.weight)
-
+        nn.init.xavier_normal_(self.down_proj.weight)
 
     def forward(self, x_utter, x_mask, y_labels):
 
@@ -80,19 +83,21 @@ class MulCon(nn.Module):
 
         label_logits = self.dropout(label_level_emb)
 
-        label_logits = self.proj(label_logits).squeeze(2)  # (B x L)
+        label_logits = self.proj(F.relu(self.down_proj(label_logits))).squeeze(2)  # (B x L)
 
         bce_loss = self.loss_fct(label_logits, y_labels)
 
-        single_intent_utter_emb, label_indexs = self.get_all_utter_level_embedding(label_level_emb, y_labels)  # (N, H), (N, )
+        # single_intent_utter_emb, label_indexs = self.get_all_utter_level_embedding(label_level_emb, y_labels)  # (N, H), (N, )
 
-        all_label_key_emb = self.get_all_label_keys_embedding(label_indexs[1])  # (N x C-1 x H)
+        # all_label_key_emb = self.get_all_label_keys_embedding(label_indexs[1])  # (N x C-1 x H)
 
-        pcl_loss = self.pcl(single_intent_utter_emb, all_label_key_emb)
+        # pcl_loss = self.pcl(single_intent_utter_emb, all_label_key_emb)
 
         # cl_loss = self.cl(single_intent_utter_emb, label_indexs[1])
-        # pcl_loss = 0
+
+        pcl_loss = 0
         cl_loss = 0
+
         # if self.train():
             # label_level_emb = self.label_level_network(x_utter, x_mask)
             # single_intent_utter_emb_2, _ = self.get_all_utter_level_embedding(label_level_emb, y_labels)  # (N, H), (N, )
@@ -103,13 +108,15 @@ class MulCon(nn.Module):
 
     def label_level_network(self, x_utter, x_mask):
 
+        self.emb_weight = self.LabelRepresentation(self.bertlabelencoder, self.label_inputs, x_utter.device)
+
         last_hidden_states, pooled_output, hidden_states, attentions = self.utter_encoder(x_utter,
                                                                                           attention_mask=x_mask, return_dict=False)  # last hidden states (B, L, H)
-        batch_label_embed = self.label_emb.weight.repeat(last_hidden_states.size(0), 1, 1).to(x_utter.device)
+        # batch_label_embed = self.label_emb.weight.repeat(last_hidden_states.size(0), 1, 1).to(x_utter.device)
 
-        # batch_label_embed = self.emb_weight.repeat(last_hidden_states.size(0),1,1)
+        batch_label_embed = self.emb_weight.repeat(last_hidden_states.size(0),1,1)
 
-        label_level_emb, _ = self.MAB(batch_label_embed, last_hidden_states, last_hidden_states, slf_attn_mask=x_mask)  # (B x L x H)
+        label_level_emb, _ = self.MAB(batch_label_embed, last_hidden_states, last_hidden_states)  # (B x L x H)
 
         return label_level_emb
 
@@ -177,8 +184,8 @@ class MulCon(nn.Module):
         :param labels_idx: (N, )
         :return all_label_key_emb: label keys embedding (the first vector is a positive sample by default, and the rest are negative samples)
         """
-        label_embs = self.label_emb.weight
-        # label_embs = self.emb_weight  # (L x H)
+        # label_embs = self.label_emb.weight
+        label_embs = self.emb_weight  # (L x H)
         batch_size = labels_idx.size(0)
         neg_labels = torch.arange(self.config.num_classes).repeat(batch_size, 1).to(labels_idx.device)
         mask = torch.ones_like(neg_labels).scatter_(1, labels_idx.unsqueeze(1), 0.)

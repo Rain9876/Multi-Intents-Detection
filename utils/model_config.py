@@ -19,6 +19,7 @@ class Config ():
   # "type_vocab_size": 2,
   # "use_cache": true,
   # "vocab_size": "bert-base-uncased"
+
   emb_path = "./util/emb.pt"
   num_classes = 18
   n_head = 12
@@ -28,14 +29,21 @@ class Config ():
   dropout = 0.1
   d_v = 64
   d_k = 64
+
   initializer_range = 0.02
   label_pretrained = True
   file_path = "label_emb.pt"
   load_label_emb = False
-  mode = "pooling"
+  mode ="pooler"
   adapter_latent = 400
+  backprop = False
 
-
+  def print(self):
+    print(f"num_classes :{self.num_classes}")
+    print(f"label_pretrained :{self.label_pretrained}")
+    print(f"load_label_emb :{self.load_label_emb}")
+    print(f"mode :{self.mode}")
+    print(f"backprop Label_encoder:{self.backprop}")
 
 
 

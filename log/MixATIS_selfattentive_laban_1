@@ -1,0 +1,1124 @@
+(base) song@yurun:~/Desktop/Multi-Intents-Detection$ python3 main_laban.py -p ~/Desktop/Multi-Intents-Detection/data/MixATIS_clean --gpu 0 -b 128 --optim adamw --lr 1e-5 --lr_scheduler step --epochs 50 -a "LABAN" --pretrained --suffix "MixATIS_selfattentive_laban"
+2022-03-01 09:49:10.318234: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libcudart.so.11.0'; dlerror: libcudart.so.11.0: cannot open shared object file: No such file or directory
+2022-03-01 09:49:10.318254: I tensorflow/stream_executor/cuda/cudart_stub.cc:29] Ignore above cudart dlerror if you do not have a GPU set up on your machine.
+[nltk_data] Error loading tagsets: <urlopen error [Errno 111]
+[nltk_data]     Connection refused>
+[nltk_data] Error loading averaged_perceptron_tagger: <urlopen error
+[nltk_data]     [Errno 111] Connection refused>
+main_laban.py:134: UserWarning: You have chosen to seed training. This will turn on the CUDNN deterministic setting, which can slow down your training considerably! You may see unexpected behavior when restarting from checkpoints.
+  warnings.warn('You have chosen to seed training. '
+Use GPU: 0 for training
+=> using pre-trained model 'LABAN'
+Surface encoder mode:  Normal
+Label aware layer mode:  Normal
+Use weights from models pretrained with in-domain data:  False
+Use Model on GPU
+=> using 'adamw' optimizer
+=> using '1e-05' initial learning rate (lr)
+=> using 'step' lr_scheduler
+13162 train data has been loaded!
+759 dev data has been loaded!
+828 test data has been loaded!
+Training dataset size:  13162
+Epoch: [0] Current learning rate (lr) = 1e-05
+Epoch: [0][  0/103]	Time  1.420 ( 1.420)	Loss 8.2183e-01 (8.2183e-01)	Loss_bce 8.2183e-01 (8.2183e-01)	Acc@   0.00 (  0.00)	F1@   0.20 (  0.20)
+Epoch: [0][ 10/103]	Time  1.504 ( 1.056)	Loss 6.1392e-01 (6.9373e-01)	Loss_bce 6.1392e-01 (6.9373e-01)	Acc@   0.00 (  0.00)	F1@   0.16 (  0.19)
+Epoch: [0][ 20/103]	Time  0.688 ( 1.175)	Loss 4.8718e-01 (6.2195e-01)	Loss_bce 4.8718e-01 (6.2195e-01)	Acc@   0.02 (  0.00)	F1@   0.12 (  0.17)
+Epoch: [0][ 30/103]	Time  1.435 ( 1.140)	Loss 4.0514e-01 (5.6201e-01)	Loss_bce 4.0514e-01 (5.6201e-01)	Acc@   0.01 (  0.00)	F1@   0.02 (  0.13)
+Epoch: [0][ 40/103]	Time  0.673 ( 1.105)	Loss 3.7235e-01 (5.1928e-01)	Loss_bce 3.7235e-01 (5.1928e-01)	Acc@   0.01 (  0.00)	F1@   0.01 (  0.10)
+Epoch: [0][ 50/103]	Time  0.667 ( 1.041)	Loss 3.5097e-01 (4.8901e-01)	Loss_bce 3.5097e-01 (4.8901e-01)	Acc@   0.00 (  0.00)	F1@   0.00 (  0.08)
+Epoch: [0][ 60/103]	Time  0.682 ( 1.013)	Loss 3.4477e-01 (4.6699e-01)	Loss_bce 3.4477e-01 (4.6699e-01)	Acc@   0.00 (  0.00)	F1@   0.01 (  0.07)
+Epoch: [0][ 70/103]	Time  0.673 ( 0.989)	Loss 3.3617e-01 (4.4954e-01)	Loss_bce 3.3617e-01 (4.4954e-01)	Acc@   0.00 (  0.00)	F1@   0.01 (  0.06)
+Epoch: [0][ 80/103]	Time  0.674 ( 0.950)	Loss 3.4002e-01 (4.3596e-01)	Loss_bce 3.4002e-01 (4.3596e-01)	Acc@   0.00 (  0.00)	F1@   0.01 (  0.06)
+Epoch: [0][ 90/103]	Time  0.725 ( 0.923)	Loss 3.2022e-01 (4.2409e-01)	Loss_bce 3.2022e-01 (4.2409e-01)	Acc@   0.00 (  0.00)	F1@   0.04 (  0.05)
+Epoch: [0][100/103]	Time  0.668 ( 0.903)	Loss 3.2100e-01 (4.1357e-01)	Loss_bce 3.2100e-01 (4.1357e-01)	Acc@   0.02 (  0.00)	F1@   0.04 (  0.05)
+Valid Eval
+Test: [0/6]	Time  0.949 ( 0.949)	Loss 2.7799e-01 (2.7799e-01)	Loss_bce 2.7799e-01 (2.7799e-01)	Acc@   0.05 (  0.05)	F1@   0.08 (  0.08)
+* Acc@ 0.014 F1@ 0.032
+Valid avg result: acc: 0.014492753623188406, F1: 0.03219148001756698, loss: 0.29701737099485437 Loss_bce: 0.29701737099485437
+Test Eval
+Test: [0/7]	Time  0.947 ( 0.947)	Loss 3.0800e-01 (3.0800e-01)	Loss_bce 3.0800e-01 (3.0800e-01)	Acc@   0.04 (  0.04)	F1@   0.05 (  0.05)
+* Acc@ 0.023 F1@ 0.044
+Test avg result: acc: 0.022946859903381644, F1: 0.04384057971014493, loss: 0.3146625017198387 Loss_bce: 0.3146625017198387
+Saving model [/home/song/Desktop/Multi-Intents-Detection/models/arch[LABAN]_optim[adamw]_lr[1e-05]_lrsch[step]_batch[128]_MixATIS_selfattentive_laban]...
+==============================
+Epoch: [1] Current learning rate (lr) = 1e-05
+Epoch: [1][  0/103]	Time  1.249 ( 1.249)	Loss 3.0867e-01 (3.0867e-01)	Loss_bce 3.0867e-01 (3.0867e-01)	Acc@   0.02 (  0.02)	F1@   0.07 (  0.07)
+Epoch: [1][ 10/103]	Time  0.670 ( 0.736)	Loss 2.9369e-01 (3.0638e-01)	Loss_bce 2.9369e-01 (3.0638e-01)	Acc@   0.01 (  0.01)	F1@   0.08 (  0.07)
+Epoch: [1][ 20/103]	Time  0.712 ( 0.714)	Loss 2.9070e-01 (2.9853e-01)	Loss_bce 2.9070e-01 (2.9853e-01)	Acc@   0.04 (  0.02)	F1@   0.14 (  0.09)
+Epoch: [1][ 30/103]	Time  0.659 ( 0.708)	Loss 2.6716e-01 (2.9164e-01)	Loss_bce 2.6716e-01 (2.9164e-01)	Acc@   0.05 (  0.02)	F1@   0.27 (  0.12)
+Epoch: [1][ 40/103]	Time  0.659 ( 0.696)	Loss 2.5934e-01 (2.8487e-01)	Loss_bce 2.5934e-01 (2.8487e-01)	Acc@   0.06 (  0.03)	F1@   0.32 (  0.16)
+Epoch: [1][ 50/103]	Time  0.655 ( 0.688)	Loss 2.4025e-01 (2.7825e-01)	Loss_bce 2.4025e-01 (2.7825e-01)	Acc@   0.06 (  0.03)	F1@   0.43 (  0.19)
+Epoch: [1][ 60/103]	Time  0.657 ( 0.683)	Loss 2.3560e-01 (2.7145e-01)	Loss_bce 2.3560e-01 (2.7145e-01)	Acc@   0.08 (  0.04)	F1@   0.40 (  0.23)
+Epoch: [1][ 70/103]	Time  0.656 ( 0.679)	Loss 2.1956e-01 (2.6489e-01)	Loss_bce 2.1956e-01 (2.6489e-01)	Acc@   0.12 (  0.05)	F1@   0.47 (  0.26)
+Epoch: [1][ 80/103]	Time  0.658 ( 0.677)	Loss 2.0841e-01 (2.5844e-01)	Loss_bce 2.0841e-01 (2.5844e-01)	Acc@   0.20 (  0.07)	F1@   0.59 (  0.30)
+Epoch: [1][ 90/103]	Time  0.658 ( 0.675)	Loss 1.9658e-01 (2.5224e-01)	Loss_bce 1.9658e-01 (2.5224e-01)	Acc@   0.23 (  0.08)	F1@   0.62 (  0.33)
+Epoch: [1][100/103]	Time  0.658 ( 0.673)	Loss 1.9432e-01 (2.4623e-01)	Loss_bce 1.9432e-01 (2.4623e-01)	Acc@   0.27 (  0.10)	F1@   0.63 (  0.36)
+Valid Eval
+Test: [0/6]	Time  0.934 ( 0.934)	Loss 1.6315e-01 (1.6315e-01)	Loss_bce 1.6315e-01 (1.6315e-01)	Acc@   0.40 (  0.40)	F1@   0.74 (  0.74)
+* Acc@ 0.308 F1@ 0.698
+Valid avg result: acc: 0.308300395256917, F1: 0.6976911976911978, loss: 0.1715320438264387 Loss_bce: 0.1715320438264387
+Test Eval
+Test: [0/7]	Time  0.919 ( 0.919)	Loss 1.8672e-01 (1.8672e-01)	Loss_bce 1.8672e-01 (1.8672e-01)	Acc@   0.38 (  0.38)	F1@   0.71 (  0.71)
+* Acc@ 0.309 F1@ 0.682
+Test avg result: acc: 0.30917874396135264, F1: 0.6816712675408328, loss: 0.19188186173565722 Loss_bce: 0.19188186173565722
+Saving model [/home/song/Desktop/Multi-Intents-Detection/models/arch[LABAN]_optim[adamw]_lr[1e-05]_lrsch[step]_batch[128]_MixATIS_selfattentive_laban]...
+==============================
+Epoch: [2] Current learning rate (lr) = 1e-05
+Epoch: [2][  0/103]	Time  1.234 ( 1.234)	Loss 1.8385e-01 (1.8385e-01)	Loss_bce 1.8385e-01 (1.8385e-01)	Acc@   0.27 (  0.27)	F1@   0.68 (  0.68)
+Epoch: [2][ 10/103]	Time  0.660 ( 0.712)	Loss 1.6819e-01 (1.7759e-01)	Loss_bce 1.6819e-01 (1.7759e-01)	Acc@   0.41 (  0.34)	F1@   0.74 (  0.72)
+Epoch: [2][ 20/103]	Time  0.660 ( 0.687)	Loss 1.6357e-01 (1.7268e-01)	Loss_bce 1.6357e-01 (1.7268e-01)	Acc@   0.44 (  0.36)	F1@   0.81 (  0.73)
+Epoch: [2][ 30/103]	Time  0.658 ( 0.678)	Loss 1.5668e-01 (1.6795e-01)	Loss_bce 1.5668e-01 (1.6795e-01)	Acc@   0.45 (  0.39)	F1@   0.80 (  0.75)
+Epoch: [2][ 40/103]	Time  0.662 ( 0.674)	Loss 1.4305e-01 (1.6323e-01)	Loss_bce 1.4305e-01 (1.6323e-01)	Acc@   0.56 (  0.42)	F1@   0.84 (  0.76)
+Epoch: [2][ 50/103]	Time  0.661 ( 0.672)	Loss 1.3287e-01 (1.5917e-01)	Loss_bce 1.3287e-01 (1.5917e-01)	Acc@   0.59 (  0.44)	F1@   0.86 (  0.77)
+Epoch: [2][ 60/103]	Time  0.662 ( 0.670)	Loss 1.2575e-01 (1.5480e-01)	Loss_bce 1.2575e-01 (1.5480e-01)	Acc@   0.66 (  0.46)	F1@   0.88 (  0.79)
+Epoch: [2][ 70/103]	Time  0.662 ( 0.669)	Loss 1.2352e-01 (1.5100e-01)	Loss_bce 1.2352e-01 (1.5100e-01)	Acc@   0.68 (  0.49)	F1@   0.88 (  0.80)
+Epoch: [2][ 80/103]	Time  0.659 ( 0.669)	Loss 1.1548e-01 (1.4701e-01)	Loss_bce 1.1548e-01 (1.4701e-01)	Acc@   0.77 (  0.51)	F1@   0.93 (  0.81)
+Epoch: [2][ 90/103]	Time  0.664 ( 0.668)	Loss 1.0211e-01 (1.4328e-01)	Loss_bce 1.0211e-01 (1.4328e-01)	Acc@   0.82 (  0.54)	F1@   0.95 (  0.82)
+Epoch: [2][100/103]	Time  0.662 ( 0.667)	Loss 1.0297e-01 (1.3979e-01)	Loss_bce 1.0297e-01 (1.3979e-01)	Acc@   0.80 (  0.56)	F1@   0.94 (  0.83)
+Valid Eval
+Test: [0/6]	Time  0.932 ( 0.932)	Loss 9.2215e-02 (9.2215e-02)	Loss_bce 9.2215e-02 (9.2215e-02)	Acc@   0.77 (  0.77)	F1@   0.93 (  0.93)
+* Acc@ 0.731 F1@ 0.913
+Valid avg result: acc: 0.7312252964426877, F1: 0.9129117259552042, loss: 0.10144852665259119 Loss_bce: 0.10144852665259119
+Test Eval
+Test: [0/7]	Time  0.923 ( 0.923)	Loss 1.2591e-01 (1.2591e-01)	Loss_bce 1.2591e-01 (1.2591e-01)	Acc@   0.65 (  0.65)	F1@   0.87 (  0.87)
+* Acc@ 0.641 F1@ 0.873
+Test avg result: acc: 0.6413043478260869, F1: 0.8729066022544282, loss: 0.12547082230808654 Loss_bce: 0.12547082230808654
+Saving model [/home/song/Desktop/Multi-Intents-Detection/models/arch[LABAN]_optim[adamw]_lr[1e-05]_lrsch[step]_batch[128]_MixATIS_selfattentive_laban]...
+==============================
+Epoch: [3] Current learning rate (lr) = 1e-05
+Epoch: [3][  0/103]	Time  1.251 ( 1.251)	Loss 1.0776e-01 (1.0776e-01)	Loss_bce 1.0776e-01 (1.0776e-01)	Acc@   0.77 (  0.77)	F1@   0.93 (  0.93)
+Epoch: [3][ 10/103]	Time  0.669 ( 0.722)	Loss 9.9157e-02 (1.0106e-01)	Loss_bce 9.9157e-02 (1.0106e-01)	Acc@   0.77 (  0.80)	F1@   0.93 (  0.94)
+Epoch: [3][ 20/103]	Time  0.668 ( 0.696)	Loss 9.4894e-02 (9.9232e-02)	Loss_bce 9.4894e-02 (9.9232e-02)	Acc@   0.84 (  0.81)	F1@   0.95 (  0.94)
+Epoch: [3][ 30/103]	Time  0.670 ( 0.688)	Loss 8.6712e-02 (9.6665e-02)	Loss_bce 8.6712e-02 (9.6665e-02)	Acc@   0.91 (  0.82)	F1@   0.98 (  0.95)
+Epoch: [3][ 40/103]	Time  0.669 ( 0.684)	Loss 8.6034e-02 (9.4151e-02)	Loss_bce 8.6034e-02 (9.4151e-02)	Acc@   0.84 (  0.83)	F1@   0.96 (  0.95)
+Epoch: [3][ 50/103]	Time  0.670 ( 0.681)	Loss 8.1356e-02 (9.2268e-02)	Loss_bce 8.1356e-02 (9.2268e-02)	Acc@   0.91 (  0.83)	F1@   0.98 (  0.95)
+Epoch: [3][ 60/103]	Time  0.671 ( 0.679)	Loss 7.6614e-02 (9.0471e-02)	Loss_bce 7.6614e-02 (9.0471e-02)	Acc@   0.93 (  0.84)	F1@   0.98 (  0.95)
+Epoch: [3][ 70/103]	Time  0.684 ( 0.678)	Loss 7.6961e-02 (8.8788e-02)	Loss_bce 7.6961e-02 (8.8788e-02)	Acc@   0.90 (  0.85)	F1@   0.97 (  0.96)
+Epoch: [3][ 80/103]	Time  0.670 ( 0.678)	Loss 7.7195e-02 (8.7023e-02)	Loss_bce 7.7195e-02 (8.7023e-02)	Acc@   0.86 (  0.85)	F1@   0.96 (  0.96)
+Epoch: [3][ 90/103]	Time  0.671 ( 0.677)	Loss 7.0197e-02 (8.5289e-02)	Loss_bce 7.0197e-02 (8.5289e-02)	Acc@   0.91 (  0.86)	F1@   0.98 (  0.96)
+Epoch: [3][100/103]	Time  0.672 ( 0.676)	Loss 7.2664e-02 (8.3648e-02)	Loss_bce 7.2664e-02 (8.3648e-02)	Acc@   0.90 (  0.87)	F1@   0.97 (  0.96)
+Valid Eval
+Test: [0/6]	Time  0.932 ( 0.932)	Loss 5.9076e-02 (5.9076e-02)	Loss_bce 5.9076e-02 (5.9076e-02)	Acc@   0.91 (  0.91)	F1@   0.98 (  0.98)
+* Acc@ 0.872 F1@ 0.958
+Valid avg result: acc: 0.8722002635046113, F1: 0.9576071271723445, loss: 0.07028105176680959 Loss_bce: 0.07028105176680959
+Test Eval
+Test: [0/7]	Time  0.934 ( 0.934)	Loss 1.0605e-01 (1.0605e-01)	Loss_bce 1.0605e-01 (1.0605e-01)	Acc@   0.68 (  0.68)	F1@   0.87 (  0.87)
+* Acc@ 0.716 F1@ 0.895
+Test avg result: acc: 0.716183574879227, F1: 0.8947780078214861, loss: 0.10223079832711658 Loss_bce: 0.10223079832711658
+Saving model [/home/song/Desktop/Multi-Intents-Detection/models/arch[LABAN]_optim[adamw]_lr[1e-05]_lrsch[step]_batch[128]_MixATIS_selfattentive_laban]...
+==============================
+Epoch: [4] Current learning rate (lr) = 9e-06
+Epoch: [4][  0/103]	Time  1.246 ( 1.246)	Loss 6.4009e-02 (6.4009e-02)	Loss_bce 6.4009e-02 (6.4009e-02)	Acc@   0.96 (  0.96)	F1@   0.99 (  0.99)
+Epoch: [4][ 10/103]	Time  0.667 ( 0.720)	Loss 6.2939e-02 (6.5130e-02)	Loss_bce 6.2939e-02 (6.5130e-02)	Acc@   0.97 (  0.94)	F1@   0.99 (  0.98)
+Epoch: [4][ 20/103]	Time  0.667 ( 0.695)	Loss 6.1505e-02 (6.3901e-02)	Loss_bce 6.1505e-02 (6.3901e-02)	Acc@   0.95 (  0.94)	F1@   0.99 (  0.98)
+Epoch: [4][ 30/103]	Time  0.665 ( 0.686)	Loss 5.7531e-02 (6.2837e-02)	Loss_bce 5.7531e-02 (6.2837e-02)	Acc@   0.97 (  0.95)	F1@   0.99 (  0.99)
+Epoch: [4][ 40/103]	Time  0.669 ( 0.681)	Loss 5.8055e-02 (6.1929e-02)	Loss_bce 5.8055e-02 (6.1929e-02)	Acc@   0.95 (  0.95)	F1@   0.98 (  0.99)
+Epoch: [4][ 50/103]	Time  0.667 ( 0.679)	Loss 5.9478e-02 (6.1104e-02)	Loss_bce 5.9478e-02 (6.1104e-02)	Acc@   0.90 (  0.95)	F1@   0.98 (  0.99)
+Epoch: [4][ 60/103]	Time  0.667 ( 0.677)	Loss 5.2775e-02 (6.0231e-02)	Loss_bce 5.2775e-02 (6.0231e-02)	Acc@   0.98 (  0.95)	F1@   0.99 (  0.99)
+Epoch: [4][ 70/103]	Time  0.667 ( 0.676)	Loss 5.5015e-02 (5.9650e-02)	Loss_bce 5.5015e-02 (5.9650e-02)	Acc@   0.94 (  0.95)	F1@   0.98 (  0.99)
+Epoch: [4][ 80/103]	Time  0.668 ( 0.675)	Loss 4.7453e-02 (5.8775e-02)	Loss_bce 4.7453e-02 (5.8775e-02)	Acc@   0.99 (  0.95)	F1@   1.00 (  0.99)
+Epoch: [4][ 90/103]	Time  0.670 ( 0.674)	Loss 5.2268e-02 (5.8053e-02)	Loss_bce 5.2268e-02 (5.8053e-02)	Acc@   0.95 (  0.95)	F1@   0.99 (  0.99)
+Epoch: [4][100/103]	Time  0.669 ( 0.674)	Loss 5.1459e-02 (5.7256e-02)	Loss_bce 5.1459e-02 (5.7256e-02)	Acc@   0.95 (  0.95)	F1@   0.98 (  0.99)
+Valid Eval
+Test: [0/6]	Time  0.921 ( 0.921)	Loss 4.3496e-02 (4.3496e-02)	Loss_bce 4.3496e-02 (4.3496e-02)	Acc@   0.93 (  0.93)	F1@   0.98 (  0.98)
+* Acc@ 0.899 F1@ 0.966
+Valid avg result: acc: 0.8985507246376812, F1: 0.9655122655122654, loss: 0.05509893481812301 Loss_bce: 0.05509893481812301
+Test Eval
+Test: [0/7]	Time  0.925 ( 0.925)	Loss 9.6931e-02 (9.6931e-02)	Loss_bce 9.6931e-02 (9.6931e-02)	Acc@   0.72 (  0.72)	F1@   0.88 (  0.88)
+* Acc@ 0.746 F1@ 0.906
+Test avg result: acc: 0.7463768115942029, F1: 0.9056590752242927, loss: 0.09208139708796562 Loss_bce: 0.09208139708796562
+Saving model [/home/song/Desktop/Multi-Intents-Detection/models/arch[LABAN]_optim[adamw]_lr[1e-05]_lrsch[step]_batch[128]_MixATIS_selfattentive_laban]...
+==============================
+Epoch: [5] Current learning rate (lr) = 9e-06
+Epoch: [5][  0/103]	Time  1.242 ( 1.242)	Loss 4.8382e-02 (4.8382e-02)	Loss_bce 4.8382e-02 (4.8382e-02)	Acc@   0.96 (  0.96)	F1@   0.99 (  0.99)
+Epoch: [5][ 10/103]	Time  0.668 ( 0.718)	Loss 4.8011e-02 (4.7934e-02)	Loss_bce 4.8011e-02 (4.7934e-02)	Acc@   0.97 (  0.97)	F1@   0.99 (  0.99)
+Epoch: [5][ 20/103]	Time  0.664 ( 0.694)	Loss 4.6538e-02 (4.6974e-02)	Loss_bce 4.6538e-02 (4.6974e-02)	Acc@   0.96 (  0.97)	F1@   0.99 (  0.99)
+Epoch: [5][ 30/103]	Time  0.666 ( 0.685)	Loss 4.3715e-02 (4.6477e-02)	Loss_bce 4.3715e-02 (4.6477e-02)	Acc@   0.99 (  0.97)	F1@   1.00 (  0.99)
+Epoch: [5][ 40/103]	Time  0.667 ( 0.680)	Loss 4.2978e-02 (4.6048e-02)	Loss_bce 4.2978e-02 (4.6048e-02)	Acc@   0.98 (  0.97)	F1@   0.99 (  0.99)
+Epoch: [5][ 50/103]	Time  0.664 ( 0.678)	Loss 4.2127e-02 (4.5616e-02)	Loss_bce 4.2127e-02 (4.5616e-02)	Acc@   0.99 (  0.97)	F1@   1.00 (  0.99)
+Epoch: [5][ 60/103]	Time  0.666 ( 0.676)	Loss 4.2336e-02 (4.4962e-02)	Loss_bce 4.2336e-02 (4.4962e-02)	Acc@   0.98 (  0.97)	F1@   0.99 (  0.99)
+Epoch: [5][ 70/103]	Time  0.668 ( 0.675)	Loss 4.0147e-02 (4.4446e-02)	Loss_bce 4.0147e-02 (4.4446e-02)	Acc@   0.98 (  0.97)	F1@   0.99 (  0.99)
+Epoch: [5][ 80/103]	Time  0.665 ( 0.674)	Loss 3.7280e-02 (4.3925e-02)	Loss_bce 3.7280e-02 (4.3925e-02)	Acc@   0.99 (  0.97)	F1@   1.00 (  0.99)
+Epoch: [5][ 90/103]	Time  0.666 ( 0.673)	Loss 4.0930e-02 (4.3384e-02)	Loss_bce 4.0930e-02 (4.3384e-02)	Acc@   0.97 (  0.98)	F1@   0.99 (  0.99)
+Epoch: [5][100/103]	Time  0.665 ( 0.672)	Loss 3.7378e-02 (4.2832e-02)	Loss_bce 3.7378e-02 (4.2832e-02)	Acc@   0.98 (  0.98)	F1@   1.00 (  0.99)
+Valid Eval
+Test: [0/6]	Time  0.930 ( 0.930)	Loss 3.4183e-02 (3.4183e-02)	Loss_bce 3.4183e-02 (3.4183e-02)	Acc@   0.96 (  0.96)	F1@   0.99 (  0.99)
+* Acc@ 0.929 F1@ 0.973
+Valid avg result: acc: 0.9288537549407114, F1: 0.9734613212874083, loss: 0.04596211796084097 Loss_bce: 0.04596211796084097
+Test Eval
+Test: [0/7]	Time  0.931 ( 0.931)	Loss 9.3001e-02 (9.3001e-02)	Loss_bce 9.3001e-02 (9.3001e-02)	Acc@   0.73 (  0.73)	F1@   0.88 (  0.88)
+* Acc@ 0.758 F1@ 0.907
+Test avg result: acc: 0.7584541062801933, F1: 0.9074505406027146, loss: 0.08755780090600396 Loss_bce: 0.08755780090600396
+Saving model [/home/song/Desktop/Multi-Intents-Detection/models/arch[LABAN]_optim[adamw]_lr[1e-05]_lrsch[step]_batch[128]_MixATIS_selfattentive_laban]...
+==============================
+Epoch: [6] Current learning rate (lr) = 9e-06
+Epoch: [6][  0/103]	Time  1.245 ( 1.245)	Loss 3.5759e-02 (3.5759e-02)	Loss_bce 3.5759e-02 (3.5759e-02)	Acc@   0.98 (  0.98)	F1@   0.99 (  0.99)
+Epoch: [6][ 10/103]	Time  0.665 ( 0.719)	Loss 3.9478e-02 (3.6750e-02)	Loss_bce 3.9478e-02 (3.6750e-02)	Acc@   0.95 (  0.98)	F1@   0.99 (  1.00)
+Epoch: [6][ 20/103]	Time  0.667 ( 0.694)	Loss 3.7037e-02 (3.6409e-02)	Loss_bce 3.7037e-02 (3.6409e-02)	Acc@   0.98 (  0.99)	F1@   0.99 (  1.00)
+Epoch: [6][ 30/103]	Time  0.667 ( 0.686)	Loss 3.6326e-02 (3.5940e-02)	Loss_bce 3.6326e-02 (3.5940e-02)	Acc@   1.00 (  0.99)	F1@   1.00 (  1.00)
+Epoch: [6][ 40/103]	Time  0.666 ( 0.681)	Loss 3.3455e-02 (3.5648e-02)	Loss_bce 3.3455e-02 (3.5648e-02)	Acc@   0.99 (  0.99)	F1@   1.00 (  1.00)
+Epoch: [6][ 50/103]	Time  0.667 ( 0.678)	Loss 3.1626e-02 (3.5282e-02)	Loss_bce 3.1626e-02 (3.5282e-02)	Acc@   1.00 (  0.99)	F1@   1.00 (  1.00)
+Epoch: [6][ 60/103]	Time  0.667 ( 0.677)	Loss 3.5274e-02 (3.5073e-02)	Loss_bce 3.5274e-02 (3.5073e-02)	Acc@   0.98 (  0.99)	F1@   0.99 (  1.00)
+Epoch: [6][ 70/103]	Time  0.679 ( 0.676)	Loss 3.1700e-02 (3.4656e-02)	Loss_bce 3.1700e-02 (3.4656e-02)	Acc@   1.00 (  0.99)	F1@   1.00 (  1.00)
+Epoch: [6][ 80/103]	Time  0.668 ( 0.675)	Loss 2.9768e-02 (3.4333e-02)	Loss_bce 2.9768e-02 (3.4333e-02)	Acc@   0.99 (  0.99)	F1@   1.00 (  1.00)
+Epoch: [6][ 90/103]	Time  0.669 ( 0.674)	Loss 3.1023e-02 (3.4069e-02)	Loss_bce 3.1023e-02 (3.4069e-02)	Acc@   0.98 (  0.99)	F1@   0.99 (  1.00)
+Epoch: [6][100/103]	Time  0.669 ( 0.673)	Loss 3.1835e-02 (3.3743e-02)	Loss_bce 3.1835e-02 (3.3743e-02)	Acc@   0.98 (  0.99)	F1@   1.00 (  1.00)
+Valid Eval
+Test: [0/6]	Time  0.929 ( 0.929)	Loss 2.8358e-02 (2.8358e-02)	Loss_bce 2.8358e-02 (2.8358e-02)	Acc@   0.98 (  0.98)	F1@   0.99 (  0.99)
+* Acc@ 0.935 F1@ 0.975
+Valid avg result: acc: 0.9354413702239789, F1: 0.9750862663906142, loss: 0.04053334224286915 Loss_bce: 0.04053334224286915
+Test Eval
+Test: [0/7]	Time  0.927 ( 0.927)	Loss 8.9829e-02 (8.9829e-02)	Loss_bce 8.9829e-02 (8.9829e-02)	Acc@   0.73 (  0.73)	F1@   0.89 (  0.89)
+* Acc@ 0.757 F1@ 0.908
+Test avg result: acc: 0.7572463768115942, F1: 0.9083419599723948, loss: 0.08387466419290229 Loss_bce: 0.08387466419290229
+Saving model [/home/song/Desktop/Multi-Intents-Detection/models/arch[LABAN]_optim[adamw]_lr[1e-05]_lrsch[step]_batch[128]_MixATIS_selfattentive_laban]...
+==============================
+Epoch: [7] Current learning rate (lr) = 9e-06
+Epoch: [7][  0/103]	Time  1.244 ( 1.244)	Loss 3.1535e-02 (3.1535e-02)	Loss_bce 3.1535e-02 (3.1535e-02)	Acc@   0.98 (  0.98)	F1@   1.00 (  1.00)
+Epoch: [7][ 10/103]	Time  0.665 ( 0.718)	Loss 3.0277e-02 (3.0000e-02)	Loss_bce 3.0277e-02 (3.0000e-02)	Acc@   1.00 (  0.99)	F1@   1.00 (  1.00)
+Epoch: [7][ 20/103]	Time  0.665 ( 0.694)	Loss 2.8941e-02 (2.9722e-02)	Loss_bce 2.8941e-02 (2.9722e-02)	Acc@   1.00 (  0.99)	F1@   1.00 (  1.00)
+Epoch: [7][ 30/103]	Time  0.666 ( 0.685)	Loss 2.9337e-02 (2.9436e-02)	Loss_bce 2.9337e-02 (2.9436e-02)	Acc@   0.99 (  0.99)	F1@   1.00 (  1.00)
+Epoch: [7][ 40/103]	Time  0.666 ( 0.681)	Loss 2.6385e-02 (2.9024e-02)	Loss_bce 2.6385e-02 (2.9024e-02)	Acc@   0.99 (  0.99)	F1@   0.99 (  1.00)
+Epoch: [7][ 50/103]	Time  0.668 ( 0.678)	Loss 2.7425e-02 (2.8736e-02)	Loss_bce 2.7425e-02 (2.8736e-02)	Acc@   0.97 (  0.99)	F1@   0.99 (  1.00)
+Epoch: [7][ 60/103]	Time  0.668 ( 0.676)	Loss 2.8235e-02 (2.8405e-02)	Loss_bce 2.8235e-02 (2.8405e-02)	Acc@   0.99 (  0.99)	F1@   1.00 (  1.00)
+Epoch: [7][ 70/103]	Time  0.666 ( 0.675)	Loss 2.6390e-02 (2.8202e-02)	Loss_bce 2.6390e-02 (2.8202e-02)	Acc@   0.99 (  0.99)	F1@   1.00 (  1.00)
+Epoch: [7][ 80/103]	Time  0.665 ( 0.674)	Loss 2.6203e-02 (2.8004e-02)	Loss_bce 2.6203e-02 (2.8004e-02)	Acc@   0.99 (  0.99)	F1@   0.99 (  1.00)
+Epoch: [7][ 90/103]	Time  0.666 ( 0.673)	Loss 2.5504e-02 (2.7768e-02)	Loss_bce 2.5504e-02 (2.7768e-02)	Acc@   0.98 (  0.99)	F1@   1.00 (  1.00)
+Epoch: [7][100/103]	Time  0.667 ( 0.672)	Loss 2.6740e-02 (2.7562e-02)	Loss_bce 2.6740e-02 (2.7562e-02)	Acc@   0.99 (  0.99)	F1@   1.00 (  1.00)
+Valid Eval
+Test: [0/6]	Time  0.923 ( 0.923)	Loss 2.3860e-02 (2.3860e-02)	Loss_bce 2.3860e-02 (2.3860e-02)	Acc@   0.98 (  0.98)	F1@   0.99 (  0.99)
+* Acc@ 0.938 F1@ 0.975
+Valid avg result: acc: 0.9380764163372859, F1: 0.9754250580337538, loss: 0.03716746905673791 Loss_bce: 0.03716746905673791
+Test Eval
+Test: [0/7]	Time  0.927 ( 0.927)	Loss 8.9575e-02 (8.9575e-02)	Loss_bce 8.9575e-02 (8.9575e-02)	Acc@   0.73 (  0.73)	F1@   0.88 (  0.88)
+* Acc@ 0.762 F1@ 0.906
+Test avg result: acc: 0.7620772946859904, F1: 0.9056993328732461, loss: 0.08349698688384992 Loss_bce: 0.08349698688384992
+Saving model [/home/song/Desktop/Multi-Intents-Detection/models/arch[LABAN]_optim[adamw]_lr[1e-05]_lrsch[step]_batch[128]_MixATIS_selfattentive_laban]...
+==============================
+Epoch: [8] Current learning rate (lr) = 8.1e-06
+Epoch: [8][  0/103]	Time  1.256 ( 1.256)	Loss 2.4325e-02 (2.4325e-02)	Loss_bce 2.4325e-02 (2.4325e-02)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [8][ 10/103]	Time  0.677 ( 0.728)	Loss 2.3891e-02 (2.4217e-02)	Loss_bce 2.3891e-02 (2.4217e-02)	Acc@   0.99 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [8][ 20/103]	Time  0.679 ( 0.704)	Loss 2.4833e-02 (2.4412e-02)	Loss_bce 2.4833e-02 (2.4412e-02)	Acc@   0.99 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [8][ 30/103]	Time  0.676 ( 0.695)	Loss 2.3761e-02 (2.4256e-02)	Loss_bce 2.3761e-02 (2.4256e-02)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [8][ 40/103]	Time  0.677 ( 0.690)	Loss 2.3721e-02 (2.4150e-02)	Loss_bce 2.3721e-02 (2.4150e-02)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [8][ 50/103]	Time  0.675 ( 0.688)	Loss 2.3012e-02 (2.3917e-02)	Loss_bce 2.3012e-02 (2.3917e-02)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [8][ 60/103]	Time  0.678 ( 0.686)	Loss 2.2377e-02 (2.3770e-02)	Loss_bce 2.2377e-02 (2.3770e-02)	Acc@   0.98 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [8][ 70/103]	Time  0.675 ( 0.685)	Loss 2.1459e-02 (2.3630e-02)	Loss_bce 2.1459e-02 (2.3630e-02)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [8][ 80/103]	Time  0.676 ( 0.684)	Loss 2.2896e-02 (2.3539e-02)	Loss_bce 2.2896e-02 (2.3539e-02)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [8][ 90/103]	Time  0.677 ( 0.683)	Loss 2.2539e-02 (2.3383e-02)	Loss_bce 2.2539e-02 (2.3383e-02)	Acc@   0.98 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [8][100/103]	Time  0.675 ( 0.682)	Loss 2.1511e-02 (2.3234e-02)	Loss_bce 2.1511e-02 (2.3234e-02)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Valid Eval
+Test: [0/6]	Time  0.961 ( 0.961)	Loss 2.1452e-02 (2.1452e-02)	Loss_bce 2.1452e-02 (2.1452e-02)	Acc@   0.98 (  0.98)	F1@   0.99 (  0.99)
+* Acc@ 0.938 F1@ 0.975
+Valid avg result: acc: 0.9380764163372859, F1: 0.9753434970826276, loss: 0.034856074746104256 Loss_bce: 0.034856074746104256
+Test Eval
+Test: [0/7]	Time  0.961 ( 0.961)	Loss 8.9829e-02 (8.9829e-02)	Loss_bce 8.9829e-02 (8.9829e-02)	Acc@   0.73 (  0.73)	F1@   0.88 (  0.88)
+* Acc@ 0.762 F1@ 0.903
+Test avg result: acc: 0.7620772946859904, F1: 0.9031746031746034, loss: 0.08343712359234906 Loss_bce: 0.08343712359234906
+Saving model [/home/song/Desktop/Multi-Intents-Detection/models/arch[LABAN]_optim[adamw]_lr[1e-05]_lrsch[step]_batch[128]_MixATIS_selfattentive_laban]...
+==============================
+Epoch: [9] Current learning rate (lr) = 8.1e-06
+Epoch: [9][  0/103]	Time  1.242 ( 1.242)	Loss 2.2286e-02 (2.2286e-02)	Loss_bce 2.2286e-02 (2.2286e-02)	Acc@   0.99 (  0.99)	F1@   1.00 (  1.00)
+Epoch: [9][ 10/103]	Time  0.666 ( 0.720)	Loss 1.9976e-02 (2.1617e-02)	Loss_bce 1.9976e-02 (2.1617e-02)	Acc@   0.99 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [9][ 20/103]	Time  0.668 ( 0.694)	Loss 2.2982e-02 (2.1530e-02)	Loss_bce 2.2982e-02 (2.1530e-02)	Acc@   0.99 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [9][ 30/103]	Time  0.666 ( 0.685)	Loss 1.9689e-02 (2.1315e-02)	Loss_bce 1.9689e-02 (2.1315e-02)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [9][ 40/103]	Time  0.666 ( 0.680)	Loss 2.0236e-02 (2.1125e-02)	Loss_bce 2.0236e-02 (2.1125e-02)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [9][ 50/103]	Time  0.666 ( 0.678)	Loss 2.0322e-02 (2.0986e-02)	Loss_bce 2.0322e-02 (2.0986e-02)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [9][ 60/103]	Time  0.666 ( 0.676)	Loss 2.0009e-02 (2.0829e-02)	Loss_bce 2.0009e-02 (2.0829e-02)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [9][ 70/103]	Time  0.666 ( 0.674)	Loss 2.0673e-02 (2.0668e-02)	Loss_bce 2.0673e-02 (2.0668e-02)	Acc@   0.99 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [9][ 80/103]	Time  0.666 ( 0.673)	Loss 1.8578e-02 (2.0476e-02)	Loss_bce 1.8578e-02 (2.0476e-02)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [9][ 90/103]	Time  0.667 ( 0.673)	Loss 1.8737e-02 (2.0320e-02)	Loss_bce 1.8737e-02 (2.0320e-02)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [9][100/103]	Time  0.666 ( 0.672)	Loss 1.8210e-02 (2.0145e-02)	Loss_bce 1.8210e-02 (2.0145e-02)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Valid Eval
+Test: [0/6]	Time  0.925 ( 0.925)	Loss 1.9573e-02 (1.9573e-02)	Loss_bce 1.9573e-02 (1.9573e-02)	Acc@   0.98 (  0.98)	F1@   0.99 (  0.99)
+* Acc@ 0.934 F1@ 0.973
+Valid avg result: acc: 0.9341238471673254, F1: 0.973266829788569, loss: 0.033756145390243866 Loss_bce: 0.033756145390243866
+Test Eval
+Test: [0/7]	Time  0.930 ( 0.930)	Loss 9.0074e-02 (9.0074e-02)	Loss_bce 9.0074e-02 (9.0074e-02)	Acc@   0.73 (  0.73)	F1@   0.88 (  0.88)
+* Acc@ 0.762 F1@ 0.902
+Test avg result: acc: 0.7620772946859904, F1: 0.9023176903611687, loss: 0.08400560087627834 Loss_bce: 0.08400560087627834
+Saving model [/home/song/Desktop/Multi-Intents-Detection/models/arch[LABAN]_optim[adamw]_lr[1e-05]_lrsch[step]_batch[128]_MixATIS_selfattentive_laban]...
+==============================
+Epoch: [10] Current learning rate (lr) = 8.1e-06
+Epoch: [10][  0/103]	Time  1.267 ( 1.267)	Loss 1.9979e-02 (1.9979e-02)	Loss_bce 1.9979e-02 (1.9979e-02)	Acc@   0.99 (  0.99)	F1@   1.00 (  1.00)
+Epoch: [10][ 10/103]	Time  0.667 ( 0.722)	Loss 1.8070e-02 (1.8503e-02)	Loss_bce 1.8070e-02 (1.8503e-02)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [10][ 20/103]	Time  0.668 ( 0.697)	Loss 1.7876e-02 (1.8568e-02)	Loss_bce 1.7876e-02 (1.8568e-02)	Acc@   0.99 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [10][ 30/103]	Time  0.668 ( 0.687)	Loss 1.9604e-02 (1.8494e-02)	Loss_bce 1.9604e-02 (1.8494e-02)	Acc@   0.98 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [10][ 40/103]	Time  0.666 ( 0.682)	Loss 1.8520e-02 (1.8387e-02)	Loss_bce 1.8520e-02 (1.8387e-02)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [10][ 50/103]	Time  0.667 ( 0.679)	Loss 1.7640e-02 (1.8234e-02)	Loss_bce 1.7640e-02 (1.8234e-02)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [10][ 60/103]	Time  0.666 ( 0.677)	Loss 1.6560e-02 (1.8102e-02)	Loss_bce 1.6560e-02 (1.8102e-02)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [10][ 70/103]	Time  0.666 ( 0.676)	Loss 1.7401e-02 (1.7984e-02)	Loss_bce 1.7401e-02 (1.7984e-02)	Acc@   0.98 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [10][ 80/103]	Time  0.667 ( 0.675)	Loss 1.6731e-02 (1.7843e-02)	Loss_bce 1.6731e-02 (1.7843e-02)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [10][ 90/103]	Time  0.668 ( 0.674)	Loss 1.7696e-02 (1.7734e-02)	Loss_bce 1.7696e-02 (1.7734e-02)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [10][100/103]	Time  0.667 ( 0.674)	Loss 1.7306e-02 (1.7658e-02)	Loss_bce 1.7306e-02 (1.7658e-02)	Acc@   0.99 (  1.00)	F1@   1.00 (  1.00)
+Valid Eval
+Test: [0/6]	Time  0.935 ( 0.935)	Loss 1.7812e-02 (1.7812e-02)	Loss_bce 1.7812e-02 (1.7812e-02)	Acc@   0.98 (  0.98)	F1@   0.99 (  0.99)
+* Acc@ 0.934 F1@ 0.973
+Valid avg result: acc: 0.9341238471673254, F1: 0.9732793776272037, loss: 0.03228676054081898 Loss_bce: 0.03228676054081898
+Test Eval
+Test: [0/7]	Time  0.963 ( 0.963)	Loss 9.0249e-02 (9.0249e-02)	Loss_bce 9.0249e-02 (9.0249e-02)	Acc@   0.74 (  0.74)	F1@   0.88 (  0.88)
+* Acc@ 0.764 F1@ 0.904
+Test avg result: acc: 0.7644927536231884, F1: 0.9040487692661606, loss: 0.08387629723779245 Loss_bce: 0.08387629723779245
+Saving model [/home/song/Desktop/Multi-Intents-Detection/models/arch[LABAN]_optim[adamw]_lr[1e-05]_lrsch[step]_batch[128]_MixATIS_selfattentive_laban]...
+==============================
+Epoch: [11] Current learning rate (lr) = 8.1e-06
+Epoch: [11][  0/103]	Time  1.245 ( 1.245)	Loss 1.6671e-02 (1.6671e-02)	Loss_bce 1.6671e-02 (1.6671e-02)	Acc@   0.99 (  0.99)	F1@   1.00 (  1.00)
+Epoch: [11][ 10/103]	Time  0.669 ( 0.722)	Loss 1.5889e-02 (1.6153e-02)	Loss_bce 1.5889e-02 (1.6153e-02)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [11][ 20/103]	Time  0.667 ( 0.696)	Loss 1.6659e-02 (1.6354e-02)	Loss_bce 1.6659e-02 (1.6354e-02)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [11][ 30/103]	Time  0.669 ( 0.687)	Loss 1.5388e-02 (1.6222e-02)	Loss_bce 1.5388e-02 (1.6222e-02)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [11][ 40/103]	Time  0.665 ( 0.683)	Loss 1.5758e-02 (1.6187e-02)	Loss_bce 1.5758e-02 (1.6187e-02)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [11][ 50/103]	Time  0.667 ( 0.680)	Loss 1.5848e-02 (1.6110e-02)	Loss_bce 1.5848e-02 (1.6110e-02)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [11][ 60/103]	Time  0.670 ( 0.678)	Loss 1.4862e-02 (1.6021e-02)	Loss_bce 1.4862e-02 (1.6021e-02)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [11][ 70/103]	Time  0.667 ( 0.677)	Loss 1.4439e-02 (1.5951e-02)	Loss_bce 1.4439e-02 (1.5951e-02)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [11][ 80/103]	Time  0.673 ( 0.677)	Loss 1.4754e-02 (1.5860e-02)	Loss_bce 1.4754e-02 (1.5860e-02)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [11][ 90/103]	Time  0.674 ( 0.676)	Loss 1.4651e-02 (1.5771e-02)	Loss_bce 1.4651e-02 (1.5771e-02)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [11][100/103]	Time  0.677 ( 0.676)	Loss 1.3838e-02 (1.5672e-02)	Loss_bce 1.3838e-02 (1.5672e-02)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Valid Eval
+Test: [0/6]	Time  0.923 ( 0.923)	Loss 1.7278e-02 (1.7278e-02)	Loss_bce 1.7278e-02 (1.7278e-02)	Acc@   0.98 (  0.98)	F1@   0.99 (  0.99)
+* Acc@ 0.933 F1@ 0.971
+Valid avg result: acc: 0.932806324110672, F1: 0.9712654495263192, loss: 0.03202555097924234 Loss_bce: 0.03202555097924234
+Test Eval
+Test: [0/7]	Time  0.930 ( 0.930)	Loss 9.0257e-02 (9.0257e-02)	Loss_bce 9.0257e-02 (9.0257e-02)	Acc@   0.73 (  0.73)	F1@   0.87 (  0.87)
+* Acc@ 0.767 F1@ 0.903
+Test avg result: acc: 0.7669082125603864, F1: 0.9027662755923627, loss: 0.08400492553693661 Loss_bce: 0.08400492553693661
+Saving model [/home/song/Desktop/Multi-Intents-Detection/models/arch[LABAN]_optim[adamw]_lr[1e-05]_lrsch[step]_batch[128]_MixATIS_selfattentive_laban]...
+==============================
+Epoch: [12] Current learning rate (lr) = 7.2900000000000005e-06
+Epoch: [12][  0/103]	Time  1.264 ( 1.264)	Loss 1.5147e-02 (1.5147e-02)	Loss_bce 1.5147e-02 (1.5147e-02)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [12][ 10/103]	Time  0.678 ( 0.730)	Loss 1.5832e-02 (1.4600e-02)	Loss_bce 1.5832e-02 (1.4600e-02)	Acc@   0.99 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [12][ 20/103]	Time  0.676 ( 0.705)	Loss 1.4796e-02 (1.4547e-02)	Loss_bce 1.4796e-02 (1.4547e-02)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [12][ 30/103]	Time  0.677 ( 0.696)	Loss 1.3446e-02 (1.4535e-02)	Loss_bce 1.3446e-02 (1.4535e-02)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [12][ 40/103]	Time  0.677 ( 0.691)	Loss 1.4567e-02 (1.4465e-02)	Loss_bce 1.4567e-02 (1.4465e-02)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [12][ 50/103]	Time  0.677 ( 0.689)	Loss 1.3606e-02 (1.4439e-02)	Loss_bce 1.3606e-02 (1.4439e-02)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [12][ 60/103]	Time  0.675 ( 0.687)	Loss 1.4198e-02 (1.4333e-02)	Loss_bce 1.4198e-02 (1.4333e-02)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [12][ 70/103]	Time  0.677 ( 0.685)	Loss 1.5148e-02 (1.4282e-02)	Loss_bce 1.5148e-02 (1.4282e-02)	Acc@   0.99 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [12][ 80/103]	Time  0.677 ( 0.684)	Loss 1.3658e-02 (1.4162e-02)	Loss_bce 1.3658e-02 (1.4162e-02)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [12][ 90/103]	Time  0.678 ( 0.684)	Loss 1.3174e-02 (1.4069e-02)	Loss_bce 1.3174e-02 (1.4069e-02)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [12][100/103]	Time  0.680 ( 0.683)	Loss 1.3570e-02 (1.4064e-02)	Loss_bce 1.3570e-02 (1.4064e-02)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Valid Eval
+Test: [0/6]	Time  0.927 ( 0.927)	Loss 1.5662e-02 (1.5662e-02)	Loss_bce 1.5662e-02 (1.5662e-02)	Acc@   0.98 (  0.98)	F1@   0.99 (  0.99)
+* Acc@ 0.935 F1@ 0.973
+Valid avg result: acc: 0.9354413702239789, F1: 0.9733232950624254, loss: 0.03093081480567006 Loss_bce: 0.03093081480567006
+Test Eval
+Test: [0/7]	Time  0.934 ( 0.934)	Loss 9.1685e-02 (9.1685e-02)	Loss_bce 9.1685e-02 (9.1685e-02)	Acc@   0.73 (  0.73)	F1@   0.87 (  0.87)
+* Acc@ 0.767 F1@ 0.901
+Test avg result: acc: 0.7669082125603864, F1: 0.9014780308258569, loss: 0.08553111938318768 Loss_bce: 0.08553111938318768
+Saving model [/home/song/Desktop/Multi-Intents-Detection/models/arch[LABAN]_optim[adamw]_lr[1e-05]_lrsch[step]_batch[128]_MixATIS_selfattentive_laban]...
+==============================
+Epoch: [13] Current learning rate (lr) = 7.2900000000000005e-06
+Epoch: [13][  0/103]	Time  1.247 ( 1.247)	Loss 1.2939e-02 (1.2939e-02)	Loss_bce 1.2939e-02 (1.2939e-02)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [13][ 10/103]	Time  0.665 ( 0.719)	Loss 1.4200e-02 (1.3184e-02)	Loss_bce 1.4200e-02 (1.3184e-02)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [13][ 20/103]	Time  0.666 ( 0.694)	Loss 1.3185e-02 (1.3246e-02)	Loss_bce 1.3185e-02 (1.3246e-02)	Acc@   0.99 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [13][ 30/103]	Time  0.668 ( 0.686)	Loss 1.2967e-02 (1.3108e-02)	Loss_bce 1.2967e-02 (1.3108e-02)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [13][ 40/103]	Time  0.665 ( 0.681)	Loss 1.3373e-02 (1.2986e-02)	Loss_bce 1.3373e-02 (1.2986e-02)	Acc@   0.99 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [13][ 50/103]	Time  0.667 ( 0.678)	Loss 1.2682e-02 (1.2910e-02)	Loss_bce 1.2682e-02 (1.2910e-02)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [13][ 60/103]	Time  0.667 ( 0.676)	Loss 1.3074e-02 (1.2868e-02)	Loss_bce 1.3074e-02 (1.2868e-02)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [13][ 70/103]	Time  0.669 ( 0.675)	Loss 1.2221e-02 (1.2850e-02)	Loss_bce 1.2221e-02 (1.2850e-02)	Acc@   0.99 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [13][ 80/103]	Time  0.668 ( 0.674)	Loss 1.2059e-02 (1.2816e-02)	Loss_bce 1.2059e-02 (1.2816e-02)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [13][ 90/103]	Time  0.668 ( 0.674)	Loss 1.2691e-02 (1.2795e-02)	Loss_bce 1.2691e-02 (1.2795e-02)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [13][100/103]	Time  0.667 ( 0.673)	Loss 1.2286e-02 (1.2777e-02)	Loss_bce 1.2286e-02 (1.2777e-02)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Valid Eval
+Test: [0/6]	Time  0.948 ( 0.948)	Loss 1.5103e-02 (1.5103e-02)	Loss_bce 1.5103e-02 (1.5103e-02)	Acc@   0.98 (  0.98)	F1@   0.99 (  0.99)
+* Acc@ 0.934 F1@ 0.973
+Valid avg result: acc: 0.9341238471673254, F1: 0.9727523684045424, loss: 0.030134999621487732 Loss_bce: 0.030134999621487732
+Test Eval
+Test: [0/7]	Time  0.925 ( 0.925)	Loss 9.2086e-02 (9.2086e-02)	Loss_bce 9.2086e-02 (9.2086e-02)	Acc@   0.74 (  0.74)	F1@   0.87 (  0.87)
+* Acc@ 0.769 F1@ 0.902
+Test avg result: acc: 0.7693236714975845, F1: 0.9022946859903382, loss: 0.0856112793519877 Loss_bce: 0.0856112793519877
+Saving model [/home/song/Desktop/Multi-Intents-Detection/models/arch[LABAN]_optim[adamw]_lr[1e-05]_lrsch[step]_batch[128]_MixATIS_selfattentive_laban]...
+==============================
+Epoch: [14] Current learning rate (lr) = 7.2900000000000005e-06
+Epoch: [14][  0/103]	Time  1.245 ( 1.245)	Loss 1.2176e-02 (1.2176e-02)	Loss_bce 1.2176e-02 (1.2176e-02)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [14][ 10/103]	Time  0.664 ( 0.720)	Loss 1.2045e-02 (1.1872e-02)	Loss_bce 1.2045e-02 (1.1872e-02)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [14][ 20/103]	Time  0.666 ( 0.694)	Loss 1.1574e-02 (1.2104e-02)	Loss_bce 1.1574e-02 (1.2104e-02)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [14][ 30/103]	Time  0.666 ( 0.685)	Loss 1.1398e-02 (1.2032e-02)	Loss_bce 1.1398e-02 (1.2032e-02)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [14][ 40/103]	Time  0.667 ( 0.680)	Loss 1.2002e-02 (1.1993e-02)	Loss_bce 1.2002e-02 (1.1993e-02)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [14][ 50/103]	Time  0.667 ( 0.678)	Loss 1.1268e-02 (1.1941e-02)	Loss_bce 1.1268e-02 (1.1941e-02)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [14][ 60/103]	Time  0.666 ( 0.676)	Loss 1.1511e-02 (1.1865e-02)	Loss_bce 1.1511e-02 (1.1865e-02)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [14][ 70/103]	Time  0.665 ( 0.674)	Loss 1.3084e-02 (1.1854e-02)	Loss_bce 1.3084e-02 (1.1854e-02)	Acc@   0.99 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [14][ 80/103]	Time  0.665 ( 0.673)	Loss 1.1477e-02 (1.1780e-02)	Loss_bce 1.1477e-02 (1.1780e-02)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [14][ 90/103]	Time  0.665 ( 0.673)	Loss 1.1158e-02 (1.1726e-02)	Loss_bce 1.1158e-02 (1.1726e-02)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [14][100/103]	Time  0.667 ( 0.672)	Loss 1.1047e-02 (1.1688e-02)	Loss_bce 1.1047e-02 (1.1688e-02)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Valid Eval
+Test: [0/6]	Time  0.925 ( 0.925)	Loss 1.3845e-02 (1.3845e-02)	Loss_bce 1.3845e-02 (1.3845e-02)	Acc@   0.98 (  0.98)	F1@   1.00 (  1.00)
+* Acc@ 0.935 F1@ 0.973
+Valid avg result: acc: 0.9354413702239789, F1: 0.9729405859840642, loss: 0.030015936702961037 Loss_bce: 0.030015936702961037
+Test Eval
+Test: [0/7]	Time  0.931 ( 0.931)	Loss 9.1511e-02 (9.1511e-02)	Loss_bce 9.1511e-02 (9.1511e-02)	Acc@   0.74 (  0.74)	F1@   0.87 (  0.87)
+* Acc@ 0.769 F1@ 0.903
+Test avg result: acc: 0.7693236714975845, F1: 0.9028122843340235, loss: 0.0849369828035866 Loss_bce: 0.0849369828035866
+Saving model [/home/song/Desktop/Multi-Intents-Detection/models/arch[LABAN]_optim[adamw]_lr[1e-05]_lrsch[step]_batch[128]_MixATIS_selfattentive_laban]...
+==============================
+Epoch: [15] Current learning rate (lr) = 7.2900000000000005e-06
+Epoch: [15][  0/103]	Time  1.306 ( 1.306)	Loss 1.1878e-02 (1.1878e-02)	Loss_bce 1.1878e-02 (1.1878e-02)	Acc@   0.99 (  0.99)	F1@   1.00 (  1.00)
+Epoch: [15][ 10/103]	Time  0.675 ( 0.731)	Loss 1.0742e-02 (1.1020e-02)	Loss_bce 1.0742e-02 (1.1020e-02)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [15][ 20/103]	Time  0.676 ( 0.703)	Loss 1.0637e-02 (1.1017e-02)	Loss_bce 1.0637e-02 (1.1017e-02)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [15][ 30/103]	Time  0.675 ( 0.694)	Loss 1.0766e-02 (1.1029e-02)	Loss_bce 1.0766e-02 (1.1029e-02)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [15][ 40/103]	Time  0.677 ( 0.690)	Loss 1.0291e-02 (1.1014e-02)	Loss_bce 1.0291e-02 (1.1014e-02)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [15][ 50/103]	Time  0.676 ( 0.687)	Loss 1.0728e-02 (1.0989e-02)	Loss_bce 1.0728e-02 (1.0989e-02)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [15][ 60/103]	Time  0.676 ( 0.686)	Loss 1.0217e-02 (1.0887e-02)	Loss_bce 1.0217e-02 (1.0887e-02)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [15][ 70/103]	Time  0.676 ( 0.684)	Loss 1.0718e-02 (1.0854e-02)	Loss_bce 1.0718e-02 (1.0854e-02)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [15][ 80/103]	Time  0.676 ( 0.683)	Loss 1.0519e-02 (1.0798e-02)	Loss_bce 1.0519e-02 (1.0798e-02)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [15][ 90/103]	Time  0.677 ( 0.683)	Loss 1.0695e-02 (1.0748e-02)	Loss_bce 1.0695e-02 (1.0748e-02)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [15][100/103]	Time  0.676 ( 0.682)	Loss 9.8626e-03 (1.0688e-02)	Loss_bce 9.8626e-03 (1.0688e-02)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Valid Eval
+Test: [0/6]	Time  0.923 ( 0.923)	Loss 1.3502e-02 (1.3502e-02)	Loss_bce 1.3502e-02 (1.3502e-02)	Acc@   0.98 (  0.98)	F1@   0.99 (  0.99)
+* Acc@ 0.935 F1@ 0.973
+Valid avg result: acc: 0.9354413702239789, F1: 0.9725076855511638, loss: 0.030758421382178432 Loss_bce: 0.030758421382178432
+Test Eval
+Test: [0/7]	Time  0.955 ( 0.955)	Loss 9.3290e-02 (9.3290e-02)	Loss_bce 9.3290e-02 (9.3290e-02)	Acc@   0.75 (  0.75)	F1@   0.87 (  0.87)
+* Acc@ 0.771 F1@ 0.903
+Test avg result: acc: 0.7705314009661836, F1: 0.9025764895330113, loss: 0.08703080345179148 Loss_bce: 0.08703080345179148
+Saving model [/home/song/Desktop/Multi-Intents-Detection/models/arch[LABAN]_optim[adamw]_lr[1e-05]_lrsch[step]_batch[128]_MixATIS_selfattentive_laban]...
+==============================
+Epoch: [16] Current learning rate (lr) = 6.561e-06
+Epoch: [16][  0/103]	Time  1.255 ( 1.255)	Loss 9.8146e-03 (9.8146e-03)	Loss_bce 9.8146e-03 (9.8146e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [16][ 10/103]	Time  0.676 ( 0.729)	Loss 9.6328e-03 (1.0138e-02)	Loss_bce 9.6328e-03 (1.0138e-02)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [16][ 20/103]	Time  0.676 ( 0.704)	Loss 1.0292e-02 (1.0132e-02)	Loss_bce 1.0292e-02 (1.0132e-02)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [16][ 30/103]	Time  0.676 ( 0.696)	Loss 9.2999e-03 (1.0029e-02)	Loss_bce 9.2999e-03 (1.0029e-02)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [16][ 40/103]	Time  0.677 ( 0.691)	Loss 9.6767e-03 (1.0037e-02)	Loss_bce 9.6767e-03 (1.0037e-02)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [16][ 50/103]	Time  0.675 ( 0.688)	Loss 1.0304e-02 (9.9855e-03)	Loss_bce 1.0304e-02 (9.9855e-03)	Acc@   0.99 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [16][ 60/103]	Time  0.675 ( 0.686)	Loss 9.6639e-03 (1.0010e-02)	Loss_bce 9.6639e-03 (1.0010e-02)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [16][ 70/103]	Time  0.679 ( 0.685)	Loss 1.0074e-02 (1.0011e-02)	Loss_bce 1.0074e-02 (1.0011e-02)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [16][ 80/103]	Time  0.677 ( 0.684)	Loss 9.6198e-03 (9.9761e-03)	Loss_bce 9.6198e-03 (9.9761e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [16][ 90/103]	Time  0.674 ( 0.684)	Loss 9.6721e-03 (9.9314e-03)	Loss_bce 9.6721e-03 (9.9314e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [16][100/103]	Time  0.686 ( 0.683)	Loss 9.6698e-03 (9.8862e-03)	Loss_bce 9.6698e-03 (9.8862e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Valid Eval
+Test: [0/6]	Time  0.925 ( 0.925)	Loss 1.2786e-02 (1.2786e-02)	Loss_bce 1.2786e-02 (1.2786e-02)	Acc@   0.98 (  0.98)	F1@   0.99 (  0.99)
+* Acc@ 0.935 F1@ 0.973
+Valid avg result: acc: 0.9354413702239789, F1: 0.9725076855511638, loss: 0.029972011814868183 Loss_bce: 0.029972011814868183
+Test Eval
+Test: [0/7]	Time  0.922 ( 0.922)	Loss 9.2833e-02 (9.2833e-02)	Loss_bce 9.2833e-02 (9.2833e-02)	Acc@   0.74 (  0.74)	F1@   0.87 (  0.87)
+* Acc@ 0.771 F1@ 0.903
+Test avg result: acc: 0.7705314009661836, F1: 0.9033701403266622, loss: 0.08623745454394299 Loss_bce: 0.08623745454394299
+Saving model [/home/song/Desktop/Multi-Intents-Detection/models/arch[LABAN]_optim[adamw]_lr[1e-05]_lrsch[step]_batch[128]_MixATIS_selfattentive_laban]...
+==============================
+Epoch: [17] Current learning rate (lr) = 6.561e-06
+Epoch: [17][  0/103]	Time  1.237 ( 1.237)	Loss 9.9296e-03 (9.9296e-03)	Loss_bce 9.9296e-03 (9.9296e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [17][ 10/103]	Time  0.666 ( 0.718)	Loss 9.6381e-03 (9.6441e-03)	Loss_bce 9.6381e-03 (9.6441e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [17][ 20/103]	Time  0.665 ( 0.693)	Loss 9.0630e-03 (9.5233e-03)	Loss_bce 9.0630e-03 (9.5233e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [17][ 30/103]	Time  0.667 ( 0.685)	Loss 9.2201e-03 (9.4307e-03)	Loss_bce 9.2201e-03 (9.4307e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [17][ 40/103]	Time  0.667 ( 0.680)	Loss 9.0552e-03 (9.3475e-03)	Loss_bce 9.0552e-03 (9.3475e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [17][ 50/103]	Time  0.666 ( 0.678)	Loss 9.4888e-03 (9.3056e-03)	Loss_bce 9.4888e-03 (9.3056e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [17][ 60/103]	Time  0.667 ( 0.676)	Loss 8.8515e-03 (9.2674e-03)	Loss_bce 8.8515e-03 (9.2674e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [17][ 70/103]	Time  0.678 ( 0.675)	Loss 8.8280e-03 (9.2559e-03)	Loss_bce 8.8280e-03 (9.2559e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [17][ 80/103]	Time  0.666 ( 0.674)	Loss 8.7979e-03 (9.2143e-03)	Loss_bce 8.7979e-03 (9.2143e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [17][ 90/103]	Time  0.669 ( 0.673)	Loss 8.8683e-03 (9.1592e-03)	Loss_bce 8.8683e-03 (9.1592e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [17][100/103]	Time  0.666 ( 0.673)	Loss 8.6495e-03 (9.1493e-03)	Loss_bce 8.6495e-03 (9.1493e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Valid Eval
+Test: [0/6]	Time  0.951 ( 0.951)	Loss 1.2653e-02 (1.2653e-02)	Loss_bce 1.2653e-02 (1.2653e-02)	Acc@   0.98 (  0.98)	F1@   0.99 (  0.99)
+* Acc@ 0.935 F1@ 0.972
+Valid avg result: acc: 0.9354413702239789, F1: 0.9722504548591505, loss: 0.030113553306841255 Loss_bce: 0.030113553306841255
+Test Eval
+Test: [0/7]	Time  0.924 ( 0.924)	Loss 9.4371e-02 (9.4371e-02)	Loss_bce 9.4371e-02 (9.4371e-02)	Acc@   0.74 (  0.74)	F1@   0.87 (  0.87)
+* Acc@ 0.772 F1@ 0.902
+Test avg result: acc: 0.7717391304347826, F1: 0.9020818955601565, loss: 0.08747140019412201 Loss_bce: 0.08747140019412201
+Saving model [/home/song/Desktop/Multi-Intents-Detection/models/arch[LABAN]_optim[adamw]_lr[1e-05]_lrsch[step]_batch[128]_MixATIS_selfattentive_laban]...
+==============================
+Epoch: [18] Current learning rate (lr) = 6.561e-06
+Epoch: [18][  0/103]	Time  1.248 ( 1.248)	Loss 8.4978e-03 (8.4978e-03)	Loss_bce 8.4978e-03 (8.4978e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [18][ 10/103]	Time  0.666 ( 0.720)	Loss 8.8032e-03 (8.8924e-03)	Loss_bce 8.8032e-03 (8.8924e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [18][ 20/103]	Time  0.667 ( 0.694)	Loss 9.3705e-03 (8.9417e-03)	Loss_bce 9.3705e-03 (8.9417e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [18][ 30/103]	Time  0.666 ( 0.685)	Loss 8.4074e-03 (8.8349e-03)	Loss_bce 8.4074e-03 (8.8349e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [18][ 40/103]	Time  0.669 ( 0.681)	Loss 8.1864e-03 (8.7538e-03)	Loss_bce 8.1864e-03 (8.7538e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [18][ 50/103]	Time  0.666 ( 0.678)	Loss 8.6901e-03 (8.6941e-03)	Loss_bce 8.6901e-03 (8.6941e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [18][ 60/103]	Time  0.668 ( 0.676)	Loss 8.4007e-03 (8.6576e-03)	Loss_bce 8.4007e-03 (8.6576e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [18][ 70/103]	Time  0.667 ( 0.675)	Loss 8.2802e-03 (8.6490e-03)	Loss_bce 8.2802e-03 (8.6490e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [18][ 80/103]	Time  0.667 ( 0.674)	Loss 8.1665e-03 (8.5972e-03)	Loss_bce 8.1665e-03 (8.5972e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [18][ 90/103]	Time  0.670 ( 0.673)	Loss 8.3300e-03 (8.5854e-03)	Loss_bce 8.3300e-03 (8.5854e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [18][100/103]	Time  0.665 ( 0.673)	Loss 8.2329e-03 (8.5734e-03)	Loss_bce 8.2329e-03 (8.5734e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Valid Eval
+Test: [0/6]	Time  0.926 ( 0.926)	Loss 1.2253e-02 (1.2253e-02)	Loss_bce 1.2253e-02 (1.2253e-02)	Acc@   0.98 (  0.98)	F1@   0.99 (  0.99)
+* Acc@ 0.933 F1@ 0.972
+Valid avg result: acc: 0.932806324110672, F1: 0.9720120459250893, loss: 0.02976400742358841 Loss_bce: 0.02976400742358841
+Test Eval
+Test: [0/7]	Time  0.927 ( 0.927)	Loss 9.6522e-02 (9.6522e-02)	Loss_bce 9.6522e-02 (9.6522e-02)	Acc@   0.74 (  0.74)	F1@   0.87 (  0.87)
+* Acc@ 0.772 F1@ 0.902
+Test avg result: acc: 0.7717391304347826, F1: 0.9018000920174832, loss: 0.08939898809517063 Loss_bce: 0.08939898809517063
+Saving model [/home/song/Desktop/Multi-Intents-Detection/models/arch[LABAN]_optim[adamw]_lr[1e-05]_lrsch[step]_batch[128]_MixATIS_selfattentive_laban]...
+==============================
+Epoch: [19] Current learning rate (lr) = 6.561e-06
+Epoch: [19][  0/103]	Time  1.255 ( 1.255)	Loss 7.9663e-03 (7.9663e-03)	Loss_bce 7.9663e-03 (7.9663e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [19][ 10/103]	Time  0.667 ( 0.725)	Loss 8.4066e-03 (8.4587e-03)	Loss_bce 8.4066e-03 (8.4587e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [19][ 20/103]	Time  0.673 ( 0.700)	Loss 8.6923e-03 (8.3720e-03)	Loss_bce 8.6923e-03 (8.3720e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [19][ 30/103]	Time  0.673 ( 0.692)	Loss 7.9465e-03 (8.3202e-03)	Loss_bce 7.9465e-03 (8.3202e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [19][ 40/103]	Time  0.673 ( 0.688)	Loss 7.5613e-03 (8.2431e-03)	Loss_bce 7.5613e-03 (8.2431e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [19][ 50/103]	Time  0.674 ( 0.685)	Loss 7.7321e-03 (8.1631e-03)	Loss_bce 7.7321e-03 (8.1631e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [19][ 60/103]	Time  0.673 ( 0.683)	Loss 7.9014e-03 (8.1327e-03)	Loss_bce 7.9014e-03 (8.1327e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [19][ 70/103]	Time  0.675 ( 0.682)	Loss 7.9402e-03 (8.0870e-03)	Loss_bce 7.9402e-03 (8.0870e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [19][ 80/103]	Time  0.671 ( 0.681)	Loss 7.9853e-03 (8.0785e-03)	Loss_bce 7.9853e-03 (8.0785e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [19][ 90/103]	Time  0.672 ( 0.680)	Loss 7.4544e-03 (8.0520e-03)	Loss_bce 7.4544e-03 (8.0520e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [19][100/103]	Time  0.674 ( 0.679)	Loss 6.9540e-03 (8.0076e-03)	Loss_bce 6.9540e-03 (8.0076e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Valid Eval
+Test: [0/6]	Time  0.926 ( 0.926)	Loss 1.1958e-02 (1.1958e-02)	Loss_bce 1.1958e-02 (1.1958e-02)	Acc@   0.98 (  0.98)	F1@   0.99 (  0.99)
+* Acc@ 0.934 F1@ 0.973
+Valid avg result: acc: 0.9341238471673254, F1: 0.9730911600476818, loss: 0.029565980444430363 Loss_bce: 0.029565980444430363
+Test Eval
+Test: [0/7]	Time  0.932 ( 0.932)	Loss 9.7505e-02 (9.7505e-02)	Loss_bce 9.7505e-02 (9.7505e-02)	Acc@   0.74 (  0.74)	F1@   0.88 (  0.88)
+* Acc@ 0.772 F1@ 0.904
+Test avg result: acc: 0.7717391304347826, F1: 0.9043765815504947, loss: 0.09056916224639773 Loss_bce: 0.09056916224639773
+Saving model [/home/song/Desktop/Multi-Intents-Detection/models/arch[LABAN]_optim[adamw]_lr[1e-05]_lrsch[step]_batch[128]_MixATIS_selfattentive_laban]...
+==============================
+Epoch: [20] Current learning rate (lr) = 5.904900000000001e-06
+Epoch: [20][  0/103]	Time  1.247 ( 1.247)	Loss 7.3669e-03 (7.3669e-03)	Loss_bce 7.3669e-03 (7.3669e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [20][ 10/103]	Time  0.673 ( 0.727)	Loss 7.4904e-03 (7.7764e-03)	Loss_bce 7.4904e-03 (7.7764e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [20][ 20/103]	Time  0.673 ( 0.702)	Loss 7.8129e-03 (7.7314e-03)	Loss_bce 7.8129e-03 (7.7314e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [20][ 30/103]	Time  0.674 ( 0.693)	Loss 7.8731e-03 (7.6827e-03)	Loss_bce 7.8731e-03 (7.6827e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [20][ 40/103]	Time  0.677 ( 0.689)	Loss 8.6750e-03 (7.6771e-03)	Loss_bce 8.6750e-03 (7.6771e-03)	Acc@   0.99 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [20][ 50/103]	Time  0.674 ( 0.686)	Loss 7.3624e-03 (7.6344e-03)	Loss_bce 7.3624e-03 (7.6344e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [20][ 60/103]	Time  0.674 ( 0.684)	Loss 7.3245e-03 (7.6106e-03)	Loss_bce 7.3245e-03 (7.6106e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [20][ 70/103]	Time  0.671 ( 0.682)	Loss 7.2382e-03 (7.5817e-03)	Loss_bce 7.2382e-03 (7.5817e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [20][ 80/103]	Time  0.673 ( 0.681)	Loss 7.4129e-03 (7.5434e-03)	Loss_bce 7.4129e-03 (7.5434e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [20][ 90/103]	Time  0.684 ( 0.681)	Loss 7.0764e-03 (7.5210e-03)	Loss_bce 7.0764e-03 (7.5210e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [20][100/103]	Time  0.672 ( 0.680)	Loss 7.2931e-03 (7.5053e-03)	Loss_bce 7.2931e-03 (7.5053e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Valid Eval
+Test: [0/6]	Time  0.931 ( 0.931)	Loss 1.2066e-02 (1.2066e-02)	Loss_bce 1.2066e-02 (1.2066e-02)	Acc@   0.98 (  0.98)	F1@   0.99 (  0.99)
+* Acc@ 0.933 F1@ 0.972
+Valid avg result: acc: 0.932806324110672, F1: 0.9721375243114373, loss: 0.0303043400444218 Loss_bce: 0.0303043400444218
+Test Eval
+Test: [0/7]	Time  0.928 ( 0.928)	Loss 9.8007e-02 (9.8007e-02)	Loss_bce 9.8007e-02 (9.8007e-02)	Acc@   0.75 (  0.75)	F1@   0.88 (  0.88)
+* Acc@ 0.773 F1@ 0.903
+Test avg result: acc: 0.7729468599033816, F1: 0.9033758914193696, loss: 0.09109505791451045 Loss_bce: 0.09109505791451045
+Saving model [/home/song/Desktop/Multi-Intents-Detection/models/arch[LABAN]_optim[adamw]_lr[1e-05]_lrsch[step]_batch[128]_MixATIS_selfattentive_laban]...
+==============================
+Epoch: [21] Current learning rate (lr) = 5.904900000000001e-06
+Epoch: [21][  0/103]	Time  1.255 ( 1.255)	Loss 7.1380e-03 (7.1380e-03)	Loss_bce 7.1380e-03 (7.1380e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [21][ 10/103]	Time  0.674 ( 0.727)	Loss 7.4638e-03 (7.2132e-03)	Loss_bce 7.4638e-03 (7.2132e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [21][ 20/103]	Time  0.677 ( 0.701)	Loss 7.0638e-03 (7.1849e-03)	Loss_bce 7.0638e-03 (7.1849e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [21][ 30/103]	Time  0.672 ( 0.692)	Loss 7.3436e-03 (7.2099e-03)	Loss_bce 7.3436e-03 (7.2099e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [21][ 40/103]	Time  0.673 ( 0.688)	Loss 6.9435e-03 (7.1973e-03)	Loss_bce 6.9435e-03 (7.1973e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [21][ 50/103]	Time  0.673 ( 0.685)	Loss 6.7355e-03 (7.1494e-03)	Loss_bce 6.7355e-03 (7.1494e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [21][ 60/103]	Time  0.671 ( 0.683)	Loss 7.9437e-03 (7.1372e-03)	Loss_bce 7.9437e-03 (7.1372e-03)	Acc@   0.99 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [21][ 70/103]	Time  0.672 ( 0.682)	Loss 7.0017e-03 (7.1264e-03)	Loss_bce 7.0017e-03 (7.1264e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [21][ 80/103]	Time  0.674 ( 0.680)	Loss 7.0333e-03 (7.1091e-03)	Loss_bce 7.0333e-03 (7.1091e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [21][ 90/103]	Time  0.674 ( 0.680)	Loss 6.6813e-03 (7.0962e-03)	Loss_bce 6.6813e-03 (7.0962e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [21][100/103]	Time  0.673 ( 0.679)	Loss 7.7989e-03 (7.0691e-03)	Loss_bce 7.7989e-03 (7.0691e-03)	Acc@   0.99 (  1.00)	F1@   1.00 (  1.00)
+Valid Eval
+Test: [0/6]	Time  0.939 ( 0.939)	Loss 1.1878e-02 (1.1878e-02)	Loss_bce 1.1878e-02 (1.1878e-02)	Acc@   0.98 (  0.98)	F1@   0.99 (  0.99)
+* Acc@ 0.931 F1@ 0.972
+Valid avg result: acc: 0.9314888010540184, F1: 0.9720810590375808, loss: 0.029961585659872402 Loss_bce: 0.029961585659872402
+Test Eval
+Test: [0/7]	Time  0.928 ( 0.928)	Loss 9.8358e-02 (9.8358e-02)	Loss_bce 9.8358e-02 (9.8358e-02)	Acc@   0.74 (  0.74)	F1@   0.88 (  0.88)
+* Acc@ 0.772 F1@ 0.903
+Test avg result: acc: 0.7717391304347826, F1: 0.9032723717506327, loss: 0.0916058212014788 Loss_bce: 0.0916058212014788
+Saving model [/home/song/Desktop/Multi-Intents-Detection/models/arch[LABAN]_optim[adamw]_lr[1e-05]_lrsch[step]_batch[128]_MixATIS_selfattentive_laban]...
+==============================
+Epoch: [22] Current learning rate (lr) = 5.904900000000001e-06
+Epoch: [22][  0/103]	Time  1.257 ( 1.257)	Loss 6.8989e-03 (6.8989e-03)	Loss_bce 6.8989e-03 (6.8989e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [22][ 10/103]	Time  0.674 ( 0.726)	Loss 6.7343e-03 (6.7963e-03)	Loss_bce 6.7343e-03 (6.7963e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [22][ 20/103]	Time  0.672 ( 0.701)	Loss 6.5284e-03 (6.7537e-03)	Loss_bce 6.5284e-03 (6.7537e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [22][ 30/103]	Time  0.673 ( 0.692)	Loss 6.6461e-03 (6.7289e-03)	Loss_bce 6.6461e-03 (6.7289e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [22][ 40/103]	Time  0.671 ( 0.688)	Loss 6.6736e-03 (6.7302e-03)	Loss_bce 6.6736e-03 (6.7302e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [22][ 50/103]	Time  0.678 ( 0.685)	Loss 6.2430e-03 (6.7256e-03)	Loss_bce 6.2430e-03 (6.7256e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [22][ 60/103]	Time  0.673 ( 0.683)	Loss 6.6049e-03 (6.7305e-03)	Loss_bce 6.6049e-03 (6.7305e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [22][ 70/103]	Time  0.672 ( 0.682)	Loss 6.5214e-03 (6.7276e-03)	Loss_bce 6.5214e-03 (6.7276e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [22][ 80/103]	Time  0.672 ( 0.681)	Loss 6.5133e-03 (6.7230e-03)	Loss_bce 6.5133e-03 (6.7230e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [22][ 90/103]	Time  0.673 ( 0.680)	Loss 6.6935e-03 (6.7012e-03)	Loss_bce 6.6935e-03 (6.7012e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [22][100/103]	Time  0.673 ( 0.679)	Loss 6.7022e-03 (6.6639e-03)	Loss_bce 6.7022e-03 (6.6639e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Valid Eval
+Test: [0/6]	Time  0.962 ( 0.962)	Loss 1.1735e-02 (1.1735e-02)	Loss_bce 1.1735e-02 (1.1735e-02)	Acc@   0.98 (  0.98)	F1@   0.99 (  0.99)
+* Acc@ 0.931 F1@ 0.972
+Valid avg result: acc: 0.9314888010540184, F1: 0.9722128113432462, loss: 0.030236071189166058 Loss_bce: 0.030236071189166058
+Test Eval
+Test: [0/7]	Time  0.919 ( 0.919)	Loss 9.9317e-02 (9.9317e-02)	Loss_bce 9.9317e-02 (9.9317e-02)	Acc@   0.74 (  0.74)	F1@   0.88 (  0.88)
+* Acc@ 0.772 F1@ 0.904
+Test avg result: acc: 0.7717391304347826, F1: 0.9035024154589374, loss: 0.09199300156411341 Loss_bce: 0.09199300156411341
+Saving model [/home/song/Desktop/Multi-Intents-Detection/models/arch[LABAN]_optim[adamw]_lr[1e-05]_lrsch[step]_batch[128]_MixATIS_selfattentive_laban]...
+==============================
+Epoch: [23] Current learning rate (lr) = 5.904900000000001e-06
+Epoch: [23][  0/103]	Time  1.257 ( 1.257)	Loss 7.2607e-03 (7.2607e-03)	Loss_bce 7.2607e-03 (7.2607e-03)	Acc@   0.99 (  0.99)	F1@   1.00 (  1.00)
+Epoch: [23][ 10/103]	Time  0.677 ( 0.730)	Loss 6.0347e-03 (6.5233e-03)	Loss_bce 6.0347e-03 (6.5233e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [23][ 20/103]	Time  0.675 ( 0.705)	Loss 6.8361e-03 (6.4222e-03)	Loss_bce 6.8361e-03 (6.4222e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [23][ 30/103]	Time  0.677 ( 0.696)	Loss 6.5160e-03 (6.4129e-03)	Loss_bce 6.5160e-03 (6.4129e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [23][ 40/103]	Time  0.678 ( 0.692)	Loss 5.8637e-03 (6.3931e-03)	Loss_bce 5.8637e-03 (6.3931e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [23][ 50/103]	Time  0.678 ( 0.689)	Loss 6.1980e-03 (6.3599e-03)	Loss_bce 6.1980e-03 (6.3599e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [23][ 60/103]	Time  0.676 ( 0.687)	Loss 6.5140e-03 (6.3769e-03)	Loss_bce 6.5140e-03 (6.3769e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [23][ 70/103]	Time  0.677 ( 0.686)	Loss 5.9787e-03 (6.3504e-03)	Loss_bce 5.9787e-03 (6.3504e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [23][ 80/103]	Time  0.679 ( 0.685)	Loss 5.8040e-03 (6.3241e-03)	Loss_bce 5.8040e-03 (6.3241e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [23][ 90/103]	Time  0.677 ( 0.684)	Loss 6.2789e-03 (6.3087e-03)	Loss_bce 6.2789e-03 (6.3087e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [23][100/103]	Time  0.678 ( 0.684)	Loss 6.2154e-03 (6.3130e-03)	Loss_bce 6.2154e-03 (6.3130e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Valid Eval
+Test: [0/6]	Time  0.924 ( 0.924)	Loss 1.1526e-02 (1.1526e-02)	Loss_bce 1.1526e-02 (1.1526e-02)	Acc@   0.98 (  0.98)	F1@   0.99 (  0.99)
+* Acc@ 0.933 F1@ 0.972
+Valid avg result: acc: 0.932806324110672, F1: 0.9724010289227681, loss: 0.030164011524639267 Loss_bce: 0.030164011524639267
+Test Eval
+Test: [0/7]	Time  0.931 ( 0.931)	Loss 1.0059e-01 (1.0059e-01)	Loss_bce 1.0059e-01 (1.0059e-01)	Acc@   0.74 (  0.74)	F1@   0.88 (  0.88)
+* Acc@ 0.772 F1@ 0.902
+Test avg result: acc: 0.7717391304347826, F1: 0.9024729698642743, loss: 0.0932598079820186 Loss_bce: 0.0932598079820186
+Saving model [/home/song/Desktop/Multi-Intents-Detection/models/arch[LABAN]_optim[adamw]_lr[1e-05]_lrsch[step]_batch[128]_MixATIS_selfattentive_laban]...
+==============================
+Epoch: [24] Current learning rate (lr) = 5.314410000000001e-06
+Epoch: [24][  0/103]	Time  1.251 ( 1.251)	Loss 5.7617e-03 (5.7617e-03)	Loss_bce 5.7617e-03 (5.7617e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [24][ 10/103]	Time  0.681 ( 0.726)	Loss 5.8840e-03 (6.0648e-03)	Loss_bce 5.8840e-03 (6.0648e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [24][ 20/103]	Time  0.673 ( 0.701)	Loss 5.9306e-03 (6.0119e-03)	Loss_bce 5.9306e-03 (6.0119e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [24][ 30/103]	Time  0.672 ( 0.692)	Loss 5.9022e-03 (5.9947e-03)	Loss_bce 5.9022e-03 (5.9947e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [24][ 40/103]	Time  0.674 ( 0.688)	Loss 6.4781e-03 (6.0184e-03)	Loss_bce 6.4781e-03 (6.0184e-03)	Acc@   0.99 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [24][ 50/103]	Time  0.674 ( 0.685)	Loss 5.7995e-03 (6.0428e-03)	Loss_bce 5.7995e-03 (6.0428e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [24][ 60/103]	Time  0.673 ( 0.683)	Loss 5.8551e-03 (6.0402e-03)	Loss_bce 5.8551e-03 (6.0402e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [24][ 70/103]	Time  0.674 ( 0.682)	Loss 5.8082e-03 (6.0273e-03)	Loss_bce 5.8082e-03 (6.0273e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [24][ 80/103]	Time  0.673 ( 0.681)	Loss 5.8437e-03 (6.0189e-03)	Loss_bce 5.8437e-03 (6.0189e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [24][ 90/103]	Time  0.673 ( 0.680)	Loss 5.6544e-03 (5.9884e-03)	Loss_bce 5.6544e-03 (5.9884e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [24][100/103]	Time  0.679 ( 0.680)	Loss 5.6759e-03 (5.9772e-03)	Loss_bce 5.6759e-03 (5.9772e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Valid Eval
+Test: [0/6]	Time  0.923 ( 0.923)	Loss 1.1207e-02 (1.1207e-02)	Loss_bce 1.1207e-02 (1.1207e-02)	Acc@   0.98 (  0.98)	F1@   0.99 (  0.99)
+* Acc@ 0.933 F1@ 0.973
+Valid avg result: acc: 0.932806324110672, F1: 0.9725766986636553, loss: 0.029817912737410687 Loss_bce: 0.029817912737410687
+Test Eval
+Test: [0/7]	Time  0.964 ( 0.964)	Loss 9.9989e-02 (9.9989e-02)	Loss_bce 9.9989e-02 (9.9989e-02)	Acc@   0.75 (  0.75)	F1@   0.88 (  0.88)
+* Acc@ 0.774 F1@ 0.904
+Test avg result: acc: 0.7741545893719807, F1: 0.9041925465838511, loss: 0.09296397306924857 Loss_bce: 0.09296397306924857
+Saving model [/home/song/Desktop/Multi-Intents-Detection/models/arch[LABAN]_optim[adamw]_lr[1e-05]_lrsch[step]_batch[128]_MixATIS_selfattentive_laban]...
+==============================
+Epoch: [25] Current learning rate (lr) = 5.314410000000001e-06
+Epoch: [25][  0/103]	Time  1.263 ( 1.263)	Loss 6.0098e-03 (6.0098e-03)	Loss_bce 6.0098e-03 (6.0098e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [25][ 10/103]	Time  0.676 ( 0.730)	Loss 5.9111e-03 (5.7846e-03)	Loss_bce 5.9111e-03 (5.7846e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [25][ 20/103]	Time  0.675 ( 0.704)	Loss 6.2074e-03 (5.7538e-03)	Loss_bce 6.2074e-03 (5.7538e-03)	Acc@   0.99 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [25][ 30/103]	Time  0.676 ( 0.695)	Loss 5.7127e-03 (5.7479e-03)	Loss_bce 5.7127e-03 (5.7479e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [25][ 40/103]	Time  0.676 ( 0.691)	Loss 5.8971e-03 (5.7520e-03)	Loss_bce 5.8971e-03 (5.7520e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [25][ 50/103]	Time  0.677 ( 0.688)	Loss 5.3031e-03 (5.7289e-03)	Loss_bce 5.3031e-03 (5.7289e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [25][ 60/103]	Time  0.676 ( 0.686)	Loss 5.6910e-03 (5.7065e-03)	Loss_bce 5.6910e-03 (5.7065e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [25][ 70/103]	Time  0.678 ( 0.685)	Loss 5.5696e-03 (5.6922e-03)	Loss_bce 5.5696e-03 (5.6922e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [25][ 80/103]	Time  0.678 ( 0.684)	Loss 5.4267e-03 (5.6670e-03)	Loss_bce 5.4267e-03 (5.6670e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [25][ 90/103]	Time  0.679 ( 0.684)	Loss 6.0143e-03 (5.6763e-03)	Loss_bce 6.0143e-03 (5.6763e-03)	Acc@   0.99 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [25][100/103]	Time  0.675 ( 0.683)	Loss 5.6648e-03 (5.6603e-03)	Loss_bce 5.6648e-03 (5.6603e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Valid Eval
+Test: [0/6]	Time  0.942 ( 0.942)	Loss 1.1324e-02 (1.1324e-02)	Loss_bce 1.1324e-02 (1.1324e-02)	Acc@   0.98 (  0.98)	F1@   0.99 (  0.99)
+* Acc@ 0.933 F1@ 0.972
+Valid avg result: acc: 0.932806324110672, F1: 0.9717548152330762, loss: 0.030946538927173427 Loss_bce: 0.030946538927173427
+Test Eval
+Test: [0/7]	Time  0.925 ( 0.925)	Loss 1.0268e-01 (1.0268e-01)	Loss_bce 1.0268e-01 (1.0268e-01)	Acc@   0.74 (  0.74)	F1@   0.88 (  0.88)
+* Acc@ 0.772 F1@ 0.902
+Test avg result: acc: 0.7717391304347826, F1: 0.9024442144007363, loss: 0.09506125967715673 Loss_bce: 0.09506125967715673
+Saving model [/home/song/Desktop/Multi-Intents-Detection/models/arch[LABAN]_optim[adamw]_lr[1e-05]_lrsch[step]_batch[128]_MixATIS_selfattentive_laban]...
+==============================
+Epoch: [26] Current learning rate (lr) = 5.314410000000001e-06
+Epoch: [26][  0/103]	Time  1.290 ( 1.290)	Loss 5.6500e-03 (5.6500e-03)	Loss_bce 5.6500e-03 (5.6500e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [26][ 10/103]	Time  0.667 ( 0.725)	Loss 5.3180e-03 (5.5997e-03)	Loss_bce 5.3180e-03 (5.5997e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [26][ 20/103]	Time  0.668 ( 0.698)	Loss 5.7362e-03 (5.5615e-03)	Loss_bce 5.7362e-03 (5.5615e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [26][ 30/103]	Time  0.668 ( 0.688)	Loss 5.3836e-03 (5.5571e-03)	Loss_bce 5.3836e-03 (5.5571e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [26][ 40/103]	Time  0.667 ( 0.683)	Loss 5.4750e-03 (5.5503e-03)	Loss_bce 5.4750e-03 (5.5503e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [26][ 50/103]	Time  0.669 ( 0.680)	Loss 5.0903e-03 (5.5469e-03)	Loss_bce 5.0903e-03 (5.5469e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [26][ 60/103]	Time  0.667 ( 0.679)	Loss 5.0595e-03 (5.5238e-03)	Loss_bce 5.0595e-03 (5.5238e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [26][ 70/103]	Time  0.668 ( 0.677)	Loss 5.7025e-03 (5.4951e-03)	Loss_bce 5.7025e-03 (5.4951e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [26][ 80/103]	Time  0.668 ( 0.676)	Loss 5.3394e-03 (5.4769e-03)	Loss_bce 5.3394e-03 (5.4769e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [26][ 90/103]	Time  0.668 ( 0.675)	Loss 5.3441e-03 (5.4489e-03)	Loss_bce 5.3441e-03 (5.4489e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [26][100/103]	Time  0.667 ( 0.674)	Loss 5.2018e-03 (5.4284e-03)	Loss_bce 5.2018e-03 (5.4284e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Valid Eval
+Test: [0/6]	Time  0.942 ( 0.942)	Loss 1.1014e-02 (1.1014e-02)	Loss_bce 1.1014e-02 (1.1014e-02)	Acc@   0.98 (  0.98)	F1@   0.99 (  0.99)
+* Acc@ 0.934 F1@ 0.973
+Valid avg result: acc: 0.9341238471673254, F1: 0.9728402032749859, loss: 0.030398388914714847 Loss_bce: 0.030398388914714847
+Test Eval
+Test: [0/7]	Time  0.958 ( 0.958)	Loss 1.0209e-01 (1.0209e-01)	Loss_bce 1.0209e-01 (1.0209e-01)	Acc@   0.74 (  0.74)	F1@   0.88 (  0.88)
+* Acc@ 0.773 F1@ 0.904
+Test avg result: acc: 0.7729468599033816, F1: 0.9037842190016103, loss: 0.09458419770578255 Loss_bce: 0.09458419770578255
+Saving model [/home/song/Desktop/Multi-Intents-Detection/models/arch[LABAN]_optim[adamw]_lr[1e-05]_lrsch[step]_batch[128]_MixATIS_selfattentive_laban]...
+==============================
+Epoch: [27] Current learning rate (lr) = 5.314410000000001e-06
+Epoch: [27][  0/103]	Time  1.254 ( 1.254)	Loss 5.3329e-03 (5.3329e-03)	Loss_bce 5.3329e-03 (5.3329e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [27][ 10/103]	Time  0.674 ( 0.728)	Loss 4.8964e-03 (5.3069e-03)	Loss_bce 4.8964e-03 (5.3069e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [27][ 20/103]	Time  0.676 ( 0.704)	Loss 5.3905e-03 (5.3035e-03)	Loss_bce 5.3905e-03 (5.3035e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [27][ 30/103]	Time  0.677 ( 0.695)	Loss 5.3914e-03 (5.2712e-03)	Loss_bce 5.3914e-03 (5.2712e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [27][ 40/103]	Time  0.678 ( 0.691)	Loss 5.1721e-03 (5.2642e-03)	Loss_bce 5.1721e-03 (5.2642e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [27][ 50/103]	Time  0.698 ( 0.689)	Loss 5.0230e-03 (5.2317e-03)	Loss_bce 5.0230e-03 (5.2317e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [27][ 60/103]	Time  0.677 ( 0.687)	Loss 5.2351e-03 (5.2054e-03)	Loss_bce 5.2351e-03 (5.2054e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [27][ 70/103]	Time  0.679 ( 0.685)	Loss 5.2828e-03 (5.1870e-03)	Loss_bce 5.2828e-03 (5.1870e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [27][ 80/103]	Time  0.677 ( 0.685)	Loss 4.8543e-03 (5.1603e-03)	Loss_bce 4.8543e-03 (5.1603e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [27][ 90/103]	Time  0.678 ( 0.684)	Loss 5.0661e-03 (5.1489e-03)	Loss_bce 5.0661e-03 (5.1489e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [27][100/103]	Time  0.676 ( 0.683)	Loss 5.0040e-03 (5.1309e-03)	Loss_bce 5.0040e-03 (5.1309e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Valid Eval
+Test: [0/6]	Time  0.936 ( 0.936)	Loss 1.0893e-02 (1.0893e-02)	Loss_bce 1.0893e-02 (1.0893e-02)	Acc@   0.98 (  0.98)	F1@   0.99 (  0.99)
+* Acc@ 0.933 F1@ 0.972
+Valid avg result: acc: 0.932806324110672, F1: 0.9724010289227681, loss: 0.03010669415411742 Loss_bce: 0.03010669415411742
+Test Eval
+Test: [0/7]	Time  0.926 ( 0.926)	Loss 1.0293e-01 (1.0293e-01)	Loss_bce 1.0293e-01 (1.0293e-01)	Acc@   0.74 (  0.74)	F1@   0.88 (  0.88)
+* Acc@ 0.773 F1@ 0.903
+Test avg result: acc: 0.7729468599033816, F1: 0.9033241315850011, loss: 0.09565599503868444 Loss_bce: 0.09565599503868444
+Saving model [/home/song/Desktop/Multi-Intents-Detection/models/arch[LABAN]_optim[adamw]_lr[1e-05]_lrsch[step]_batch[128]_MixATIS_selfattentive_laban]...
+==============================
+Epoch: [28] Current learning rate (lr) = 4.782969000000001e-06
+Epoch: [28][  0/103]	Time  1.253 ( 1.253)	Loss 5.1640e-03 (5.1640e-03)	Loss_bce 5.1640e-03 (5.1640e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [28][ 10/103]	Time  0.664 ( 0.719)	Loss 4.6997e-03 (5.0263e-03)	Loss_bce 4.6997e-03 (5.0263e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [28][ 20/103]	Time  0.665 ( 0.694)	Loss 4.9079e-03 (4.9565e-03)	Loss_bce 4.9079e-03 (4.9565e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [28][ 30/103]	Time  0.667 ( 0.685)	Loss 4.8883e-03 (4.9261e-03)	Loss_bce 4.8883e-03 (4.9261e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [28][ 40/103]	Time  0.669 ( 0.681)	Loss 4.7578e-03 (4.9333e-03)	Loss_bce 4.7578e-03 (4.9333e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [28][ 50/103]	Time  0.665 ( 0.679)	Loss 4.9834e-03 (4.9227e-03)	Loss_bce 4.9834e-03 (4.9227e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [28][ 60/103]	Time  0.667 ( 0.677)	Loss 4.8431e-03 (4.9164e-03)	Loss_bce 4.8431e-03 (4.9164e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [28][ 70/103]	Time  0.667 ( 0.675)	Loss 5.0997e-03 (4.9214e-03)	Loss_bce 5.0997e-03 (4.9214e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [28][ 80/103]	Time  0.666 ( 0.674)	Loss 5.0915e-03 (4.9256e-03)	Loss_bce 5.0915e-03 (4.9256e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [28][ 90/103]	Time  0.668 ( 0.673)	Loss 4.8288e-03 (4.9203e-03)	Loss_bce 4.8288e-03 (4.9203e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [28][100/103]	Time  0.667 ( 0.673)	Loss 4.8120e-03 (4.9118e-03)	Loss_bce 4.8120e-03 (4.9118e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Valid Eval
+Test: [0/6]	Time  0.936 ( 0.936)	Loss 1.1215e-02 (1.1215e-02)	Loss_bce 1.1215e-02 (1.1215e-02)	Acc@   0.98 (  0.98)	F1@   0.99 (  0.99)
+* Acc@ 0.933 F1@ 0.972
+Valid avg result: acc: 0.932806324110672, F1: 0.9724763159545768, loss: 0.031197023446694977 Loss_bce: 0.031197023446694977
+Test Eval
+Test: [0/7]	Time  0.935 ( 0.935)	Loss 1.0441e-01 (1.0441e-01)	Loss_bce 1.0441e-01 (1.0441e-01)	Acc@   0.76 (  0.76)	F1@   0.88 (  0.88)
+* Acc@ 0.775 F1@ 0.905
+Test avg result: acc: 0.7753623188405797, F1: 0.9045893719806763, loss: 0.09665814725961086 Loss_bce: 0.09665814725961086
+Saving model [/home/song/Desktop/Multi-Intents-Detection/models/arch[LABAN]_optim[adamw]_lr[1e-05]_lrsch[step]_batch[128]_MixATIS_selfattentive_laban]...
+==============================
+Epoch: [29] Current learning rate (lr) = 4.782969000000001e-06
+Epoch: [29][  0/103]	Time  1.247 ( 1.247)	Loss 4.8216e-03 (4.8216e-03)	Loss_bce 4.8216e-03 (4.8216e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [29][ 10/103]	Time  0.668 ( 0.720)	Loss 4.4603e-03 (4.8392e-03)	Loss_bce 4.4603e-03 (4.8392e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [29][ 20/103]	Time  0.667 ( 0.695)	Loss 4.6152e-03 (4.9202e-03)	Loss_bce 4.6152e-03 (4.9202e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [29][ 30/103]	Time  0.666 ( 0.686)	Loss 4.7565e-03 (4.8752e-03)	Loss_bce 4.7565e-03 (4.8752e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [29][ 40/103]	Time  0.666 ( 0.682)	Loss 4.8006e-03 (4.8174e-03)	Loss_bce 4.8006e-03 (4.8174e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [29][ 50/103]	Time  0.666 ( 0.679)	Loss 4.3096e-03 (4.7924e-03)	Loss_bce 4.3096e-03 (4.7924e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [29][ 60/103]	Time  0.667 ( 0.677)	Loss 4.6500e-03 (4.7697e-03)	Loss_bce 4.6500e-03 (4.7697e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [29][ 70/103]	Time  0.667 ( 0.676)	Loss 4.6289e-03 (4.7624e-03)	Loss_bce 4.6289e-03 (4.7624e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [29][ 80/103]	Time  0.667 ( 0.675)	Loss 4.8681e-03 (4.7428e-03)	Loss_bce 4.8681e-03 (4.7428e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [29][ 90/103]	Time  0.667 ( 0.674)	Loss 4.8224e-03 (4.7265e-03)	Loss_bce 4.8224e-03 (4.7265e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [29][100/103]	Time  0.667 ( 0.674)	Loss 4.4745e-03 (4.7116e-03)	Loss_bce 4.4745e-03 (4.7116e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Valid Eval
+Test: [0/6]	Time  0.921 ( 0.921)	Loss 1.1235e-02 (1.1235e-02)	Loss_bce 1.1235e-02 (1.1235e-02)	Acc@   0.98 (  0.98)	F1@   0.99 (  0.99)
+* Acc@ 0.933 F1@ 0.972
+Valid avg result: acc: 0.932806324110672, F1: 0.971974402409185, loss: 0.03144772446497156 Loss_bce: 0.03144772446497156
+Test Eval
+Test: [0/7]	Time  0.931 ( 0.931)	Loss 1.0490e-01 (1.0490e-01)	Loss_bce 1.0490e-01 (1.0490e-01)	Acc@   0.76 (  0.76)	F1@   0.88 (  0.88)
+* Acc@ 0.777 F1@ 0.904
+Test avg result: acc: 0.7765700483091788, F1: 0.9041752933057281, loss: 0.09730989813516681 Loss_bce: 0.09730989813516681
+Saving model [/home/song/Desktop/Multi-Intents-Detection/models/arch[LABAN]_optim[adamw]_lr[1e-05]_lrsch[step]_batch[128]_MixATIS_selfattentive_laban]...
+==============================
+Epoch: [30] Current learning rate (lr) = 4.782969000000001e-06
+Epoch: [30][  0/103]	Time  1.245 ( 1.245)	Loss 4.8419e-03 (4.8419e-03)	Loss_bce 4.8419e-03 (4.8419e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [30][ 10/103]	Time  0.667 ( 0.720)	Loss 4.4158e-03 (4.5591e-03)	Loss_bce 4.4158e-03 (4.5591e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [30][ 20/103]	Time  0.665 ( 0.695)	Loss 4.3399e-03 (4.5849e-03)	Loss_bce 4.3399e-03 (4.5849e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [30][ 30/103]	Time  0.666 ( 0.686)	Loss 4.7794e-03 (4.5657e-03)	Loss_bce 4.7794e-03 (4.5657e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [30][ 40/103]	Time  0.666 ( 0.681)	Loss 4.3485e-03 (4.5621e-03)	Loss_bce 4.3485e-03 (4.5621e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [30][ 50/103]	Time  0.667 ( 0.679)	Loss 4.6271e-03 (4.5459e-03)	Loss_bce 4.6271e-03 (4.5459e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [30][ 60/103]	Time  0.666 ( 0.677)	Loss 4.6259e-03 (4.5929e-03)	Loss_bce 4.6259e-03 (4.5929e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [30][ 70/103]	Time  0.668 ( 0.675)	Loss 4.1766e-03 (4.5751e-03)	Loss_bce 4.1766e-03 (4.5751e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [30][ 80/103]	Time  0.666 ( 0.675)	Loss 4.5727e-03 (4.5716e-03)	Loss_bce 4.5727e-03 (4.5716e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [30][ 90/103]	Time  0.667 ( 0.674)	Loss 4.6310e-03 (4.5432e-03)	Loss_bce 4.6310e-03 (4.5432e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [30][100/103]	Time  0.666 ( 0.673)	Loss 4.5942e-03 (4.5266e-03)	Loss_bce 4.5942e-03 (4.5266e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Valid Eval
+Test: [0/6]	Time  0.925 ( 0.925)	Loss 1.0929e-02 (1.0929e-02)	Loss_bce 1.0929e-02 (1.0929e-02)	Acc@   0.98 (  0.98)	F1@   0.99 (  0.99)
+* Acc@ 0.933 F1@ 0.972
+Valid avg result: acc: 0.932806324110672, F1: 0.9724010289227681, loss: 0.030928354170443356 Loss_bce: 0.030928354170443356
+Test Eval
+Test: [0/7]	Time  0.931 ( 0.931)	Loss 1.0532e-01 (1.0532e-01)	Loss_bce 1.0532e-01 (1.0532e-01)	Acc@   0.75 (  0.75)	F1@   0.88 (  0.88)
+* Acc@ 0.774 F1@ 0.903
+Test avg result: acc: 0.7741545893719807, F1: 0.9031631009891881, loss: 0.09749230069382755 Loss_bce: 0.09749230069382755
+Saving model [/home/song/Desktop/Multi-Intents-Detection/models/arch[LABAN]_optim[adamw]_lr[1e-05]_lrsch[step]_batch[128]_MixATIS_selfattentive_laban]...
+==============================
+Epoch: [31] Current learning rate (lr) = 4.782969000000001e-06
+Epoch: [31][  0/103]	Time  1.245 ( 1.245)	Loss 4.4109e-03 (4.4109e-03)	Loss_bce 4.4109e-03 (4.4109e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [31][ 10/103]	Time  0.668 ( 0.719)	Loss 4.5234e-03 (4.3534e-03)	Loss_bce 4.5234e-03 (4.3534e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [31][ 20/103]	Time  0.668 ( 0.695)	Loss 4.4001e-03 (4.3677e-03)	Loss_bce 4.4001e-03 (4.3677e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [31][ 30/103]	Time  0.667 ( 0.687)	Loss 4.2260e-03 (4.3876e-03)	Loss_bce 4.2260e-03 (4.3876e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [31][ 40/103]	Time  0.668 ( 0.682)	Loss 4.3141e-03 (4.3673e-03)	Loss_bce 4.3141e-03 (4.3673e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [31][ 50/103]	Time  0.669 ( 0.680)	Loss 4.2718e-03 (4.3628e-03)	Loss_bce 4.2718e-03 (4.3628e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [31][ 60/103]	Time  0.667 ( 0.678)	Loss 4.3412e-03 (4.3533e-03)	Loss_bce 4.3412e-03 (4.3533e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [31][ 70/103]	Time  0.666 ( 0.676)	Loss 4.1662e-03 (4.3323e-03)	Loss_bce 4.1662e-03 (4.3323e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [31][ 80/103]	Time  0.668 ( 0.675)	Loss 4.2943e-03 (4.3201e-03)	Loss_bce 4.2943e-03 (4.3201e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [31][ 90/103]	Time  0.667 ( 0.675)	Loss 4.4084e-03 (4.3311e-03)	Loss_bce 4.4084e-03 (4.3311e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [31][100/103]	Time  0.666 ( 0.674)	Loss 4.2862e-03 (4.3132e-03)	Loss_bce 4.2862e-03 (4.3132e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Valid Eval
+Test: [0/6]	Time  0.920 ( 0.920)	Loss 1.0641e-02 (1.0641e-02)	Loss_bce 1.0641e-02 (1.0641e-02)	Acc@   0.98 (  0.98)	F1@   0.99 (  0.99)
+* Acc@ 0.933 F1@ 0.972
+Valid avg result: acc: 0.932806324110672, F1: 0.971974402409185, loss: 0.030747426646775093 Loss_bce: 0.030747426646775093
+Test Eval
+Test: [0/7]	Time  0.927 ( 0.927)	Loss 1.0599e-01 (1.0599e-01)	Loss_bce 1.0599e-01 (1.0599e-01)	Acc@   0.76 (  0.76)	F1@   0.88 (  0.88)
+* Acc@ 0.777 F1@ 0.904
+Test avg result: acc: 0.7765700483091788, F1: 0.9042903151598803, loss: 0.09764446753666596 Loss_bce: 0.09764446753666596
+Saving model [/home/song/Desktop/Multi-Intents-Detection/models/arch[LABAN]_optim[adamw]_lr[1e-05]_lrsch[step]_batch[128]_MixATIS_selfattentive_laban]...
+==============================
+Epoch: [32] Current learning rate (lr) = 4.3046721000000005e-06
+Epoch: [32][  0/103]	Time  1.260 ( 1.260)	Loss 4.2280e-03 (4.2280e-03)	Loss_bce 4.2280e-03 (4.2280e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [32][ 10/103]	Time  0.677 ( 0.730)	Loss 4.2917e-03 (4.2709e-03)	Loss_bce 4.2917e-03 (4.2709e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [32][ 20/103]	Time  0.676 ( 0.705)	Loss 4.2330e-03 (4.2806e-03)	Loss_bce 4.2330e-03 (4.2806e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [32][ 30/103]	Time  0.668 ( 0.693)	Loss 4.1718e-03 (4.2335e-03)	Loss_bce 4.1718e-03 (4.2335e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [32][ 40/103]	Time  0.667 ( 0.687)	Loss 3.9826e-03 (4.2088e-03)	Loss_bce 3.9826e-03 (4.2088e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [32][ 50/103]	Time  0.668 ( 0.683)	Loss 4.1049e-03 (4.2047e-03)	Loss_bce 4.1049e-03 (4.2047e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [32][ 60/103]	Time  0.668 ( 0.681)	Loss 4.0803e-03 (4.2050e-03)	Loss_bce 4.0803e-03 (4.2050e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [32][ 70/103]	Time  0.667 ( 0.679)	Loss 4.3242e-03 (4.2053e-03)	Loss_bce 4.3242e-03 (4.2053e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [32][ 80/103]	Time  0.665 ( 0.678)	Loss 4.1179e-03 (4.1829e-03)	Loss_bce 4.1179e-03 (4.1829e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [32][ 90/103]	Time  0.667 ( 0.677)	Loss 3.9343e-03 (4.1755e-03)	Loss_bce 3.9343e-03 (4.1755e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [32][100/103]	Time  0.674 ( 0.676)	Loss 4.1181e-03 (4.1652e-03)	Loss_bce 4.1181e-03 (4.1652e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Valid Eval
+Test: [0/6]	Time  0.930 ( 0.930)	Loss 1.0918e-02 (1.0918e-02)	Loss_bce 1.0918e-02 (1.0918e-02)	Acc@   0.98 (  0.98)	F1@   0.99 (  0.99)
+* Acc@ 0.933 F1@ 0.972
+Valid avg result: acc: 0.932806324110672, F1: 0.972225359181881, loss: 0.031069751750378426 Loss_bce: 0.031069751750378426
+Test Eval
+Test: [0/7]	Time  0.927 ( 0.927)	Loss 1.0742e-01 (1.0742e-01)	Loss_bce 1.0742e-01 (1.0742e-01)	Acc@   0.76 (  0.76)	F1@   0.88 (  0.88)
+* Acc@ 0.775 F1@ 0.904
+Test avg result: acc: 0.7753623188405797, F1: 0.9044168391994479, loss: 0.09940588488670939 Loss_bce: 0.09940588488670939
+Saving model [/home/song/Desktop/Multi-Intents-Detection/models/arch[LABAN]_optim[adamw]_lr[1e-05]_lrsch[step]_batch[128]_MixATIS_selfattentive_laban]...
+==============================
+Epoch: [33] Current learning rate (lr) = 4.3046721000000005e-06
+Epoch: [33][  0/103]	Time  1.249 ( 1.249)	Loss 4.0732e-03 (4.0732e-03)	Loss_bce 4.0732e-03 (4.0732e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [33][ 10/103]	Time  0.666 ( 0.719)	Loss 4.1212e-03 (4.0358e-03)	Loss_bce 4.1212e-03 (4.0358e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [33][ 20/103]	Time  0.666 ( 0.694)	Loss 4.1013e-03 (4.0756e-03)	Loss_bce 4.1013e-03 (4.0756e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [33][ 30/103]	Time  0.668 ( 0.686)	Loss 4.2985e-03 (4.0532e-03)	Loss_bce 4.2985e-03 (4.0532e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [33][ 40/103]	Time  0.672 ( 0.682)	Loss 3.7792e-03 (4.0772e-03)	Loss_bce 3.7792e-03 (4.0772e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [33][ 50/103]	Time  0.673 ( 0.680)	Loss 4.0780e-03 (4.0686e-03)	Loss_bce 4.0780e-03 (4.0686e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [33][ 60/103]	Time  0.676 ( 0.679)	Loss 3.7414e-03 (4.0581e-03)	Loss_bce 3.7414e-03 (4.0581e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [33][ 70/103]	Time  0.671 ( 0.678)	Loss 3.8402e-03 (4.0435e-03)	Loss_bce 3.8402e-03 (4.0435e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [33][ 80/103]	Time  0.673 ( 0.678)	Loss 3.8385e-03 (4.0338e-03)	Loss_bce 3.8385e-03 (4.0338e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [33][ 90/103]	Time  0.672 ( 0.677)	Loss 3.8188e-03 (4.0174e-03)	Loss_bce 3.8188e-03 (4.0174e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [33][100/103]	Time  0.673 ( 0.677)	Loss 4.3558e-03 (4.0080e-03)	Loss_bce 4.3558e-03 (4.0080e-03)	Acc@   0.99 (  1.00)	F1@   1.00 (  1.00)
+Valid Eval
+Test: [0/6]	Time  0.929 ( 0.929)	Loss 1.0980e-02 (1.0980e-02)	Loss_bce 1.0980e-02 (1.0980e-02)	Acc@   0.98 (  0.98)	F1@   0.99 (  0.99)
+* Acc@ 0.934 F1@ 0.973
+Valid avg result: acc: 0.9341238471673254, F1: 0.9727900119204467, loss: 0.030933066868813457 Loss_bce: 0.030933066868813457
+Test Eval
+Test: [0/7]	Time  0.927 ( 0.927)	Loss 1.0875e-01 (1.0875e-01)	Loss_bce 1.0875e-01 (1.0875e-01)	Acc@   0.76 (  0.76)	F1@   0.88 (  0.88)
+* Acc@ 0.777 F1@ 0.905
+Test avg result: acc: 0.7765700483091788, F1: 0.9046468829077524, loss: 0.10033601562038136 Loss_bce: 0.10033601562038136
+Saving model [/home/song/Desktop/Multi-Intents-Detection/models/arch[LABAN]_optim[adamw]_lr[1e-05]_lrsch[step]_batch[128]_MixATIS_selfattentive_laban]...
+==============================
+Epoch: [34] Current learning rate (lr) = 4.3046721000000005e-06
+Epoch: [34][  0/103]	Time  1.273 ( 1.273)	Loss 3.7963e-03 (3.7963e-03)	Loss_bce 3.7963e-03 (3.7963e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [34][ 10/103]	Time  0.672 ( 0.730)	Loss 4.1796e-03 (3.8837e-03)	Loss_bce 4.1796e-03 (3.8837e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [34][ 20/103]	Time  0.677 ( 0.705)	Loss 3.9671e-03 (3.8886e-03)	Loss_bce 3.9671e-03 (3.8886e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [34][ 30/103]	Time  0.676 ( 0.696)	Loss 3.6796e-03 (3.8769e-03)	Loss_bce 3.6796e-03 (3.8769e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [34][ 40/103]	Time  0.677 ( 0.691)	Loss 3.7308e-03 (3.8630e-03)	Loss_bce 3.7308e-03 (3.8630e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [34][ 50/103]	Time  0.680 ( 0.688)	Loss 3.9176e-03 (3.8726e-03)	Loss_bce 3.9176e-03 (3.8726e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [34][ 60/103]	Time  0.679 ( 0.687)	Loss 3.7187e-03 (3.8664e-03)	Loss_bce 3.7187e-03 (3.8664e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [34][ 70/103]	Time  0.678 ( 0.685)	Loss 3.7145e-03 (3.8573e-03)	Loss_bce 3.7145e-03 (3.8573e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [34][ 80/103]	Time  0.678 ( 0.685)	Loss 3.7089e-03 (3.8429e-03)	Loss_bce 3.7089e-03 (3.8429e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [34][ 90/103]	Time  0.680 ( 0.684)	Loss 3.5676e-03 (3.8332e-03)	Loss_bce 3.5676e-03 (3.8332e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [34][100/103]	Time  0.675 ( 0.683)	Loss 3.8019e-03 (3.8243e-03)	Loss_bce 3.8019e-03 (3.8243e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Valid Eval
+Test: [0/6]	Time  0.922 ( 0.922)	Loss 1.0889e-02 (1.0889e-02)	Loss_bce 1.0889e-02 (1.0889e-02)	Acc@   0.98 (  0.98)	F1@   0.99 (  0.99)
+* Acc@ 0.933 F1@ 0.972
+Valid avg result: acc: 0.932806324110672, F1: 0.972225359181881, loss: 0.030895021058157657 Loss_bce: 0.030895021058157657
+Test Eval
+Test: [0/7]	Time  0.939 ( 0.939)	Loss 1.0924e-01 (1.0924e-01)	Loss_bce 1.0924e-01 (1.0924e-01)	Acc@   0.75 (  0.75)	F1@   0.88 (  0.88)
+* Acc@ 0.775 F1@ 0.903
+Test avg result: acc: 0.7753623188405797, F1: 0.9029330572808834, loss: 0.10059799307930296 Loss_bce: 0.10059799307930296
+Saving model [/home/song/Desktop/Multi-Intents-Detection/models/arch[LABAN]_optim[adamw]_lr[1e-05]_lrsch[step]_batch[128]_MixATIS_selfattentive_laban]...
+==============================
+Epoch: [35] Current learning rate (lr) = 4.3046721000000005e-06
+Epoch: [35][  0/103]	Time  1.257 ( 1.257)	Loss 3.5776e-03 (3.5776e-03)	Loss_bce 3.5776e-03 (3.5776e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [35][ 10/103]	Time  0.673 ( 0.726)	Loss 3.5991e-03 (3.6807e-03)	Loss_bce 3.5991e-03 (3.6807e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [35][ 20/103]	Time  0.675 ( 0.701)	Loss 3.5735e-03 (3.6886e-03)	Loss_bce 3.5735e-03 (3.6886e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [35][ 30/103]	Time  0.677 ( 0.694)	Loss 3.7113e-03 (3.6975e-03)	Loss_bce 3.7113e-03 (3.6975e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [35][ 40/103]	Time  0.677 ( 0.690)	Loss 3.5574e-03 (3.7052e-03)	Loss_bce 3.5574e-03 (3.7052e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [35][ 50/103]	Time  0.676 ( 0.687)	Loss 3.4848e-03 (3.7022e-03)	Loss_bce 3.4848e-03 (3.7022e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [35][ 60/103]	Time  0.676 ( 0.685)	Loss 3.5723e-03 (3.6883e-03)	Loss_bce 3.5723e-03 (3.6883e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [35][ 70/103]	Time  0.676 ( 0.684)	Loss 3.6934e-03 (3.6910e-03)	Loss_bce 3.6934e-03 (3.6910e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [35][ 80/103]	Time  0.676 ( 0.683)	Loss 3.3445e-03 (3.6950e-03)	Loss_bce 3.3445e-03 (3.6950e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [35][ 90/103]	Time  0.676 ( 0.683)	Loss 3.6660e-03 (3.6784e-03)	Loss_bce 3.6660e-03 (3.6784e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [35][100/103]	Time  0.680 ( 0.682)	Loss 3.5040e-03 (3.6782e-03)	Loss_bce 3.5040e-03 (3.6782e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Valid Eval
+Test: [0/6]	Time  0.934 ( 0.934)	Loss 1.0839e-02 (1.0839e-02)	Loss_bce 1.0839e-02 (1.0839e-02)	Acc@   0.98 (  0.98)	F1@   0.99 (  0.99)
+* Acc@ 0.931 F1@ 0.972
+Valid avg result: acc: 0.9314888010540184, F1: 0.9719618545705502, loss: 0.03120796696058375 Loss_bce: 0.03120796696058375
+Test Eval
+Test: [0/7]	Time  0.933 ( 0.933)	Loss 1.0911e-01 (1.0911e-01)	Loss_bce 1.0911e-01 (1.0911e-01)	Acc@   0.76 (  0.76)	F1@   0.88 (  0.88)
+* Acc@ 0.777 F1@ 0.904
+Test avg result: acc: 0.7765700483091788, F1: 0.9037382102599494, loss: 0.10073516337911864 Loss_bce: 0.10073516337911864
+Saving model [/home/song/Desktop/Multi-Intents-Detection/models/arch[LABAN]_optim[adamw]_lr[1e-05]_lrsch[step]_batch[128]_MixATIS_selfattentive_laban]...
+==============================
+Epoch: [36] Current learning rate (lr) = 3.874204890000001e-06
+Epoch: [36][  0/103]	Time  1.256 ( 1.256)	Loss 3.5818e-03 (3.5818e-03)	Loss_bce 3.5818e-03 (3.5818e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [36][ 10/103]	Time  0.665 ( 0.718)	Loss 3.4494e-03 (3.5238e-03)	Loss_bce 3.4494e-03 (3.5238e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [36][ 20/103]	Time  0.681 ( 0.694)	Loss 3.5160e-03 (3.5813e-03)	Loss_bce 3.5160e-03 (3.5813e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [36][ 30/103]	Time  0.665 ( 0.685)	Loss 4.5918e-03 (3.6125e-03)	Loss_bce 4.5918e-03 (3.6125e-03)	Acc@   0.99 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [36][ 40/103]	Time  0.665 ( 0.680)	Loss 3.6418e-03 (3.6195e-03)	Loss_bce 3.6418e-03 (3.6195e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [36][ 50/103]	Time  0.663 ( 0.677)	Loss 3.5383e-03 (3.5976e-03)	Loss_bce 3.5383e-03 (3.5976e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [36][ 60/103]	Time  0.666 ( 0.675)	Loss 3.5818e-03 (3.5697e-03)	Loss_bce 3.5818e-03 (3.5697e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [36][ 70/103]	Time  0.667 ( 0.674)	Loss 3.5709e-03 (3.5649e-03)	Loss_bce 3.5709e-03 (3.5649e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [36][ 80/103]	Time  0.665 ( 0.673)	Loss 3.3621e-03 (3.5548e-03)	Loss_bce 3.3621e-03 (3.5548e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [36][ 90/103]	Time  0.665 ( 0.673)	Loss 3.3873e-03 (3.5539e-03)	Loss_bce 3.3873e-03 (3.5539e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [36][100/103]	Time  0.666 ( 0.672)	Loss 3.5455e-03 (3.5463e-03)	Loss_bce 3.5455e-03 (3.5463e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Valid Eval
+Test: [0/6]	Time  0.934 ( 0.934)	Loss 1.1108e-02 (1.1108e-02)	Loss_bce 1.1108e-02 (1.1108e-02)	Acc@   0.98 (  0.98)	F1@   0.99 (  0.99)
+* Acc@ 0.934 F1@ 0.973
+Valid avg result: acc: 0.9341238471673254, F1: 0.9730409686931426, loss: 0.03133379315100954 Loss_bce: 0.03133379315100954
+Test Eval
+Test: [0/7]	Time  0.927 ( 0.927)	Loss 1.1064e-01 (1.1064e-01)	Loss_bce 1.1064e-01 (1.1064e-01)	Acc@   0.75 (  0.75)	F1@   0.88 (  0.88)
+* Acc@ 0.775 F1@ 0.904
+Test avg result: acc: 0.7753623188405797, F1: 0.9040717736369911, loss: 0.10164824668048085 Loss_bce: 0.10164824668048085
+Saving model [/home/song/Desktop/Multi-Intents-Detection/models/arch[LABAN]_optim[adamw]_lr[1e-05]_lrsch[step]_batch[128]_MixATIS_selfattentive_laban]...
+==============================
+Epoch: [37] Current learning rate (lr) = 3.874204890000001e-06
+Epoch: [37][  0/103]	Time  1.253 ( 1.253)	Loss 3.6134e-03 (3.6134e-03)	Loss_bce 3.6134e-03 (3.6134e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [37][ 10/103]	Time  0.672 ( 0.725)	Loss 3.3581e-03 (3.4480e-03)	Loss_bce 3.3581e-03 (3.4480e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [37][ 20/103]	Time  0.672 ( 0.700)	Loss 3.4540e-03 (3.4439e-03)	Loss_bce 3.4540e-03 (3.4439e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [37][ 30/103]	Time  0.673 ( 0.691)	Loss 3.3661e-03 (3.4431e-03)	Loss_bce 3.3661e-03 (3.4431e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [37][ 40/103]	Time  0.673 ( 0.687)	Loss 3.2871e-03 (3.4272e-03)	Loss_bce 3.2871e-03 (3.4272e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [37][ 50/103]	Time  0.675 ( 0.684)	Loss 3.1168e-03 (3.4195e-03)	Loss_bce 3.1168e-03 (3.4195e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [37][ 60/103]	Time  0.673 ( 0.683)	Loss 3.5066e-03 (3.4267e-03)	Loss_bce 3.5066e-03 (3.4267e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [37][ 70/103]	Time  0.674 ( 0.681)	Loss 3.4731e-03 (3.4214e-03)	Loss_bce 3.4731e-03 (3.4214e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [37][ 80/103]	Time  0.678 ( 0.681)	Loss 3.4667e-03 (3.4119e-03)	Loss_bce 3.4667e-03 (3.4119e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [37][ 90/103]	Time  0.675 ( 0.680)	Loss 3.4876e-03 (3.4111e-03)	Loss_bce 3.4876e-03 (3.4111e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [37][100/103]	Time  0.674 ( 0.679)	Loss 3.1490e-03 (3.4086e-03)	Loss_bce 3.1490e-03 (3.4086e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Valid Eval
+Test: [0/6]	Time  0.922 ( 0.922)	Loss 1.0902e-02 (1.0902e-02)	Loss_bce 1.0902e-02 (1.0902e-02)	Acc@   0.98 (  0.98)	F1@   0.99 (  0.99)
+* Acc@ 0.931 F1@ 0.972
+Valid avg result: acc: 0.9314888010540184, F1: 0.9715665976535542, loss: 0.03278499353328555 Loss_bce: 0.03278499353328555
+Test Eval
+Test: [0/7]	Time  0.933 ( 0.933)	Loss 1.1136e-01 (1.1136e-01)	Loss_bce 1.1136e-01 (1.1136e-01)	Acc@   0.75 (  0.75)	F1@   0.88 (  0.88)
+* Acc@ 0.775 F1@ 0.904
+Test avg result: acc: 0.7753623188405797, F1: 0.9035081665516449, loss: 0.1026453658722449 Loss_bce: 0.1026453658722449
+Saving model [/home/song/Desktop/Multi-Intents-Detection/models/arch[LABAN]_optim[adamw]_lr[1e-05]_lrsch[step]_batch[128]_MixATIS_selfattentive_laban]...
+==============================
+Epoch: [38] Current learning rate (lr) = 3.874204890000001e-06
+Epoch: [38][  0/103]	Time  1.246 ( 1.246)	Loss 3.4787e-03 (3.4787e-03)	Loss_bce 3.4787e-03 (3.4787e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [38][ 10/103]	Time  0.668 ( 0.720)	Loss 3.2857e-03 (3.4023e-03)	Loss_bce 3.2857e-03 (3.4023e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [38][ 20/103]	Time  0.666 ( 0.694)	Loss 3.2606e-03 (3.3390e-03)	Loss_bce 3.2606e-03 (3.3390e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [38][ 30/103]	Time  0.666 ( 0.686)	Loss 3.3617e-03 (3.3331e-03)	Loss_bce 3.3617e-03 (3.3331e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [38][ 40/103]	Time  0.668 ( 0.681)	Loss 2.9780e-03 (3.3427e-03)	Loss_bce 2.9780e-03 (3.3427e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [38][ 50/103]	Time  0.667 ( 0.678)	Loss 3.2729e-03 (3.3442e-03)	Loss_bce 3.2729e-03 (3.3442e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [38][ 60/103]	Time  0.670 ( 0.677)	Loss 3.2758e-03 (3.3499e-03)	Loss_bce 3.2758e-03 (3.3499e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [38][ 70/103]	Time  0.667 ( 0.675)	Loss 3.4283e-03 (3.3356e-03)	Loss_bce 3.4283e-03 (3.3356e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [38][ 80/103]	Time  0.667 ( 0.674)	Loss 3.3411e-03 (3.3345e-03)	Loss_bce 3.3411e-03 (3.3345e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [38][ 90/103]	Time  0.665 ( 0.674)	Loss 3.4650e-03 (3.3308e-03)	Loss_bce 3.4650e-03 (3.3308e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [38][100/103]	Time  0.669 ( 0.673)	Loss 3.2630e-03 (3.3140e-03)	Loss_bce 3.2630e-03 (3.3140e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Valid Eval
+Test: [0/6]	Time  0.926 ( 0.926)	Loss 1.0804e-02 (1.0804e-02)	Loss_bce 1.0804e-02 (1.0804e-02)	Acc@   0.98 (  0.98)	F1@   0.99 (  0.99)
+* Acc@ 0.931 F1@ 0.972
+Valid avg result: acc: 0.9314888010540184, F1: 0.9715665976535542, loss: 0.032392386572830605 Loss_bce: 0.032392386572830605
+Test Eval
+Test: [0/7]	Time  0.925 ( 0.925)	Loss 1.1132e-01 (1.1132e-01)	Loss_bce 1.1132e-01 (1.1132e-01)	Acc@   0.76 (  0.76)	F1@   0.88 (  0.88)
+* Acc@ 0.777 F1@ 0.904
+Test avg result: acc: 0.7765700483091788, F1: 0.9043478260869566, loss: 0.1025844142920729 Loss_bce: 0.1025844142920729
+Saving model [/home/song/Desktop/Multi-Intents-Detection/models/arch[LABAN]_optim[adamw]_lr[1e-05]_lrsch[step]_batch[128]_MixATIS_selfattentive_laban]...
+==============================
+Epoch: [39] Current learning rate (lr) = 3.874204890000001e-06
+Epoch: [39][  0/103]	Time  1.261 ( 1.261)	Loss 3.1772e-03 (3.1772e-03)	Loss_bce 3.1772e-03 (3.1772e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [39][ 10/103]	Time  0.677 ( 0.730)	Loss 3.2321e-03 (3.1692e-03)	Loss_bce 3.2321e-03 (3.1692e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [39][ 20/103]	Time  0.677 ( 0.705)	Loss 3.2387e-03 (3.1817e-03)	Loss_bce 3.2387e-03 (3.1817e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [39][ 30/103]	Time  0.676 ( 0.696)	Loss 2.9591e-03 (3.1877e-03)	Loss_bce 2.9591e-03 (3.1877e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [39][ 40/103]	Time  0.678 ( 0.691)	Loss 2.8563e-03 (3.1634e-03)	Loss_bce 2.8563e-03 (3.1634e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [39][ 50/103]	Time  0.678 ( 0.689)	Loss 3.0622e-03 (3.1706e-03)	Loss_bce 3.0622e-03 (3.1706e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [39][ 60/103]	Time  0.677 ( 0.687)	Loss 2.9221e-03 (3.1773e-03)	Loss_bce 2.9221e-03 (3.1773e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [39][ 70/103]	Time  0.677 ( 0.686)	Loss 3.1505e-03 (3.1883e-03)	Loss_bce 3.1505e-03 (3.1883e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [39][ 80/103]	Time  0.676 ( 0.685)	Loss 3.0620e-03 (3.1837e-03)	Loss_bce 3.0620e-03 (3.1837e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [39][ 90/103]	Time  0.677 ( 0.684)	Loss 3.2006e-03 (3.1864e-03)	Loss_bce 3.2006e-03 (3.1864e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [39][100/103]	Time  0.676 ( 0.683)	Loss 3.1449e-03 (3.1871e-03)	Loss_bce 3.1449e-03 (3.1871e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Valid Eval
+Test: [0/6]	Time  0.932 ( 0.932)	Loss 1.0947e-02 (1.0947e-02)	Loss_bce 1.0947e-02 (1.0947e-02)	Acc@   0.98 (  0.98)	F1@   0.99 (  0.99)
+* Acc@ 0.931 F1@ 0.971
+Valid avg result: acc: 0.9314888010540184, F1: 0.9714411192672063, loss: 0.0330303649323574 Loss_bce: 0.0330303649323574
+Test Eval
+Test: [0/7]	Time  0.923 ( 0.923)	Loss 1.1244e-01 (1.1244e-01)	Loss_bce 1.1244e-01 (1.1244e-01)	Acc@   0.76 (  0.76)	F1@   0.88 (  0.88)
+* Acc@ 0.777 F1@ 0.904
+Test avg result: acc: 0.7765700483091788, F1: 0.9036922015182887, loss: 0.10368447560043151 Loss_bce: 0.10368447560043151
+Saving model [/home/song/Desktop/Multi-Intents-Detection/models/arch[LABAN]_optim[adamw]_lr[1e-05]_lrsch[step]_batch[128]_MixATIS_selfattentive_laban]...
+==============================
+Epoch: [40] Current learning rate (lr) = 3.4867844010000007e-06
+Epoch: [40][  0/103]	Time  1.254 ( 1.254)	Loss 3.3046e-03 (3.3046e-03)	Loss_bce 3.3046e-03 (3.3046e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [40][ 10/103]	Time  0.675 ( 0.723)	Loss 3.9579e-03 (3.1965e-03)	Loss_bce 3.9579e-03 (3.1965e-03)	Acc@   0.99 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [40][ 20/103]	Time  0.666 ( 0.696)	Loss 3.1481e-03 (3.1261e-03)	Loss_bce 3.1481e-03 (3.1261e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [40][ 30/103]	Time  0.666 ( 0.686)	Loss 2.9817e-03 (3.1069e-03)	Loss_bce 2.9817e-03 (3.1069e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [40][ 40/103]	Time  0.667 ( 0.682)	Loss 2.9918e-03 (3.1131e-03)	Loss_bce 2.9918e-03 (3.1131e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [40][ 50/103]	Time  0.667 ( 0.679)	Loss 3.1832e-03 (3.1133e-03)	Loss_bce 3.1832e-03 (3.1133e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [40][ 60/103]	Time  0.667 ( 0.677)	Loss 3.0284e-03 (3.1013e-03)	Loss_bce 3.0284e-03 (3.1013e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [40][ 70/103]	Time  0.669 ( 0.675)	Loss 2.9064e-03 (3.0949e-03)	Loss_bce 2.9064e-03 (3.0949e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [40][ 80/103]	Time  0.667 ( 0.674)	Loss 3.0687e-03 (3.0931e-03)	Loss_bce 3.0687e-03 (3.0931e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [40][ 90/103]	Time  0.666 ( 0.674)	Loss 3.0640e-03 (3.0871e-03)	Loss_bce 3.0640e-03 (3.0871e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [40][100/103]	Time  0.674 ( 0.673)	Loss 2.9815e-03 (3.0859e-03)	Loss_bce 2.9815e-03 (3.0859e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Valid Eval
+Test: [0/6]	Time  0.931 ( 0.931)	Loss 1.0960e-02 (1.0960e-02)	Loss_bce 1.0960e-02 (1.0960e-02)	Acc@   0.98 (  0.98)	F1@   0.99 (  0.99)
+* Acc@ 0.930 F1@ 0.971
+Valid avg result: acc: 0.930171277997365, F1: 0.9711274233013364, loss: 0.03271553170166625 Loss_bce: 0.03271553170166625
+Test Eval
+Test: [0/7]	Time  1.078 ( 1.078)	Loss 1.1396e-01 (1.1396e-01)	Loss_bce 1.1396e-01 (1.1396e-01)	Acc@   0.76 (  0.76)	F1@   0.88 (  0.88)
+* Acc@ 0.777 F1@ 0.904
+Test avg result: acc: 0.7765700483091788, F1: 0.9043018173452957, loss: 0.10484542438517445 Loss_bce: 0.10484542438517445
+Saving model [/home/song/Desktop/Multi-Intents-Detection/models/arch[LABAN]_optim[adamw]_lr[1e-05]_lrsch[step]_batch[128]_MixATIS_selfattentive_laban]...
+==============================
+Epoch: [41] Current learning rate (lr) = 3.4867844010000007e-06
+Epoch: [41][  0/103]	Time  1.265 ( 1.265)	Loss 3.0089e-03 (3.0089e-03)	Loss_bce 3.0089e-03 (3.0089e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [41][ 10/103]	Time  0.676 ( 0.732)	Loss 2.9181e-03 (3.0228e-03)	Loss_bce 2.9181e-03 (3.0228e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [41][ 20/103]	Time  0.678 ( 0.705)	Loss 2.6713e-03 (2.9794e-03)	Loss_bce 2.6713e-03 (2.9794e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [41][ 30/103]	Time  0.676 ( 0.696)	Loss 2.8830e-03 (2.9937e-03)	Loss_bce 2.8830e-03 (2.9937e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [41][ 40/103]	Time  0.680 ( 0.692)	Loss 2.9687e-03 (3.0003e-03)	Loss_bce 2.9687e-03 (3.0003e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [41][ 50/103]	Time  0.677 ( 0.689)	Loss 3.1258e-03 (2.9960e-03)	Loss_bce 3.1258e-03 (2.9960e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [41][ 60/103]	Time  0.677 ( 0.687)	Loss 2.8603e-03 (2.9844e-03)	Loss_bce 2.8603e-03 (2.9844e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [41][ 70/103]	Time  0.671 ( 0.686)	Loss 2.8583e-03 (2.9768e-03)	Loss_bce 2.8583e-03 (2.9768e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [41][ 80/103]	Time  0.670 ( 0.684)	Loss 2.8157e-03 (2.9788e-03)	Loss_bce 2.8157e-03 (2.9788e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [41][ 90/103]	Time  0.671 ( 0.683)	Loss 4.2710e-03 (2.9881e-03)	Loss_bce 4.2710e-03 (2.9881e-03)	Acc@   0.99 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [41][100/103]	Time  0.671 ( 0.682)	Loss 2.8161e-03 (2.9873e-03)	Loss_bce 2.8161e-03 (2.9873e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Valid Eval
+Test: [0/6]	Time  0.926 ( 0.926)	Loss 1.1368e-02 (1.1368e-02)	Loss_bce 1.1368e-02 (1.1368e-02)	Acc@   0.98 (  0.98)	F1@   0.99 (  0.99)
+* Acc@ 0.930 F1@ 0.971
+Valid avg result: acc: 0.930171277997365, F1: 0.9712529016876843, loss: 0.03319030802338648 Loss_bce: 0.03319030802338648
+Test Eval
+Test: [0/7]	Time  0.939 ( 0.939)	Loss 1.1522e-01 (1.1522e-01)	Loss_bce 1.1522e-01 (1.1522e-01)	Acc@   0.76 (  0.76)	F1@   0.88 (  0.88)
+* Acc@ 0.777 F1@ 0.903
+Test avg result: acc: 0.7765700483091788, F1: 0.903490913273522, loss: 0.1063659377216141 Loss_bce: 0.1063659377216141
+Saving model [/home/song/Desktop/Multi-Intents-Detection/models/arch[LABAN]_optim[adamw]_lr[1e-05]_lrsch[step]_batch[128]_MixATIS_selfattentive_laban]...
+==============================
+Epoch: [42] Current learning rate (lr) = 3.4867844010000007e-06
+Epoch: [42][  0/103]	Time  1.257 ( 1.257)	Loss 2.7292e-03 (2.7292e-03)	Loss_bce 2.7292e-03 (2.7292e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [42][ 10/103]	Time  0.672 ( 0.726)	Loss 2.9545e-03 (3.0211e-03)	Loss_bce 2.9545e-03 (3.0211e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [42][ 20/103]	Time  0.672 ( 0.701)	Loss 2.9960e-03 (3.0494e-03)	Loss_bce 2.9960e-03 (3.0494e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [42][ 30/103]	Time  0.674 ( 0.692)	Loss 2.7869e-03 (3.0017e-03)	Loss_bce 2.7869e-03 (3.0017e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [42][ 40/103]	Time  0.675 ( 0.688)	Loss 3.0254e-03 (2.9627e-03)	Loss_bce 3.0254e-03 (2.9627e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [42][ 50/103]	Time  0.677 ( 0.685)	Loss 2.9679e-03 (2.9615e-03)	Loss_bce 2.9679e-03 (2.9615e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [42][ 60/103]	Time  0.674 ( 0.683)	Loss 2.9522e-03 (2.9462e-03)	Loss_bce 2.9522e-03 (2.9462e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [42][ 70/103]	Time  0.672 ( 0.682)	Loss 2.8101e-03 (2.9438e-03)	Loss_bce 2.8101e-03 (2.9438e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [42][ 80/103]	Time  0.672 ( 0.681)	Loss 3.0262e-03 (2.9599e-03)	Loss_bce 3.0262e-03 (2.9599e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [42][ 90/103]	Time  0.673 ( 0.680)	Loss 2.8431e-03 (2.9460e-03)	Loss_bce 2.8431e-03 (2.9460e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [42][100/103]	Time  0.673 ( 0.680)	Loss 2.8109e-03 (2.9390e-03)	Loss_bce 2.8109e-03 (2.9390e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Valid Eval
+Test: [0/6]	Time  0.929 ( 0.929)	Loss 1.0658e-02 (1.0658e-02)	Loss_bce 1.0658e-02 (1.0658e-02)	Acc@   0.98 (  0.98)	F1@   0.99 (  0.99)
+* Acc@ 0.930 F1@ 0.972
+Valid avg result: acc: 0.930171277997365, F1: 0.9715226802183323, loss: 0.03226661361626328 Loss_bce: 0.03226661361626328
+Test Eval
+Test: [0/7]	Time  0.942 ( 0.942)	Loss 1.1443e-01 (1.1443e-01)	Loss_bce 1.1443e-01 (1.1443e-01)	Acc@   0.75 (  0.75)	F1@   0.88 (  0.88)
+* Acc@ 0.775 F1@ 0.903
+Test avg result: acc: 0.7753623188405797, F1: 0.903358638141247, loss: 0.10569064754650788 Loss_bce: 0.10569064754650788
+Saving model [/home/song/Desktop/Multi-Intents-Detection/models/arch[LABAN]_optim[adamw]_lr[1e-05]_lrsch[step]_batch[128]_MixATIS_selfattentive_laban]...
+==============================
+Epoch: [43] Current learning rate (lr) = 3.4867844010000007e-06
+Epoch: [43][  0/103]	Time  1.259 ( 1.259)	Loss 2.9207e-03 (2.9207e-03)	Loss_bce 2.9207e-03 (2.9207e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [43][ 10/103]	Time  0.678 ( 0.731)	Loss 2.6147e-03 (2.7882e-03)	Loss_bce 2.6147e-03 (2.7882e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [43][ 20/103]	Time  0.677 ( 0.705)	Loss 2.9300e-03 (2.8151e-03)	Loss_bce 2.9300e-03 (2.8151e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [43][ 30/103]	Time  0.678 ( 0.697)	Loss 2.9831e-03 (2.8599e-03)	Loss_bce 2.9831e-03 (2.8599e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [43][ 40/103]	Time  0.678 ( 0.692)	Loss 2.9322e-03 (2.8520e-03)	Loss_bce 2.9322e-03 (2.8520e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [43][ 50/103]	Time  0.687 ( 0.690)	Loss 2.8107e-03 (2.8402e-03)	Loss_bce 2.8107e-03 (2.8402e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [43][ 60/103]	Time  0.676 ( 0.688)	Loss 2.8899e-03 (2.8351e-03)	Loss_bce 2.8899e-03 (2.8351e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [43][ 70/103]	Time  0.677 ( 0.686)	Loss 2.8881e-03 (2.8293e-03)	Loss_bce 2.8881e-03 (2.8293e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [43][ 80/103]	Time  0.678 ( 0.685)	Loss 2.6971e-03 (2.8211e-03)	Loss_bce 2.6971e-03 (2.8211e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [43][ 90/103]	Time  0.676 ( 0.684)	Loss 2.8707e-03 (2.8192e-03)	Loss_bce 2.8707e-03 (2.8192e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [43][100/103]	Time  0.678 ( 0.684)	Loss 2.5934e-03 (2.8117e-03)	Loss_bce 2.5934e-03 (2.8117e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Valid Eval
+Test: [0/6]	Time  0.928 ( 0.928)	Loss 1.0615e-02 (1.0615e-02)	Loss_bce 1.0615e-02 (1.0615e-02)	Acc@   0.98 (  0.98)	F1@   0.99 (  0.99)
+* Acc@ 0.930 F1@ 0.972
+Valid avg result: acc: 0.930171277997365, F1: 0.9715226802183323, loss: 0.032278687174141174 Loss_bce: 0.032278687174141174
+Test Eval
+Test: [0/7]	Time  0.942 ( 0.942)	Loss 1.1536e-01 (1.1536e-01)	Loss_bce 1.1536e-01 (1.1536e-01)	Acc@   0.75 (  0.75)	F1@   0.88 (  0.88)
+* Acc@ 0.775 F1@ 0.903
+Test avg result: acc: 0.7753623188405797, F1: 0.9032148608235564, loss: 0.1063873781890109 Loss_bce: 0.1063873781890109
+Saving model [/home/song/Desktop/Multi-Intents-Detection/models/arch[LABAN]_optim[adamw]_lr[1e-05]_lrsch[step]_batch[128]_MixATIS_selfattentive_laban]...
+==============================
+Epoch: [44] Current learning rate (lr) = 3.1381059609000006e-06
+Epoch: [44][  0/103]	Time  1.279 ( 1.279)	Loss 2.6318e-03 (2.6318e-03)	Loss_bce 2.6318e-03 (2.6318e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [44][ 10/103]	Time  0.666 ( 0.722)	Loss 2.7558e-03 (2.7584e-03)	Loss_bce 2.7558e-03 (2.7584e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [44][ 20/103]	Time  0.664 ( 0.696)	Loss 2.7184e-03 (2.7454e-03)	Loss_bce 2.7184e-03 (2.7454e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [44][ 30/103]	Time  0.666 ( 0.686)	Loss 2.9772e-03 (2.7426e-03)	Loss_bce 2.9772e-03 (2.7426e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [44][ 40/103]	Time  0.667 ( 0.682)	Loss 2.9088e-03 (2.7415e-03)	Loss_bce 2.9088e-03 (2.7415e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [44][ 50/103]	Time  0.674 ( 0.680)	Loss 2.6840e-03 (2.7245e-03)	Loss_bce 2.6840e-03 (2.7245e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [44][ 60/103]	Time  0.673 ( 0.679)	Loss 2.5570e-03 (2.7131e-03)	Loss_bce 2.5570e-03 (2.7131e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [44][ 70/103]	Time  0.673 ( 0.678)	Loss 2.6246e-03 (2.7109e-03)	Loss_bce 2.6246e-03 (2.7109e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [44][ 80/103]	Time  0.674 ( 0.678)	Loss 2.6011e-03 (2.7094e-03)	Loss_bce 2.6011e-03 (2.7094e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [44][ 90/103]	Time  0.677 ( 0.677)	Loss 2.7768e-03 (2.7166e-03)	Loss_bce 2.7768e-03 (2.7166e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [44][100/103]	Time  0.674 ( 0.677)	Loss 2.5145e-03 (2.7109e-03)	Loss_bce 2.5145e-03 (2.7109e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Valid Eval
+Test: [0/6]	Time  0.946 ( 0.946)	Loss 1.0862e-02 (1.0862e-02)	Loss_bce 1.0862e-02 (1.0862e-02)	Acc@   0.98 (  0.98)	F1@   0.99 (  0.99)
+* Acc@ 0.930 F1@ 0.972
+Valid avg result: acc: 0.930171277997365, F1: 0.9715226802183323, loss: 0.03264913618152321 Loss_bce: 0.03264913618152321
+Test Eval
+Test: [0/7]	Time  0.924 ( 0.924)	Loss 1.1690e-01 (1.1690e-01)	Loss_bce 1.1690e-01 (1.1690e-01)	Acc@   0.76 (  0.76)	F1@   0.88 (  0.88)
+* Acc@ 0.777 F1@ 0.904
+Test avg result: acc: 0.7765700483091788, F1: 0.9040890269151138, loss: 0.10779863477185153 Loss_bce: 0.10779863477185153
+Saving model [/home/song/Desktop/Multi-Intents-Detection/models/arch[LABAN]_optim[adamw]_lr[1e-05]_lrsch[step]_batch[128]_MixATIS_selfattentive_laban]...
+==============================
+Epoch: [45] Current learning rate (lr) = 3.1381059609000006e-06
+Epoch: [45][  0/103]	Time  1.252 ( 1.252)	Loss 2.6235e-03 (2.6235e-03)	Loss_bce 2.6235e-03 (2.6235e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [45][ 10/103]	Time  0.670 ( 0.723)	Loss 2.6089e-03 (2.6484e-03)	Loss_bce 2.6089e-03 (2.6484e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [45][ 20/103]	Time  0.670 ( 0.699)	Loss 2.7248e-03 (2.6835e-03)	Loss_bce 2.7248e-03 (2.6835e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [45][ 30/103]	Time  0.672 ( 0.690)	Loss 4.3084e-03 (2.7155e-03)	Loss_bce 4.3084e-03 (2.7155e-03)	Acc@   0.99 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [45][ 40/103]	Time  0.672 ( 0.686)	Loss 2.6155e-03 (2.6975e-03)	Loss_bce 2.6155e-03 (2.6975e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [45][ 50/103]	Time  0.672 ( 0.683)	Loss 2.4868e-03 (2.6785e-03)	Loss_bce 2.4868e-03 (2.6785e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [45][ 60/103]	Time  0.670 ( 0.682)	Loss 2.8279e-03 (2.6753e-03)	Loss_bce 2.8279e-03 (2.6753e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [45][ 70/103]	Time  0.672 ( 0.681)	Loss 2.7619e-03 (2.6679e-03)	Loss_bce 2.7619e-03 (2.6679e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [45][ 80/103]	Time  0.671 ( 0.680)	Loss 2.5445e-03 (2.6549e-03)	Loss_bce 2.5445e-03 (2.6549e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [45][ 90/103]	Time  0.675 ( 0.679)	Loss 2.5742e-03 (2.6628e-03)	Loss_bce 2.5742e-03 (2.6628e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [45][100/103]	Time  0.680 ( 0.678)	Loss 2.4836e-03 (2.6522e-03)	Loss_bce 2.4836e-03 (2.6522e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Valid Eval
+Test: [0/6]	Time  0.926 ( 0.926)	Loss 1.1069e-02 (1.1069e-02)	Loss_bce 1.1069e-02 (1.1069e-02)	Acc@   0.98 (  0.98)	F1@   0.99 (  0.99)
+* Acc@ 0.930 F1@ 0.971
+Valid avg result: acc: 0.930171277997365, F1: 0.9712529016876843, loss: 0.03327252284399134 Loss_bce: 0.03327252284399134
+Test Eval
+Test: [0/7]	Time  0.925 ( 0.925)	Loss 1.1818e-01 (1.1818e-01)	Loss_bce 1.1818e-01 (1.1818e-01)	Acc@   0.76 (  0.76)	F1@   0.88 (  0.88)
+* Acc@ 0.777 F1@ 0.904
+Test avg result: acc: 0.7765700483091788, F1: 0.9036461927766277, loss: 0.10885072171976025 Loss_bce: 0.10885072171976025
+Saving model [/home/song/Desktop/Multi-Intents-Detection/models/arch[LABAN]_optim[adamw]_lr[1e-05]_lrsch[step]_batch[128]_MixATIS_selfattentive_laban]...
+==============================
+Epoch: [46] Current learning rate (lr) = 3.1381059609000006e-06
+Epoch: [46][  0/103]	Time  1.257 ( 1.257)	Loss 2.8582e-03 (2.8582e-03)	Loss_bce 2.8582e-03 (2.8582e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [46][ 10/103]	Time  0.677 ( 0.730)	Loss 2.4393e-03 (2.6905e-03)	Loss_bce 2.4393e-03 (2.6905e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [46][ 20/103]	Time  0.677 ( 0.704)	Loss 2.6061e-03 (2.6011e-03)	Loss_bce 2.6061e-03 (2.6011e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [46][ 30/103]	Time  0.678 ( 0.696)	Loss 2.6221e-03 (2.5825e-03)	Loss_bce 2.6221e-03 (2.5825e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [46][ 40/103]	Time  0.676 ( 0.691)	Loss 2.5394e-03 (2.5945e-03)	Loss_bce 2.5394e-03 (2.5945e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [46][ 50/103]	Time  0.673 ( 0.688)	Loss 2.5365e-03 (2.5867e-03)	Loss_bce 2.5365e-03 (2.5867e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [46][ 60/103]	Time  0.671 ( 0.686)	Loss 2.4770e-03 (2.5745e-03)	Loss_bce 2.4770e-03 (2.5745e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [46][ 70/103]	Time  0.672 ( 0.684)	Loss 2.5315e-03 (2.5693e-03)	Loss_bce 2.5315e-03 (2.5693e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [46][ 80/103]	Time  0.672 ( 0.683)	Loss 2.5283e-03 (2.5668e-03)	Loss_bce 2.5283e-03 (2.5668e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [46][ 90/103]	Time  0.673 ( 0.682)	Loss 2.6455e-03 (2.5599e-03)	Loss_bce 2.6455e-03 (2.5599e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [46][100/103]	Time  0.674 ( 0.681)	Loss 2.4255e-03 (2.5520e-03)	Loss_bce 2.4255e-03 (2.5520e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Valid Eval
+Test: [0/6]	Time  0.928 ( 0.928)	Loss 1.0707e-02 (1.0707e-02)	Loss_bce 1.0707e-02 (1.0707e-02)	Acc@   0.98 (  0.98)	F1@   0.99 (  0.99)
+* Acc@ 0.930 F1@ 0.971
+Valid avg result: acc: 0.930171277997365, F1: 0.9711274233013364, loss: 0.03266883031397626 Loss_bce: 0.03266883031397626
+Test Eval
+Test: [0/7]	Time  0.926 ( 0.926)	Loss 1.1642e-01 (1.1642e-01)	Loss_bce 1.1642e-01 (1.1642e-01)	Acc@   0.76 (  0.76)	F1@   0.88 (  0.88)
+* Acc@ 0.777 F1@ 0.903
+Test avg result: acc: 0.7765700483091788, F1: 0.9032608695652172, loss: 0.10749943547202769 Loss_bce: 0.10749943547202769
+Saving model [/home/song/Desktop/Multi-Intents-Detection/models/arch[LABAN]_optim[adamw]_lr[1e-05]_lrsch[step]_batch[128]_MixATIS_selfattentive_laban]...
+==============================
+Epoch: [47] Current learning rate (lr) = 3.1381059609000006e-06
+Epoch: [47][  0/103]	Time  1.267 ( 1.267)	Loss 2.4334e-03 (2.4334e-03)	Loss_bce 2.4334e-03 (2.4334e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [47][ 10/103]	Time  0.678 ( 0.732)	Loss 2.4477e-03 (2.5151e-03)	Loss_bce 2.4477e-03 (2.5151e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [47][ 20/103]	Time  0.677 ( 0.706)	Loss 2.4076e-03 (2.5117e-03)	Loss_bce 2.4076e-03 (2.5117e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [47][ 30/103]	Time  0.677 ( 0.697)	Loss 2.4965e-03 (2.4996e-03)	Loss_bce 2.4965e-03 (2.4996e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [47][ 40/103]	Time  0.679 ( 0.692)	Loss 2.4696e-03 (2.4870e-03)	Loss_bce 2.4696e-03 (2.4870e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [47][ 50/103]	Time  0.677 ( 0.690)	Loss 2.4522e-03 (2.4764e-03)	Loss_bce 2.4522e-03 (2.4764e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [47][ 60/103]	Time  0.683 ( 0.688)	Loss 2.4444e-03 (2.4678e-03)	Loss_bce 2.4444e-03 (2.4678e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [47][ 70/103]	Time  0.678 ( 0.687)	Loss 2.6125e-03 (2.4839e-03)	Loss_bce 2.6125e-03 (2.4839e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [47][ 80/103]	Time  0.679 ( 0.686)	Loss 4.4667e-03 (2.5032e-03)	Loss_bce 4.4667e-03 (2.5032e-03)	Acc@   0.99 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [47][ 90/103]	Time  0.679 ( 0.685)	Loss 2.5074e-03 (2.4966e-03)	Loss_bce 2.5074e-03 (2.4966e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [47][100/103]	Time  0.680 ( 0.684)	Loss 2.2871e-03 (2.4854e-03)	Loss_bce 2.2871e-03 (2.4854e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Valid Eval
+Test: [0/6]	Time  0.947 ( 0.947)	Loss 1.0987e-02 (1.0987e-02)	Loss_bce 1.0987e-02 (1.0987e-02)	Acc@   0.98 (  0.98)	F1@   0.99 (  0.99)
+* Acc@ 0.929 F1@ 0.971
+Valid avg result: acc: 0.9288537549407114, F1: 0.9709392057218145, loss: 0.03373936044938165 Loss_bce: 0.03373936044938165
+Test Eval
+Test: [0/7]	Time  0.933 ( 0.933)	Loss 1.1941e-01 (1.1941e-01)	Loss_bce 1.1941e-01 (1.1941e-01)	Acc@   0.75 (  0.75)	F1@   0.88 (  0.88)
+* Acc@ 0.775 F1@ 0.903
+Test avg result: acc: 0.7753623188405797, F1: 0.9030883367839891, loss: 0.11014343628992782 Loss_bce: 0.11014343628992782
+Saving model [/home/song/Desktop/Multi-Intents-Detection/models/arch[LABAN]_optim[adamw]_lr[1e-05]_lrsch[step]_batch[128]_MixATIS_selfattentive_laban]...
+==============================
+Epoch: [48] Current learning rate (lr) = 2.8242953648100006e-06
+Epoch: [48][  0/103]	Time  1.260 ( 1.260)	Loss 2.4234e-03 (2.4234e-03)	Loss_bce 2.4234e-03 (2.4234e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [48][ 10/103]	Time  0.666 ( 0.721)	Loss 2.3254e-03 (2.4288e-03)	Loss_bce 2.3254e-03 (2.4288e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [48][ 20/103]	Time  0.665 ( 0.695)	Loss 2.4822e-03 (2.4231e-03)	Loss_bce 2.4822e-03 (2.4231e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [48][ 30/103]	Time  0.668 ( 0.686)	Loss 2.4404e-03 (2.4362e-03)	Loss_bce 2.4404e-03 (2.4362e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [48][ 40/103]	Time  0.666 ( 0.681)	Loss 2.2608e-03 (2.4217e-03)	Loss_bce 2.2608e-03 (2.4217e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [48][ 50/103]	Time  0.666 ( 0.678)	Loss 2.4309e-03 (2.4188e-03)	Loss_bce 2.4309e-03 (2.4188e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [48][ 60/103]	Time  0.667 ( 0.677)	Loss 2.3856e-03 (2.4381e-03)	Loss_bce 2.3856e-03 (2.4381e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [48][ 70/103]	Time  0.667 ( 0.675)	Loss 2.5583e-03 (2.4269e-03)	Loss_bce 2.5583e-03 (2.4269e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [48][ 80/103]	Time  0.667 ( 0.674)	Loss 2.5419e-03 (2.4175e-03)	Loss_bce 2.5419e-03 (2.4175e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [48][ 90/103]	Time  0.665 ( 0.673)	Loss 2.4191e-03 (2.4119e-03)	Loss_bce 2.4191e-03 (2.4119e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [48][100/103]	Time  0.667 ( 0.673)	Loss 2.4135e-03 (2.4094e-03)	Loss_bce 2.4135e-03 (2.4094e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Valid Eval
+Test: [0/6]	Time  0.928 ( 0.928)	Loss 1.1101e-02 (1.1101e-02)	Loss_bce 1.1101e-02 (1.1101e-02)	Acc@   0.98 (  0.98)	F1@   0.99 (  0.99)
+* Acc@ 0.929 F1@ 0.971
+Valid avg result: acc: 0.9288537549407114, F1: 0.9705439488048183, loss: 0.034049243662550514 Loss_bce: 0.034049243662550514
+Test Eval
+Test: [0/7]	Time  0.941 ( 0.941)	Loss 1.1948e-01 (1.1948e-01)	Loss_bce 1.1948e-01 (1.1948e-01)	Acc@   0.76 (  0.76)	F1@   0.88 (  0.88)
+* Acc@ 0.777 F1@ 0.903
+Test avg result: acc: 0.7765700483091788, F1: 0.9034851621808142, loss: 0.11024045883025524 Loss_bce: 0.11024045883025524
+Saving model [/home/song/Desktop/Multi-Intents-Detection/models/arch[LABAN]_optim[adamw]_lr[1e-05]_lrsch[step]_batch[128]_MixATIS_selfattentive_laban]...
+==============================
+Epoch: [49] Current learning rate (lr) = 2.8242953648100006e-06
+Epoch: [49][  0/103]	Time  1.248 ( 1.248)	Loss 2.4489e-03 (2.4489e-03)	Loss_bce 2.4489e-03 (2.4489e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [49][ 10/103]	Time  0.673 ( 0.725)	Loss 2.3196e-03 (2.4855e-03)	Loss_bce 2.3196e-03 (2.4855e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [49][ 20/103]	Time  0.673 ( 0.700)	Loss 2.4948e-03 (2.4331e-03)	Loss_bce 2.4948e-03 (2.4331e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [49][ 30/103]	Time  0.673 ( 0.692)	Loss 2.2927e-03 (2.4141e-03)	Loss_bce 2.2927e-03 (2.4141e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [49][ 40/103]	Time  0.672 ( 0.687)	Loss 2.3491e-03 (2.3978e-03)	Loss_bce 2.3491e-03 (2.3978e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [49][ 50/103]	Time  0.674 ( 0.685)	Loss 3.7064e-03 (2.4133e-03)	Loss_bce 3.7064e-03 (2.4133e-03)	Acc@   0.99 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [49][ 60/103]	Time  0.670 ( 0.682)	Loss 2.4165e-03 (2.3973e-03)	Loss_bce 2.4165e-03 (2.3973e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [49][ 70/103]	Time  0.676 ( 0.681)	Loss 2.1560e-03 (2.3807e-03)	Loss_bce 2.1560e-03 (2.3807e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [49][ 80/103]	Time  0.674 ( 0.681)	Loss 2.4565e-03 (2.3737e-03)	Loss_bce 2.4565e-03 (2.3737e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [49][ 90/103]	Time  0.675 ( 0.680)	Loss 2.2216e-03 (2.3648e-03)	Loss_bce 2.2216e-03 (2.3648e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Epoch: [49][100/103]	Time  0.681 ( 0.679)	Loss 2.2253e-03 (2.3544e-03)	Loss_bce 2.2253e-03 (2.3544e-03)	Acc@   1.00 (  1.00)	F1@   1.00 (  1.00)
+Valid Eval
+Test: [0/6]	Time  0.931 ( 0.931)	Loss 1.0862e-02 (1.0862e-02)	Loss_bce 1.0862e-02 (1.0862e-02)	Acc@   0.98 (  0.98)	F1@   0.99 (  0.99)
+* Acc@ 0.930 F1@ 0.971
+Valid avg result: acc: 0.930171277997365, F1: 0.9707321663843403, loss: 0.03359998825922785 Loss_bce: 0.03359998825922785
+Test Eval
+Test: [0/7]	Time  0.935 ( 0.935)	Loss 1.1961e-01 (1.1961e-01)	Loss_bce 1.1961e-01 (1.1961e-01)	Acc@   0.75 (  0.75)	F1@   0.88 (  0.88)
+* Acc@ 0.775 F1@ 0.903
+Test avg result: acc: 0.7753623188405797, F1: 0.9029790660225444, loss: 0.10989188222925445 Loss_bce: 0.10989188222925445
+Saving model [/home/song/Desktop/Multi-Intents-Detection/models/arch[LABAN]_optim[adamw]_lr[1e-05]_lrsch[step]_batch[128]_MixATIS_selfattentive_laban]...
+==============================
+Best Epoch: 7 Best val acc: 0.9380764163372859
+

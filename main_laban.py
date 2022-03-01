@@ -41,12 +41,12 @@ import matplotlib.pyplot as plt
 from utils.building_utils import load_model
 from utils.metrics import f1_score_intents, accuracy_for_multi_label,calc_score
 from utils.model_config import Config
+from label_aware import MulCon
 from Dataset import get_labels_vocab
 from baseline.bert_model_zsl import BertZSL
 
 from transformers import BertTokenizer
-from label_aware import MulCon
-# from label_aware_labelEncoder import MulCon
+
 
 
 parser = argparse.ArgumentParser(description='Multi-intent Detection')
@@ -463,7 +463,7 @@ def main_worker(gpu, ngpus_per_node, args):
 
         # evaluate on validation set
         print("Valid Eval")
-        val_acc, val_F1, val_avg_loss, val_loss = validate(val_loader, model, criterion, save_dir,labels_token, args)
+        val_acc, val_F1, val_avg_loss, val_loss = validate(val_loader, model, criterion, save_dir, labels_token, args)
         print(f"Valid avg result: acc: {val_acc}, F1: {val_F1}, loss: {val_avg_loss} Loss_bce: {val_loss}")
 
         print("Test Eval")
@@ -482,8 +482,7 @@ def main_worker(gpu, ngpus_per_node, args):
         is_best = val_acc > best_acc1
         best_acc1 = max(val_acc, best_acc1)
         best_epoch = epoch if is_best else best_epoch
-
-        ## update learning rate based on lr_scheduler
+        # update learning rate based on lr_scheduler
 
         # if (args.lr_scheduler == 'reduce'):
         #     scheduler.step(test_loss)
@@ -491,8 +490,8 @@ def main_worker(gpu, ngpus_per_node, args):
         #     scheduler.step()
         # elif (args.lr_scheduler == 'step'):
         #     scheduler.step()
-
-        ## remember best acc@1 and save checkpoint
+        #
+        # # remember best acc@1 and save checkpoint
         # is_best = test_acc > best_acc1
         # best_acc1 = max(test_acc, best_acc1)
         # best_epoch = epoch if is_best else best_epoch
@@ -549,12 +548,17 @@ def train(train_loader, model, criterion, optimizer, scheduler, epoch, labels_to
 #         output = model(input_ids=input_ids, attention_mask=attention_mask, labels=labels)
 #         output = model(input_ids, attention_mask, labels)
 
-        output = model(input_ids, attention_mask, labels)
+        output = model(input_ids, attention_mask, labels_token.input_ids.cuda(args.gpu), labels_token.attention_mask.cuda(args.gpu), labels)
 
-        logits = output[1]
+        # logits = output[1]
         # loss = output[0]
-        # loss = output[0] + output[2] + output[3]*0.2
-        loss = output[0] + output[2]
+
+        #LABAN
+        logits = output[2]
+        loss = criterion(logits, labels)
+
+        # loss = output[0] + output[2] + output[3]
+        # loss = output[0] + output[2]
 
         # loss = criterion(logits, labels)
         # pred = torch.argmax(logits, dim=-1)
@@ -572,8 +576,8 @@ def train(train_loader, model, criterion, optimizer, scheduler, epoch, labels_to
         losses.update(loss.item(), input_ids.size(0))
         Acc.update(acc, input_ids.size(0))
         F1.update(f1, input_ids.size(0))
-        loss_bce.update(output[0], input_ids.size(0))
-        # loss_bce.update(loss.item(), input_ids.size(0))
+        # loss_bce.update(output[0], input_ids.size(0))
+        loss_bce.update(loss.item(), input_ids.size(0))
 
         # compute gradient and do SGD step
         optimizer.zero_grad()
@@ -632,12 +636,16 @@ def validate(val_loader, model, criterion, save_dir, labels_token, args):
 #             output = model(input_ids=input_ids, attention_mask=attention_mask, labels=labels)
 #             output = model(input_ids, attention_mask, labels)
 
-            output = model(input_ids, attention_mask,  labels)
+            output = model(input_ids, attention_mask,  labels_token.input_ids.cuda(args.gpu), labels_token.attention_mask.cuda(args.gpu), labels)
 
-            logits = output[1]
-            # loss = output[0]
-            # loss = output[0] + output[2] + output[3]*0.2
-            loss = output[0] + output[2]
+#             logits = output[1]
+#             loss = output[0]
+            # loss = output[0] + output[2] + output[3]
+            # loss = output[0] + output[2]
+
+            # LABAN
+            logits = output[2]
+            loss = criterion(logits, labels)
 
             # Get top2 predictions
             _, pred = logits.topk(2, 1, True, True)
@@ -652,8 +660,8 @@ def validate(val_loader, model, criterion, save_dir, labels_token, args):
             losses.update(loss.item(), input_ids.size(0))
             Acc.update(acc, input_ids.size(0))
             F1.update(f1, input_ids.size(0))
-            loss_bce.update(output[0], input_ids.size(0))
-            # loss_bce.update(loss.item(), input_ids.size(0))
+            # loss_bce.update(output[0], input_ids.size(0))
+            loss_bce.update(loss.item(), input_ids.size(0))
 
             # measure elapsed time
             batch_time.update(time.time() - end)
