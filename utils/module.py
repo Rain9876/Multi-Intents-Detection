@@ -67,13 +67,15 @@ class NewMultiHeadAttention(nn.Module):
         
         residual = q
 
-        # q = self.layer_norm(q)
+        q = self.layer_norm(q)
 
         # Pass through the pre-attention projection: b x lq x (n*dv)
         # Separate different heads: b x lq x n x dv
         q = self.w_qs(q).view(sz_b, len_q, n_head, d_k)
         k = self.w_ks(k).view(sz_b, len_k, n_head, d_k)
         v = self.w_vs(v).view(sz_b, len_v, n_head, d_v)
+
+        print(q.size())
 
         q_old = q
 
@@ -90,11 +92,13 @@ class NewMultiHeadAttention(nn.Module):
         
         q = q.transpose(1, 2).contiguous().view(sz_b, len_q, -1)
 
+        print(q.size())
+
         q += q_old.view(sz_b, len_q, -1)
 
         q = self.dropout(self.fc(q))
         
-        q = self.layer_norm(q)
+        q += residual
 
         return q, attn
 
@@ -192,8 +196,6 @@ class ScaledDotProductAttention(nn.Module):
         attn = torch.matmul(q / self.temperature, k.transpose(2, 3))
 
         if mask is not None:
-            mask = mask.unsqueeze(1)
-            mask = mask.expand(attn.size()).float()
             attn = attn.masked_fill(mask == 0, -1e9)
 
         attn = self.dropout(F.softmax(attn, dim=-1))

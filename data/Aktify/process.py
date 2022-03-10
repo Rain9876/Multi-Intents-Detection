@@ -6,8 +6,8 @@ import nltk
 import re
 
 
-# file_path = "./home_security_multi_intent.csv"
-file_path = "./credit_repair_multi_intent.csv"
+file_path = "./home_security_multi_intent.csv"
+# fiel_path = "./credit_repair_multi_intent.csv"
 
 raw_data = pd.read_csv(file_path)[["phrase", "intents"]]
 
@@ -38,7 +38,8 @@ def processing_data(raw_data):
                           for i in sample_intent.split(",")]
         intent_list.append(sample_intent1)
 
-    raw_data["intents"] = intent_list
+    intents = [",".join(i) for i in intent_list]
+    raw_data["intents"] = intents
     raw_data["phrase"] = raw_utterance1
     
     return raw_data

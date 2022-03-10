@@ -1,10 +1,8 @@
-import ast
-import json
 import os
 from torch.utils.data import Dataset
 import torch
 # from prepare import procssing_pos_tag
-import pandas as pd
+
 
 class multi_intent_dataset(Dataset):
 
@@ -152,6 +150,8 @@ import torch
 # from prepare import procssing_pos_tag
 
 
+
+
 class aktify_multi_intent_dataset(Dataset):
 
     def __init__(self, path, data_type, tokenizer):
@@ -164,12 +164,11 @@ class aktify_multi_intent_dataset(Dataset):
 
         MAX_LENGTH = 128
 
-        raw_data = pd.read_csv(f"{self.path}/{self.data_type}.csv", lineterminator="\n")
+        raw_data = pd.read_csv(f"{self.path}/{self.data_type}.csv")
 
-        text = raw_data.phrase.tolist()
+        text = raw_data.phrase
+        intent = raw_data.intents.strip('][').split(', ')
 
-        intent = [[n.strip() for n in ast.literal_eval(i)] for i in raw_data.intents]
-        # self.build_instance_map(intent)
         self.get_instance_map()
 
         # self.pos_tag_ids = torch.LongTensor(procssing_pos_tag(text, MAX_LENGTH, tokenizer))
@@ -177,15 +176,6 @@ class aktify_multi_intent_dataset(Dataset):
         self.input_data = self.encode_mi_file(text, MAX_LENGTH)
 
         print(f"{self.input_data.input_ids.size(0)} {self.data_type} data has been loaded!")
-
-    # def build_instance_map(self, labels):
-    #     if not os.path.exists(f"{self.path}/vocab.txt") and self.data_type == "train":
-    #         self.index2instance = list(set([j for i in labels for j in i]))
-    #         print(self.index2instance)
-    #         self.instance2index = {j: i for i, j in enumerate(self.index2instance)}
-    #         f = open(f"{self.path}/vocab.txt", "w")
-    #         f.writelines([line + "\n" for line in self.index2instance])
-    #         f.close()
 
     def get_instance_map(self):
         try:
@@ -243,5 +233,6 @@ def get_labels_vocab(config, path):
     except FileNotFoundError:
         print("Vocab file not exist!")
 
+
 def get_Aktify_labels():
-    return 67
+    return 52

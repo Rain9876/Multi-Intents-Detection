@@ -4,6 +4,7 @@
 # https://github.com/pytorch/examples/blob/master/imagenet/main.py
 
 import os
+
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
 import argparse
@@ -14,7 +15,9 @@ import warnings
 import numpy as np
 import pandas as pd
 from torchsummary import summary
+
 from utils.metrics import accuracy, accuracy_for_multi_label
+
 # from torch.optim import RAdam
 from torch.optim import AdamW
 from torch.utils.data import DataLoader
@@ -30,23 +33,18 @@ import torch.utils.data
 import torch.utils.data.distributed
 from utils.config import MyRobertaConfig,MyRobertaClassificationConfig
 from transformers import RobertaConfig, BertConfig, BertForSequenceClassification
+
 from roberta import MyRobertaForSequenceClassification
 from bert import MyBertForSequenceClassification
 # from modeling.roberta import RobertaForSequenceClassification
 from transformers import AutoTokenizer, AutoModel, AutoModelForSequenceClassification, RobertaModel,RobertaForSequenceClassification
 
 from prepare import get_clinc_datasets, get_num_labels
-from Dataset import multi_intent_dataset, get_ATIS_num_labels, get_SNIPS_num_labels, get_Aktify_labels, aktify_multi_intent_dataset
+from Dataset import multi_intent_dataset, get_ATIS_num_labels, get_SNIPS_num_labels
 import matplotlib.pyplot as plt
 from utils.building_utils import load_model
-from utils.metrics import f1_score_intents, accuracy_for_multi_label,calc_score
-from utils.model_config import Config
-from Dataset import get_labels_vocab
-from baseline.bert_model_zsl import BertZSL
 
-from transformers import BertTokenizer
-from label_aware import MulCon
-# from label_aware_labelEncoder import MulCon
+
 
 
 parser = argparse.ArgumentParser(description='Multi-intent Detection')
@@ -117,7 +115,6 @@ parser.add_argument('--multi_intent', dest='multi_intent', action='store_true',
                     help='use multi_intent')
 ###############################################################################
 best_acc1 = 0
-best_epoch = 0
 
 def main():
     args = parser.parse_args()
@@ -162,7 +159,6 @@ def main():
 
 def main_worker(gpu, ngpus_per_node, args):
     global best_acc1
-    global best_epoch
     args.gpu = gpu
 
     if args.gpu is not None:
@@ -181,36 +177,20 @@ def main_worker(gpu, ngpus_per_node, args):
     ###########################################################################
     # create model
     ###########################################################################
-    labels_token = {}
 
     if args.pretrained:
         print("=> using pre-trained model '{}'".format(args.arch))
         # args.arch: roberta-base
-        # tokenizer = AutoTokenizer.from_pretrained(args.arch)
-        tokenizer = AutoTokenizer.from_pretrained("bert-base-uncased")
-        # tokenizer = AutoTokenizer.from_pretrained('sentence-transformers/bert-base-nli-stsb-mean-tokens')
+        tokenizer = AutoTokenizer.from_pretrained(args.arch)
 
         if args.pos_tag:
             # config = RobertaConfig.from_pretrained('roberta-base')
             # model = MyRobertaForSequenceClassification(config)
             # model = load_model(model, "./pytorch_model_roberta.bin")
+
             config = BertConfig.from_pretrained('bert-base-uncased')
             model = MyBertForSequenceClassification(config)
             model = load_model(model, "./pytorch_model_bert.bin")
-
-        elif args.arch.startswith('MulCon'):
-            config = Config()
-            labels = get_labels_vocab(config, args.data_path)
-            model = MulCon(config, labels)
-            config.print()
-            print(labels)
-
-        elif args.arch.startswith("LABAN"):
-            config = BertConfig(vocab_size_or_config_json_file=32000, hidden_size=768,
-                                num_hidden_layers=12, num_attention_heads=12, intermediate_size=3072)
-            labels = get_labels_vocab(config, args.data_path)
-            model = BertZSL(config,len(labels))
-            labels_token = tokenizer.batch_encode_plus(labels, truncation=True, padding=True, return_tensors="pt")
 
         else:
             # model = RobertaForSequenceClassification.from_pretrained(args.arch)
@@ -297,7 +277,7 @@ def main_worker(gpu, ngpus_per_node, args):
     # Loss and optimizer
     ###########################################################################
     # define loss function (criterion)
-    criterion = nn.BCEWithLogitsLoss().cuda(args.gpu)
+    criterion = nn.CrossEntropyLoss().cuda(args.gpu)
     # weighted loss if necessary
     # weights = [0.27218907, 2.8756447,  1.32751323, 8.04719359, 9.92259887]
     # class_weights = torch.FloatTensor(weights).cuda(args.gpu)
@@ -318,12 +298,12 @@ def main_worker(gpu, ngpus_per_node, args):
     elif args.optim == "adamw":
         print("=> using '{}' optimizer".format(args.optim))
         optimizer = AdamW(model.parameters(), args.lr, betas=(0.9, 0.999), eps=1e-08,
-                          weight_decay=1e-2)
+                          weight_decay=1e-5)
     else:  # default is adam
         print("=> using '{}' optimizer".format(args.optim))
         optimizer = torch.optim.Adam(model.parameters(), args.lr,
                                      betas=(0.9, 0.999), eps=1e-08,
-                                     weight_decay=1e-2,
+                                     weight_decay=1e-5,
                                      amsgrad=False)
 
     ###########################################################################
@@ -339,15 +319,13 @@ def main_worker(gpu, ngpus_per_node, args):
                 # Map model to be loaded to specified single gpu.
                 loc = 'cuda:{}'.format(args.gpu)
                 checkpoint = torch.load(args.resume, map_location=loc)
-            # args.start_epoch = checkpoint['epoch']
+            args.start_epoch = checkpoint['epoch']
             best_acc1 = checkpoint['best_acc1']
             if args.gpu is not None:
                 # best_acc1 may be from a checkpoint from a different GPU
-                # best_acc1 = best_acc1.to(args.gpu)
-                best_acc1 = best_acc1
-            # print(checkpoint['state_dict'])
+                best_acc1 = best_acc1.to(args.gpu)
             model.load_state_dict(checkpoint['state_dict'])
-            # optimizer.load_state_dict(checkpoint['optimizer'])
+            optimizer.load_state_dict(checkpoint['optimizer'])
             print("=> loaded checkpoint '{}' (epoch {})"
                   .format(args.resume, checkpoint['epoch']))
         else:
@@ -388,7 +366,7 @@ def main_worker(gpu, ngpus_per_node, args):
                                                                eta_min=0)
     elif args.lr_scheduler == 'step':
         print("=> using '{}' lr_scheduler".format(args.lr_scheduler))
-        scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=4, gamma=0.9)
+        scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=2, gamma=0.8)
 
     ###########################################################################
     # load validation data and apply transforms
@@ -396,15 +374,12 @@ def main_worker(gpu, ngpus_per_node, args):
     # train_dataset, valid_dataset, test_dataset = get_clinc_datasets(tokenizer)
 
     train_dataset = multi_intent_dataset(args.data_path, "train", tokenizer)
-    # train_dataset = aktify_multi_intent_dataset(args.data_path, "train_credit", tokenizer)
-
     valid_dataset = multi_intent_dataset(args.data_path, "dev", tokenizer)
+
     val_loader = DataLoader(valid_dataset, batch_size=args.batch_size, shuffle=False,
                             num_workers=args.workers, pin_memory=True)
 
     test_dataset = multi_intent_dataset(args.data_path, "test", tokenizer)
-    # test_dataset = aktify_multi_intent_dataset(args.data_path, "test_credit", tokenizer)
-
     test_loader = DataLoader(test_dataset, batch_size=args.batch_size, shuffle=False,
                              num_workers=args.workers, pin_memory=True)
 
@@ -450,7 +425,6 @@ def main_worker(gpu, ngpus_per_node, args):
     # Train the model
     ###########################################################################
 
-
     for epoch in range(args.start_epoch, args.epochs):
         # train sampler
         if args.distributed:
@@ -459,43 +433,26 @@ def main_worker(gpu, ngpus_per_node, args):
         print_learning_rate(optimizer, epoch)
 
         # train for one epoch
-        train(train_loader, model, criterion, optimizer, scheduler, epoch, labels_token, args)
+        train(train_loader, model, criterion, optimizer,
+              scheduler, epoch, args)
 
         # evaluate on validation set
-        print("Valid Eval")
-        val_acc, val_F1, val_avg_loss, val_loss = validate(val_loader, model, criterion, save_dir,labels_token, args)
-        print(f"Valid avg result: acc: {val_acc}, F1: {val_F1}, loss: {val_avg_loss} Loss_bce: {val_loss}")
+        acc1, loss = validate(val_loader, model, criterion, save_dir, args)
 
         print("Test Eval")
-        test_acc, test_F1, test_avg_loss, test_loss = validate(test_loader, model, criterion, save_dir, labels_token, args)
-        print(f"Test avg result: acc: {test_acc}, F1: {test_F1}, loss: {test_avg_loss} Loss_bce: {test_loss}")
+        validate(test_loader, model, criterion, save_dir, args)
 
         # update learning rate based on lr_scheduler
         if (args.lr_scheduler == 'reduce'):
-            scheduler.step(val_loss)
+            scheduler.step(loss)
         elif (args.lr_scheduler == 'cosine'):
             scheduler.step()
         elif (args.lr_scheduler == 'step'):
             scheduler.step()
 
         # remember best acc@1 and save checkpoint
-        is_best = val_acc > best_acc1
-        best_acc1 = max(val_acc, best_acc1)
-        best_epoch = epoch if is_best else best_epoch
-
-        ## update learning rate based on lr_scheduler
-
-        # if (args.lr_scheduler == 'reduce'):
-        #     scheduler.step(test_loss)
-        # elif (args.lr_scheduler == 'cosine'):
-        #     scheduler.step()
-        # elif (args.lr_scheduler == 'step'):
-        #     scheduler.step()
-
-        ## remember best acc@1 and save checkpoint
-        # is_best = test_acc > best_acc1
-        # best_acc1 = max(test_acc, best_acc1)
-        # best_epoch = epoch if is_best else best_epoch
+        is_best = acc1 > best_acc1
+        best_acc1 = max(acc1, best_acc1)
 
         if not args.multiprocessing_distributed or (args.multiprocessing_distributed
                                                     and args.rank % ngpus_per_node == 0):
@@ -511,24 +468,23 @@ def main_worker(gpu, ngpus_per_node, args):
                             save_dir=save_dir)
             print(30 * '=')
 
-        if epoch == args.epochs-1:
-            print(f"Best Epoch: {best_epoch} Best val acc: {best_acc1}")
 
 ###############################################################################
 ###############################################################################
-def train(train_loader, model, criterion, optimizer, scheduler, epoch, labels_token, args):
+def train(train_loader, model, criterion, optimizer, scheduler, epoch, args):
     batch_time = AverageMeter('Time', ':6.3f')
+    data_time = AverageMeter('Data', ':6.3f')
     losses = AverageMeter('Loss', ':.4e')
-    loss_bce = AverageMeter('Loss_bce', ':.4e')
-    Acc = AverageMeter('Acc@', ':6.2f')
-    F1 = AverageMeter('F1@', ':6.2f')
+    top1 = AverageMeter('Acc@1', ':6.2f')
+    top2 = AverageMeter('Acc@2', ':6.2f')
     progress = ProgressMeter(
         len(train_loader),
-        [batch_time, losses, loss_bce, Acc, F1],
+        [batch_time, data_time, losses, top1, top2],
         prefix="Epoch: [{}]".format(epoch))
 
     # switch to train mode
     model.train()
+
     end = time.time()
 
     for i, batch in enumerate(train_loader):
@@ -536,44 +492,34 @@ def train(train_loader, model, criterion, optimizer, scheduler, epoch, labels_to
         input_ids = batch["input_ids"]
         attention_mask = batch["attention_mask"]
         labels = batch["intent"]
-        # pos_tag_ids = batch["pos_tag_ids"]
+        pos_tag_ids = batch["pos_tag_ids"]
+
+        # measure data loading time
+        data_time.update(time.time() - end)
 
         if args.gpu is not None:
             input_ids = input_ids.cuda(args.gpu)
             attention_mask = attention_mask.cuda(args.gpu)
             labels = labels.cuda(args.gpu)
-            # pos_tag_ids = pos_tag_ids.cuda(args.gpu, non_blocking=True)
+            pos_tag_ids = pos_tag_ids.cuda(args.gpu, non_blocking=True)
 
         # compute output
-#         output = model(input_ids=input_ids, attention_mask=attention_mask, pos_tag_ids = pos_tag_ids, labels=labels)
-#         output = model(input_ids=input_ids, attention_mask=attention_mask, labels=labels)
-#         output = model(input_ids, attention_mask, labels)
-
-        output = model(input_ids, attention_mask, labels)
-
-        logits = output[1]
-        # loss = output[0]
-        # loss = output[0] + output[2] + output[3]*0.2
-        loss = output[0] + output[2]
+        output = model(input_ids=input_ids, attention_mask=attention_mask, pos_tag_ids = pos_tag_ids, labels=labels)
+        # output = model(input_ids=input_ids, attention_mask=attention_mask, labels=labels)
+        logits = output.logits
+        loss = output.loss
 
         # loss = criterion(logits, labels)
         # pred = torch.argmax(logits, dim=-1)
         # loss = output[0]
         # logits = output[1]
-        # print(logits.size())
-        # print(labels.size())
-        # measure accuracy and record loss
-        # acc, _ = accuracy_for_multi_label(logits, labels, topk=(1, 2))
-        # acc1, acc2 = accuracy(logits, labels, topk=(1, 2))
-        P, R, f1, _ = f1_score_intents(logits,labels)
-        _, _, _, acc = calc_score(logits, labels)
-        acc /= input_ids.size(0)
 
+        # measure accuracy and record loss
+        acc1, acc2 = accuracy_for_multi_label(logits, labels, topk=(1, 2))
+        # acc1, acc2 = accuracy(logits, labels, topk=(1, 2))
         losses.update(loss.item(), input_ids.size(0))
-        Acc.update(acc, input_ids.size(0))
-        F1.update(f1, input_ids.size(0))
-        loss_bce.update(output[0], input_ids.size(0))
-        # loss_bce.update(loss.item(), input_ids.size(0))
+        top1.update(acc1[0], input_ids.size(0))
+        top2.update(acc2[0], input_ids.size(0))
 
         # compute gradient and do SGD step
         optimizer.zero_grad()
@@ -594,15 +540,14 @@ def train(train_loader, model, criterion, optimizer, scheduler, epoch, labels_to
 
 ###############################################################################
 ###############################################################################
-def validate(val_loader, model, criterion, save_dir, labels_token, args):
+def validate(val_loader, model, criterion, save_dir, args):
     batch_time = AverageMeter('Time', ':6.3f')
     losses = AverageMeter('Loss', ':.4e')
-    Acc = AverageMeter('Acc@', ':6.2f')
-    loss_bce = AverageMeter('Loss_bce', ':.4e')
-    F1 = AverageMeter('F1@', ':6.2f')
+    top1 = AverageMeter('Acc@1', ':6.2f')
+    top2 = AverageMeter('Acc@2', ':6.2f')
     progress = ProgressMeter(
         len(val_loader),
-        [batch_time, losses, loss_bce, Acc, F1],
+        [batch_time, losses, top1, top2],
         prefix='Test: ')
 
     # switch to evaluate mode
@@ -619,41 +564,30 @@ def validate(val_loader, model, criterion, save_dir, labels_token, args):
             input_ids = batch["input_ids"]
             attention_mask = batch["attention_mask"]
             labels = batch["intent"]
-            # pos_tag_ids = batch["pos_tag_ids"]
+            pos_tag_ids = batch["pos_tag_ids"]
 
             if args.gpu is not None:
                 input_ids = input_ids.cuda(args.gpu, non_blocking=True)
                 attention_mask = attention_mask.cuda(args.gpu, non_blocking=True)
                 labels = labels.cuda(args.gpu, non_blocking=True)
-                # pos_tag_ids = pos_tag_ids.cuda(args.gpu, non_blocking=True)
+                pos_tag_ids = pos_tag_ids.cuda(args.gpu, non_blocking=True)
 
             # compute output
-#             output = model(input_ids=input_ids, attention_mask=attention_mask, pos_tag_ids=pos_tag_ids,labels=labels)
-#             output = model(input_ids=input_ids, attention_mask=attention_mask, labels=labels)
-#             output = model(input_ids, attention_mask, labels)
-
-            output = model(input_ids, attention_mask,  labels)
-
-            logits = output[1]
-            # loss = output[0]
-            # loss = output[0] + output[2] + output[3]*0.2
-            loss = output[0] + output[2]
+            output = model(input_ids=input_ids, attention_mask=attention_mask, pos_tag_ids=pos_tag_ids,labels=labels)
+            # output = model(input_ids=input_ids, attention_mask=attention_mask, labels=labels)
+            loss = output.loss
+            logits = output.logits
 
             # Get top2 predictions
             _, pred = logits.topk(2, 1, True, True)
 
             # measure accuracy and record loss
-            # acc, _ = accuracy_for_multi_label(logits, labels, topk=(1, 2))
+            acc1, acc2 = accuracy_for_multi_label(logits, labels, topk=(1, 2))
             # acc1, acc2 = accuracy(logits, labels, topk=(1, 2))
-            _, _, _, acc = calc_score(logits, labels)
-            P, R, f1, _ = f1_score_intents(logits, labels)
-            acc /= input_ids.size(0)
 
             losses.update(loss.item(), input_ids.size(0))
-            Acc.update(acc, input_ids.size(0))
-            F1.update(f1, input_ids.size(0))
-            loss_bce.update(output[0], input_ids.size(0))
-            # loss_bce.update(loss.item(), input_ids.size(0))
+            top1.update(acc1[0], input_ids.size(0))
+            top2.update(acc2[0], input_ids.size(0))
 
             # measure elapsed time
             batch_time.update(time.time() - end)
@@ -669,7 +603,8 @@ def validate(val_loader, model, criterion, save_dir, labels_token, args):
                 progress.display(i)
 
         # TODO: this should also be done with the ProgressMeter
-        print('* Acc@ {Acc.avg:.3f} F1@ {F1.avg:.3f}'.format(Acc=Acc, F1=F1))
+        print(' * Acc@1 {top1.avg:.3f} Acc@2 {top2.avg:.3f}'
+              .format(top1=top1, top2=top2))
 
     if args.save_results:
         # Save validation results
@@ -679,7 +614,7 @@ def validate(val_loader, model, criterion, save_dir, labels_token, args):
         results_df.to_csv(results_file, index=False)
         # print(results_df)
 
-    return Acc.avg, F1.avg, losses.avg, loss_bce.avg
+    return top1.avg, loss.item()
 
 
 ###############################################################################
@@ -765,7 +700,6 @@ def adjust_learning_rate(optimizer, epoch, args):
 
 ###############################################################################
 ###############################################################################
-
 def print_learning_rate(optimizer, epoch):
     """Sets the learning rate to the initial LR decayed by 10 every 30 epochs"""
     for param_group in optimizer.param_groups:
