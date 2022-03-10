@@ -59,8 +59,6 @@ class MulCon(nn.Module):
 
         # self.cl = Sup_ContrastiveLearning(config)
 
-        self.loss_fct = BCEWithLogitsLoss()
-        
         self.init_weights()
 
     def init_weights(self):
@@ -70,7 +68,6 @@ class MulCon(nn.Module):
             if self.label_emb.padding_idx is not None:
                 self.label_emb.weight.data[self.label_emb.padding_idx].zero_()
 
-        # self.proj.weight.data.normal_(mean=0.0, std=self.config.initializer_range)
         nn.init.xavier_normal_(self.proj.weight)
 
 
@@ -82,8 +79,6 @@ class MulCon(nn.Module):
 
         label_logits = self.proj(label_logits).squeeze(2)  # (B x L)
 
-        bce_loss = self.loss_fct(label_logits,y_labels)
-
         single_intent_utter_emb, label_indexs = self.get_all_utter_level_embedding(label_level_emb, y_labels)  # (N, H), (N, )
 
         all_label_key_emb = self.get_all_label_keys_embedding(label_indexs[1])  # (N x C-1 x H)
@@ -92,6 +87,7 @@ class MulCon(nn.Module):
 
         #cl_loss = self.cl(single_intent_utter_emb, label_indexs[1])
         #pcl_loss = 0
+
         cl_loss = 0
 
         # if self.train():
@@ -99,7 +95,7 @@ class MulCon(nn.Module):
             # single_intent_utter_emb_2, _ = self.get_all_utter_level_embedding(label_level_emb, y_labels)  # (N, H), (N, )
             # cl_loss = self.cl(single_intent_utter_emb, single_intent_utter_emb_2, label_indexs[1])
 
-        return bce_loss, label_logits, pcl_loss, cl_loss
+        return label_logits, pcl_loss, cl_loss
 
 
     def label_level_network(self, x_utter, x_mask):

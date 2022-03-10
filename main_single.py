@@ -41,12 +41,12 @@ import matplotlib.pyplot as plt
 from utils.building_utils import load_model
 from utils.metrics import f1_score_intents, accuracy_for_multi_label,calc_score
 from utils.model_config import Config
-from label_aware import MulCon
 from Dataset import get_labels_vocab
 from baseline.bert_model_zsl import BertZSL
 
 from transformers import BertTokenizer
-
+from label_aware import MulCon
+# from label_aware_labelEncoder import MulCon
 
 
 parser = argparse.ArgumentParser(description='Multi-intent Detection')
@@ -182,7 +182,7 @@ def main_worker(gpu, ngpus_per_node, args):
     # create model
     ###########################################################################
     labels_token = {}
-    config = None
+
     if args.pretrained:
         print("=> using pre-trained model '{}'".format(args.arch))
         # args.arch: roberta-base
@@ -208,10 +208,10 @@ def main_worker(gpu, ngpus_per_node, args):
         elif args.arch.startswith("LABAN"):
             config = BertConfig(vocab_size_or_config_json_file=32000, hidden_size=768,
                                 num_hidden_layers=12, num_attention_heads=12, intermediate_size=3072)
-            labels = get_labels_vocab(Config(), args.data_path)
+            labels = get_labels_vocab(config, args.data_path)
             model = BertZSL(config,len(labels))
             labels_token = tokenizer.batch_encode_plus(labels, truncation=True, padding=True, return_tensors="pt")
-            config = Config()
+
         else:
             # model = RobertaForSequenceClassification.from_pretrained(args.arch)
             model = BertForSequenceClassification.from_pretrained(args.arch)
@@ -297,11 +297,7 @@ def main_worker(gpu, ngpus_per_node, args):
     # Loss and optimizer
     ###########################################################################
     # define loss function (criterion)
-    if config.data_type == "single":
-        criterion = nn.CrossEntropyLoss().cuda(args.gpu)
-    elif config.data_type == "multi":
-        criterion = nn.BCEWithLogitsLoss().cuda(args.gpu)
-
+    criterion = nn.BCEWithLogitsLoss().cuda(args.gpu)
     # weighted loss if necessary
     # weights = [0.27218907, 2.8756447,  1.32751323, 8.04719359, 9.92259887]
     # class_weights = torch.FloatTensor(weights).cuda(args.gpu)
@@ -463,15 +459,15 @@ def main_worker(gpu, ngpus_per_node, args):
         print_learning_rate(optimizer, epoch)
 
         # train for one epoch
-        train(train_loader, model, criterion, optimizer, scheduler, epoch, labels_token, config, args)
+        train(train_loader, model, criterion, optimizer, scheduler, epoch, labels_token, args)
 
         # evaluate on validation set
         print("Valid Eval")
-        val_acc, val_F1, val_avg_loss, val_loss = validate(val_loader, model, criterion, save_dir, labels_token, config, args)
+        val_acc, val_F1, val_avg_loss, val_loss = validate(val_loader, model, criterion, save_dir,labels_token, args)
         print(f"Valid avg result: acc: {val_acc}, F1: {val_F1}, loss: {val_avg_loss} Loss_bce: {val_loss}")
 
         print("Test Eval")
-        test_acc, test_F1, test_avg_loss, test_loss = validate(test_loader, model, criterion, save_dir, labels_token, config, args)
+        test_acc, test_F1, test_avg_loss, test_loss = validate(test_loader, model, criterion, save_dir, labels_token, args)
         print(f"Test avg result: acc: {test_acc}, F1: {test_F1}, loss: {test_avg_loss} Loss_bce: {test_loss}")
 
         # update learning rate based on lr_scheduler
@@ -487,6 +483,19 @@ def main_worker(gpu, ngpus_per_node, args):
         best_acc1 = max(val_acc, best_acc1)
         best_epoch = epoch if is_best else best_epoch
 
+        ## update learning rate based on lr_scheduler
+
+        # if (args.lr_scheduler == 'reduce'):
+        #     scheduler.step(test_loss)
+        # elif (args.lr_scheduler == 'cosine'):
+        #     scheduler.step()
+        # elif (args.lr_scheduler == 'step'):
+        #     scheduler.step()
+
+        ## remember best acc@1 and save checkpoint
+        # is_best = test_acc > best_acc1
+        # best_acc1 = max(test_acc, best_acc1)
+        # best_epoch = epoch if is_best else best_epoch
 
         if not args.multiprocessing_distributed or (args.multiprocessing_distributed
                                                     and args.rank % ngpus_per_node == 0):
@@ -507,7 +516,7 @@ def main_worker(gpu, ngpus_per_node, args):
 
 ###############################################################################
 ###############################################################################
-def train(train_loader, model, criterion, optimizer, scheduler, epoch, labels_token, config, args):
+def train(train_loader, model, criterion, optimizer, scheduler, epoch, labels_token, args):
     batch_time = AverageMeter('Time', ':6.3f')
     losses = AverageMeter('Loss', ':.4e')
     loss_bce = AverageMeter('Loss_bce', ':.4e')
@@ -527,33 +536,44 @@ def train(train_loader, model, criterion, optimizer, scheduler, epoch, labels_to
         input_ids = batch["input_ids"]
         attention_mask = batch["attention_mask"]
         labels = batch["intent"]
+        # pos_tag_ids = batch["pos_tag_ids"]
 
         if args.gpu is not None:
             input_ids = input_ids.cuda(args.gpu)
             attention_mask = attention_mask.cuda(args.gpu)
             labels = labels.cuda(args.gpu)
+            # pos_tag_ids = pos_tag_ids.cuda(args.gpu, non_blocking=True)
 
-        output = model(input_ids, attention_mask, labels_token.input_ids.cuda(args.gpu), labels_token.attention_mask.cuda(args.gpu), labels)
+        # compute output
+#         output = model(input_ids=input_ids, attention_mask=attention_mask, pos_tag_ids = pos_tag_ids, labels=labels)
+#         output = model(input_ids=input_ids, attention_mask=attention_mask, labels=labels)
+#         output = model(input_ids, attention_mask, labels)
 
-        #LABAN
-        logits = output[2]
-        loss = None
+        output = model(input_ids, attention_mask, labels)
 
+        logits = output[1]
+        # loss = output[0]
+        # loss = output[0] + output[2] + output[3]
+        loss = output[0] + output[2]
+
+        # loss = criterion(logits, labels)
+        # pred = torch.argmax(logits, dim=-1)
+        # loss = output[0]
+        # logits = output[1]
+        # print(logits.size())
+        # print(labels.size())
         # measure accuracy and record loss
-        if config.data_type == "single":
-            loss = criterion(logits, torch.argmax(labels,dim=-1))
-            acc, f1 = accuracy(logits, labels, topk=(1, 2))
-        elif config.data_type == "multi":
-            loss = criterion(logits, labels)
-            P, R, f1, _ = f1_score_intents(logits,labels)
-            _, _, _, acc = calc_score(logits, labels)
-            acc /= input_ids.size(0)
+        # acc, _ = accuracy_for_multi_label(logits, labels, topk=(1, 2))
+        # acc1, acc2 = accuracy(logits, labels, topk=(1, 2))
+        P, R, f1, _ = f1_score_intents(logits,labels)
+        _, _, _, acc = calc_score(logits, labels)
+        acc /= input_ids.size(0)
 
         losses.update(loss.item(), input_ids.size(0))
         Acc.update(acc, input_ids.size(0))
         F1.update(f1, input_ids.size(0))
-        # loss_bce.update(output[0], input_ids.size(0))
-        loss_bce.update(loss.item(), input_ids.size(0))
+        loss_bce.update(output[0], input_ids.size(0))
+        # loss_bce.update(loss.item(), input_ids.size(0))
 
         # compute gradient and do SGD step
         optimizer.zero_grad()
@@ -574,7 +594,7 @@ def train(train_loader, model, criterion, optimizer, scheduler, epoch, labels_to
 
 ###############################################################################
 ###############################################################################
-def validate(val_loader, model, criterion, save_dir, labels_token, config, args):
+def validate(val_loader, model, criterion, save_dir, labels_token, args):
     batch_time = AverageMeter('Time', ':6.3f')
     losses = AverageMeter('Loss', ':.4e')
     Acc = AverageMeter('Acc@', ':6.2f')
@@ -589,8 +609,8 @@ def validate(val_loader, model, criterion, save_dir, labels_token, config, args)
     model.eval()
 
     # create dataframe to save results in csv file
-    if args.save_results:
-        results_df = pd.DataFrame(columns=['label', 'predict', 'predict_top2'])
+    # if args.save_results:
+    #    results_df = pd.DataFrame(columns=['label', 'predict', 'predict_top2'])
 
     with torch.no_grad():
         end = time.time()
@@ -599,46 +619,51 @@ def validate(val_loader, model, criterion, save_dir, labels_token, config, args)
             input_ids = batch["input_ids"]
             attention_mask = batch["attention_mask"]
             labels = batch["intent"]
+            # pos_tag_ids = batch["pos_tag_ids"]
 
             if args.gpu is not None:
                 input_ids = input_ids.cuda(args.gpu, non_blocking=True)
                 attention_mask = attention_mask.cuda(args.gpu, non_blocking=True)
                 labels = labels.cuda(args.gpu, non_blocking=True)
+                # pos_tag_ids = pos_tag_ids.cuda(args.gpu, non_blocking=True)
 
-            output = model(input_ids, attention_mask,  labels_token.input_ids.cuda(args.gpu), labels_token.attention_mask.cuda(args.gpu), labels)
+            # compute output
+#             output = model(input_ids=input_ids, attention_mask=attention_mask, pos_tag_ids=pos_tag_ids,labels=labels)
+#             output = model(input_ids=input_ids, attention_mask=attention_mask, labels=labels)
+#             output = model(input_ids, attention_mask, labels)
 
-            #LABAN
-            logits = output[2]
-            loss = None
-            
-            # measure accuracy and record loss
-            if config.data_type == "single":
-                loss = criterion(logits, torch.argmax(labels,dim=-1))
-                acc, f1 = accuracy(logits, labels, topk=(1, 2))
-            elif config.data_type == "multi":
-                loss = criterion(logits, labels)
-                P, R, f1, _ = f1_score_intents(logits,labels)
-                _, _, _, acc = calc_score(logits, labels)
-                acc /= input_ids.size(0)
+            output = model(input_ids, attention_mask,  labels)
+
+            logits = output[1]
+            # loss = output[0]
+            # loss = output[0] + output[2] + output[3]
+            loss = output[0] + output[2]
 
             # Get top2 predictions
             _, pred = logits.topk(2, 1, True, True)
 
+            # measure accuracy and record loss
+            # acc, _ = accuracy_for_multi_label(logits, labels, topk=(1, 2))
+            # acc1, acc2 = accuracy(logits, labels, topk=(1, 2))
+            _, _, _, acc = calc_score(logits, labels)
+            P, R, f1, _ = f1_score_intents(logits, labels)
+            acc /= input_ids.size(0)
+
             losses.update(loss.item(), input_ids.size(0))
             Acc.update(acc, input_ids.size(0))
             F1.update(f1, input_ids.size(0))
-            # loss_bce.update(output[0], input_ids.size(0))
-            loss_bce.update(loss.item(), input_ids.size(0))
+            loss_bce.update(output[0], input_ids.size(0))
+            # loss_bce.update(loss.item(), input_ids.size(0))
 
             # measure elapsed time
             batch_time.update(time.time() - end)
             end = time.time()
 
             # update dataframe with new results
-            for b in range(len(batch['intent'])):
-                results_df = results_df.append(
-                    dict(label=batch['intent'][b].cpu().numpy(), predict=pred[b, 0].cpu().numpy(),
-                         predict_top2=pred[b].cpu().numpy()), ignore_index=True)
+            # for b in range(len(batch['intent'])):
+            #    results_df = results_df.append(
+            #        dict(label=batch['intent'][b].cpu().numpy(), predict=pred[b, 0].cpu().numpy(),
+            #             predict_top2=pred[b].cpu().numpy()), ignore_index=True)
 
             if i % args.print_freq == 0:
                 progress.display(i)
@@ -646,12 +671,12 @@ def validate(val_loader, model, criterion, save_dir, labels_token, config, args)
         # TODO: this should also be done with the ProgressMeter
         print('* Acc@ {Acc.avg:.3f} F1@ {F1.avg:.3f}'.format(Acc=Acc, F1=F1))
 
-    if args.save_results:
+    # if args.save_results:
         # Save validation results
-        if args.evaluate:
-            args.save_results = "eval_" + args.save_results
-        results_file = os.path.join(save_dir, args.save_results)
-        results_df.to_csv(results_file, index=False)
+    #    if args.evaluate:
+    #        args.save_results = "eval_" + args.save_results
+    #    results_file = os.path.join(save_dir, args.save_results)
+    #    results_df.to_csv(results_file, index=False)
         # print(results_df)
 
     return Acc.avg, F1.avg, losses.avg, loss_bce.avg

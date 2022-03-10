@@ -182,7 +182,8 @@ def main_worker(gpu, ngpus_per_node, args):
     # create model
     ###########################################################################
     labels_token = {}
-
+    config = None
+    
     if args.pretrained:
         print("=> using pre-trained model '{}'".format(args.arch))
         # args.arch: roberta-base
@@ -296,8 +297,12 @@ def main_worker(gpu, ngpus_per_node, args):
     ###########################################################################
     # Loss and optimizer
     ###########################################################################
-    # define loss function (criterion)
-    criterion = nn.BCEWithLogitsLoss().cuda(args.gpu)
+        # define loss function (criterion)
+    if config.data_type == "single":
+        criterion = nn.CrossEntropyLoss().cuda(args.gpu)
+    elif config.data_type == "multi":
+        criterion = nn.BCEWithLogitsLoss().cuda(args.gpu)
+
     # weighted loss if necessary
     # weights = [0.27218907, 2.8756447,  1.32751323, 8.04719359, 9.92259887]
     # class_weights = torch.FloatTensor(weights).cuda(args.gpu)
@@ -483,19 +488,6 @@ def main_worker(gpu, ngpus_per_node, args):
         best_acc1 = max(val_acc, best_acc1)
         best_epoch = epoch if is_best else best_epoch
 
-        ## update learning rate based on lr_scheduler
-
-        # if (args.lr_scheduler == 'reduce'):
-        #     scheduler.step(test_loss)
-        # elif (args.lr_scheduler == 'cosine'):
-        #     scheduler.step()
-        # elif (args.lr_scheduler == 'step'):
-        #     scheduler.step()
-
-        ## remember best acc@1 and save checkpoint
-        # is_best = test_acc > best_acc1
-        # best_acc1 = max(test_acc, best_acc1)
-        # best_epoch = epoch if is_best else best_epoch
 
         if not args.multiprocessing_distributed or (args.multiprocessing_distributed
                                                     and args.rank % ngpus_per_node == 0):
@@ -536,44 +528,34 @@ def train(train_loader, model, criterion, optimizer, scheduler, epoch, labels_to
         input_ids = batch["input_ids"]
         attention_mask = batch["attention_mask"]
         labels = batch["intent"]
-        # pos_tag_ids = batch["pos_tag_ids"]
 
         if args.gpu is not None:
             input_ids = input_ids.cuda(args.gpu)
             attention_mask = attention_mask.cuda(args.gpu)
             labels = labels.cuda(args.gpu)
-            # pos_tag_ids = pos_tag_ids.cuda(args.gpu, non_blocking=True)
-
-        # compute output
-#         output = model(input_ids=input_ids, attention_mask=attention_mask, pos_tag_ids = pos_tag_ids, labels=labels)
-#         output = model(input_ids=input_ids, attention_mask=attention_mask, labels=labels)
-#         output = model(input_ids, attention_mask, labels)
 
         output = model(input_ids, attention_mask, labels)
 
-        logits = output[1]
-        # loss = output[0]
-        # loss = output[0] + output[2] + output[3]
-        loss = output[0] + output[2]
+        logits = output[0]     
 
-        # loss = criterion(logits, labels)
-        # pred = torch.argmax(logits, dim=-1)
-        # loss = output[0]
-        # logits = output[1]
-        # print(logits.size())
-        # print(labels.size())
         # measure accuracy and record loss
-       
-        # acc, f1  = accuracy(logits, labels, topk=(1, 2))
-        
-        P, R, f1, _ = f1_score_intents(logits,labels)
-        _, _, _, acc = calc_score(logits, labels)
-        acc /= input_ids.size(0)
+        if model.config.data_type == "single":
+            classification_loss = criterion(logits, torch.argmax(labels, dim=-1))
+            acc, f1  = accuracy(logits, labels, topk=(1, 2))
+        elif model.config.data_type == "multi":
+            classification_loss = criterion(logits, labels)
+            P, R, f1, _ = f1_score_intents(logits,labels)
+            _, _, _, acc = calc_score(logits, labels)
+            acc /= input_ids.size(0)
+
+        loss = classification_loss + output[1]
+        # loss = classification_loss
+        # loss = classification_loss + output[1] + output[2]
 
         losses.update(loss.item(), input_ids.size(0))
         Acc.update(acc, input_ids.size(0))
         F1.update(f1, input_ids.size(0))
-        loss_bce.update(output[0], input_ids.size(0))
+        loss_bce.update(classification_loss, input_ids.size(0))
         # loss_bce.update(loss.item(), input_ids.size(0))
 
         # compute gradient and do SGD step
@@ -635,25 +617,30 @@ def validate(val_loader, model, criterion, save_dir, labels_token, args):
 
             output = model(input_ids, attention_mask,  labels)
 
-            logits = output[1]
-            # loss = output[0]
-            # loss = output[0] + output[2] + output[3]
-            loss = output[0] + output[2]
+            logits = output[0]
 
             # Get top2 predictions
-            _, pred = logits.topk(2, 1, True, True)
+            # _, pred = logits.topk(2, 1, True, True)
 
             # measure accuracy and record loss
-            # acc, _ = accuracy_for_multi_label(logits, labels, topk=(1, 2))
-            # acc1, acc2 = accuracy(logits, labels, topk=(1, 2))
-            _, _, _, acc = calc_score(logits, labels)
-            P, R, f1, _ = f1_score_intents(logits, labels)
-            acc /= input_ids.size(0)
+            if model.config.data_type == "single":
+                classification_loss = criterion(logits, torch.argmax(labels, dim=-1))
+                acc, f1  = accuracy(logits, labels, topk=(1, 2))
+            elif model.config.data_type == "multi":
+                classification_loss = criterion(logits, labels)
+                P, R, f1, _ = f1_score_intents(logits, labels)
+                _, _, _, acc = calc_score(logits, labels)
+                acc /= input_ids.size(0)
+
+            loss = classification_loss + output[1]
+
+            # loss = classification_loss
+            # loss = classification_loss + output[1] + output[2]
 
             losses.update(loss.item(), input_ids.size(0))
             Acc.update(acc, input_ids.size(0))
             F1.update(f1, input_ids.size(0))
-            loss_bce.update(output[0], input_ids.size(0))
+            loss_bce.update(classification_loss, input_ids.size(0))
             # loss_bce.update(loss.item(), input_ids.size(0))
 
             # measure elapsed time
