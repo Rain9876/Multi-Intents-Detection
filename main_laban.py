@@ -13,7 +13,7 @@ import time
 import warnings
 import numpy as np
 import pandas as pd
-from torchsummary import summary
+# from torchsummary import summary
 from utils.metrics import accuracy, accuracy_for_multi_label
 # from torch.optim import RAdam
 from torch.optim import AdamW
@@ -36,7 +36,7 @@ from bert import MyBertForSequenceClassification
 from transformers import AutoTokenizer, AutoModel, AutoModelForSequenceClassification, RobertaModel,RobertaForSequenceClassification
 
 from prepare import get_clinc_datasets, get_num_labels
-from Dataset import multi_intent_dataset, get_ATIS_num_labels, get_SNIPS_num_labels, get_Aktify_labels, aktify_multi_intent_dataset
+from Dataset import multi_intent_dataset, get_ATIS_num_labels, get_SNIPS_num_labels, get_Aktify_labels
 import matplotlib.pyplot as plt
 from utils.building_utils import load_model
 from utils.metrics import f1_score_intents, accuracy_for_multi_label,calc_score
@@ -298,6 +298,7 @@ def main_worker(gpu, ngpus_per_node, args):
     ###########################################################################
     # define loss function (criterion)
     criterion = nn.BCEWithLogitsLoss().cuda(args.gpu)
+    # criterion = nn.CrossEntropyLoss().cuda(args.gpu)
     # weighted loss if necessary
     # weights = [0.27218907, 2.8756447,  1.32751323, 8.04719359, 9.92259887]
     # class_weights = torch.FloatTensor(weights).cuda(args.gpu)
@@ -398,7 +399,7 @@ def main_worker(gpu, ngpus_per_node, args):
     train_dataset = multi_intent_dataset(args.data_path, "train", tokenizer)
     # train_dataset = aktify_multi_intent_dataset(args.data_path, "train_credit", tokenizer)
 
-    valid_dataset = multi_intent_dataset(args.data_path, "dev", tokenizer)
+    valid_dataset = multi_intent_dataset(args.data_path, "val", tokenizer)
     val_loader = DataLoader(valid_dataset, batch_size=args.batch_size, shuffle=False,
                             num_workers=args.workers, pin_memory=True)
 
@@ -646,6 +647,7 @@ def validate(val_loader, model, criterion, save_dir, labels_token, args):
             # LABAN
             logits = output[2]
             loss = criterion(logits, labels)
+            # loss = criterion(logits, torch.argmax(labels,dim=1))
 
             # Get top2 predictions
             _, pred = logits.topk(2, 1, True, True)

@@ -56,8 +56,8 @@ class BertZSL(nn.Module):
         'zero-shot'
         'normal'
         """
-        self.mode = 'self-attentive'
-        self.mode2 = 'Normal'
+        self.mode = 'normal'
+        self.mode2 = 'zero-shot'
         self.pre = False
 
         print('Surface encoder mode: ', self.mode)

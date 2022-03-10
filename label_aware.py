@@ -60,7 +60,7 @@ class MulCon(nn.Module):
         # self.cl = Sup_ContrastiveLearning(config)
 
         self.loss_fct = BCEWithLogitsLoss()
-
+        
         self.init_weights()
 
     def init_weights(self):
@@ -82,7 +82,7 @@ class MulCon(nn.Module):
 
         label_logits = self.proj(label_logits).squeeze(2)  # (B x L)
 
-        bce_loss = self.loss_fct(label_logits, y_labels)
+        bce_loss = self.loss_fct(label_logits,y_labels)
 
         single_intent_utter_emb, label_indexs = self.get_all_utter_level_embedding(label_level_emb, y_labels)  # (N, H), (N, )
 
@@ -90,9 +90,10 @@ class MulCon(nn.Module):
 
         pcl_loss = self.pcl(single_intent_utter_emb, all_label_key_emb)
 
-        # cl_loss = self.cl(single_intent_utter_emb, label_indexs[1])
-        # pcl_loss = 0
+        #cl_loss = self.cl(single_intent_utter_emb, label_indexs[1])
+        #pcl_loss = 0
         cl_loss = 0
+
         # if self.train():
             # label_level_emb = self.label_level_network(x_utter, x_mask)
             # single_intent_utter_emb_2, _ = self.get_all_utter_level_embedding(label_level_emb, y_labels)  # (N, H), (N, )
@@ -137,7 +138,7 @@ class MulCon(nn.Module):
         if self.config.mode == "cls":
             prototypes = last_hidden[:, 0, :]  # index of CLS
 
-        elif self.config.mode == "mean_pooling":
+        elif self.config.mode == "mean-pooling":
             # Mean of layers
             # prototypes = torch.mean(torch.sum(torch.stack(hidden_states[-4:-3]), dim=0), dim=1)
             input_mask_expanded = attention_mask.unsqueeze(-1).expand(last_hidden.size()).float()
